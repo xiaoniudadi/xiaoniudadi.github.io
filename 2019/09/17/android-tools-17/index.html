@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="Android App用户在登陆的时候，需要传递用户的一些隐私信息，比如手机号，比如账号，比如密码等，那么我们需要将这些数据进行加密传递个后台，不然的话如果被别人拦截到很容易造成用户信息的泄露">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-17T13:47:31.963Z">
+<meta property="og:updated_time" content="2019-09-23T14:31:25.579Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android奇技淫巧 17 Android登录时使用到的登录信息加密和解密">
 <meta name="twitter:description" content="Android App用户在登陆的时候，需要传递用户的一些隐私信息，比如手机号，比如账号，比如密码等，那么我们需要将这些数据进行加密传递个后台，不然的话如果被别人拦截到很容易造成用户信息的泄露">
@@ -184,7 +184,16 @@
         <p>Android App用户在登陆的时候，需要传递用户的一些隐私信息，比如手机号，比如账号，比如密码等，那么我们需要将这些数据进行加密传递个后台，不然的话如果被别人拦截到很容易造成用户信息的泄露</p>
 <a id="more"></a>
 
-
+<p>我们在进行登录操作的时候，为了保护用户的信息安全，我们通常会对用户的传输信息进行加密操作，那么这篇博客就是专门把我们目前正在使用的加密总结一下</p>
+<blockquote>
+<p>所有的信息都是经过处理的</p>
+</blockquote>
+<p>在当前的项目中加密的步骤分为以下几个内容</p>
+<ol>
+<li>将用户的手机和密码封装成对象类型</li>
+<li>将对象类型转换成Json字符串数组</li>
+</ol>
+<p><a href="https://github.com/niupuyue/blog_demo_android/tree/master/LoginSecret" target="_blank" rel="noopener">demo地址</a></p>
 
       
 
@@ -405,6 +414,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -413,15 +426,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -437,11 +446,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,15 +530,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">sqlite</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">sqlite</a>
               </li>
              
               <li class="article-tag-list-item">
