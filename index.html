@@ -162,6 +162,170 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mytools-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/08/mytools-01/">使用Vultr搭建SSR梯子</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/08/mytools-01/" class="archive-article-date">
+  	<time datetime="2019-10-08T07:17:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近一段时间，因为各种原因导致我的“梯子”暂时无法访问外面的世界。外面的世界很精彩，外面的世界很无奈，没办法，只有将之前的购买的服务器删除掉，然后重写搞一个。这次我就学聪明了，在购买服务器之前，我先在网上找了一下各个云服务器的价格。</p>
+<p>其实可供我们选择的服务器还是挺多的，比如阿里云，百度云，腾讯云，京东云等等。反正各个公司提供的服务器由国内的，也有国外的，提供的服务大致相同，不过价格就千差万别。这里给出一张图，这张图也是我借鉴别人的，这里是出处<a href="https://blog.csdn.net/ithomer/article/details/77825664" target="_blank" rel="noopener">各大厂商云服务器对比</a><br><img src="/assets/skill/skill_vpn_01.png" alt="云服务器各大厂商价格对比"><br>可能仁者见仁，智者见智。我觉得对于国内的开发者而言，最好还是选择腾讯云，不管是价格上，还是方便服务上，都是最佳之选，好像现在小程序的后台可以直接放在腾讯云服务器上的，棒棒哒。像我就很惨，因为我之前买了阿里的域名，后面如果想买腾讯云服务器，可能会比较麻烦。</p>
+<p>好了好了，跑远了，其实除了上面介绍的几种云服务器之外，我使用的是另外一种<a href="http://www.vultr.com" target="_blank" rel="noopener">vultr</a>。相比较其他的云服务器而言，这个服务器的好处时计时收费，也就是说如果我最近一段时间不需要使用，则可以将服务器停掉，而不会扣钱。对国内外用户都很友好，而且ip地址还行吧，至少在这个时间段，我还能找到一个可用的IP地址，难道是我运气好？相面就将如何利用Vultr搭建SSR的教程记录下来</p>
+<h2 id="创建账号"><a href="#创建账号" class="headerlink" title="创建账号"></a>创建账号</h2><p>首先登陆vultr的<a href="http://www.vultr.com" target="_blank" rel="noopener">官方网站</a>，如下图所示，点击注册按钮</p>
+<p><img src="/assets/skill/skill_vpn_02.png" alt="官方网站注册账号"></p>
+<p>进入到注册账号页面，这里我们需要添加自己的邮箱和密码</p>
+<p><img src="/assets/skill/skill_vpn_03.png" alt="添加邮箱和密码"></p>
+<p>创建完成之后，会向我们注册的邮箱发送一个激活链接，我们登录邮箱，点击链接激活即可。</p>
+<p>这里我们需要充钱了，关于充钱的这一块比较敏感，为了不引起歧义，我就不说如何充钱了，反正充就完了，不充钱肯定没法用。</p>
+<h2 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h2><p>创建完成账号之后，进入到如下的页面<br><img src="/assets/skill/skill_vpn_04.png" alt="首页"></p>
+<p>点击添加服务器按钮，开始添加服务器</p>
+<p>最上面是服务器类型，这里我直接选择默认的类型即可</p>
+<p><img src="/assets/skill/skill_vpn_05.png" alt="选择服务器类型"></p>
+<p>下面是服务器的地址，目前我选择的是芝加哥，其他区域的有一些可以用，有一些用不了，可根据个人喜好，自由选择</p>
+<p><img src="/assets/skill/skill_vpn_06.png" alt="选择服务器地址"></p>
+<p>选择服务器类型，一般都是选择centOS系统，但是这里有一个地方需要注意，网上很多教程中使用的命令都是针对CentOS6的，如果选择了其他的版本，不能保证安装一定成功，反正我一开始使用的是CentOS8，然后自己鼓捣了很长时间都没有完全解决兼容问题，这里建议大家使用CentOS6，那么下面的内容也是根据CentOS6写的</p>
+<p><img src="/assets/skill/skill_vpn_07.png" alt="选择服务器操作系统"></p>
+<p>选择服务器存储，一般情况下，如果不是作为大中型网站后台，直接使用最低版本即可，反正也就是云服务，后面最多会再去使用作为个人博客后台，所以对性能要求没有这么大</p>
+<p><img src="/assets/skill/skill_vpn_08.png" alt="选择服务器存储性能"></p>
+<p>下面的一些操作可有可无，如果感兴趣的，可以去官网查看，这里我直接点击部署按钮</p>
+<p><img src="/assets/skill/skill_vpn_09.png" alt="部署服务器"></p>
+<p>部署完成之后，如果操作正确，就会出现如下的内容，注意，ip地址必须是正确的，如果出现乱码，那么你需要将服务器删除掉重新部署一个，部署的步骤和上面的一样</p>
+<p><img src="/assets/skill/skill_vpn_10.png" alt="部署完成"></p>
+<p>例如：如果出现这样的情况，说明服务器部署不正确，或者说你的电脑不支持ipv6，所以，你要重新创建</p>
+<p><img src="/assets/skill/skill_vpn_11.png" alt="当前电脑不支持ipv6"></p>
+<p>部署完成之后，需要在命令行中测试一下这个服务器是否可用，如果出现下面内容表示服务器部署正常，否则需要删除服务器重新创建</p>
+<p><img src="/assets/skill/skill_vpn_12.png" alt="ping当前服务器地址"></p>
+<h2 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h2><p>我们的服务器部署完成之后，并不代表着我们可以直接使用，如果我们想要使用SSR，那么需要在服务器中安装相应的软件，如何配置服务器？这里我们需要使用特殊的软件，我将软件上传到了百度云盘<br><a href="https://pan.baidu.com/s/1--d8fvDY-fESt8oWolvP_A" target="_blank" rel="noopener">辅助工具</a></p>
+<p>这里因为写博客的电脑是windows，只能以XShell为例。将下载好的软件解压之后，找到windows软件，直接双击运行安装即可。安装完成之后，双击图标打开<br>打开之后的内容如下所示，当然如果你是第一次使用，肯定是没有这么多东西的</p>
+<p><img src="/assets/skill/skill_vpn_13.png" alt="XShell初始化页面"></p>
+<p>我们点击新建一个连接</p>
+<p><img src="/assets/skill/skill_vpn_14.png" alt="XShell新建连接"></p>
+<p>这里我们先完成基本配置，如下所示</p>
+<p><img src="/assets/skill/skill_vpn_15.png" alt="XShell新建连接的基本配置"></p>
+<p>选择用户身份验证，添加用户名和密码</p>
+<p><img src="/assets/skill/skill_vpn_16.png" alt="XShell配置用户名和密码"></p>
+<p>用户名一般都是root，密码需要我们登录vultr中的服务器详情页面，去复制</p>
+<p><img src="/assets/skill/skill_vpn_17.png" alt="获取服务器密码"></p>
+<p>填写好用户名和密码之后直接点击”链接”按钮</p>
+<p>在连接成功之后会出现如图所示的弹窗，这个弹窗表示的是我们使用SSH登录的验证信息，直接接受并保存即可</p>
+<p><img src="/assets/skill/skill_vpn_18.png" alt="XShell链接成功1"></p>
+<p>之后如果出现如下所示的内容表示已经连接上远程服务器</p>
+<p><img src="/assets/skill/skill_vpn_19.png" alt="XShell链接成功2"></p>
+<p>紧接着，将下面的代码复制到命令行中，并且执行</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">wget</span> --<span class="literal">no</span>-check-certificate https://freed.ga/github/shadowsocksR.sh; <span class="attribute">bash</span> shadowsocksR.sh</span><br></pre></td></tr></table></figure>
+
+<p>如果运行报错，可能是没有安装相应的软件，根据提示安装即可</p>
+<p>如果没有报错，则会出现如下所示的内容.表示需要我们填写当我们使用SS连接时候的密码</p>
+<p><img src="/assets/skill/skill_vpn_20.png" alt="XShell设置SS连接密码"></p>
+<p>点击回车键，出现如下所示内容，表示我们需要填写使用哪个端口作为SSR的输出</p>
+<p><img src="/assets/skill/skill_vpn_21.png" alt="XShell设置端口"></p>
+<p>点击回车键，出现如下所示内容,之后点击任意按键开始安装</p>
+<p><img src="/assets/skill/skill_vpn_22.png" alt="XShell开始安装"></p>
+<p>后面的安装过程大概持续十分钟左右，如果在这个过程中没有出现任何错误，表示我们的配置已经完成了，并且会出现如下图所示的内容</p>
+<p><img src="/assets/skill/skill_vpn_23.png" alt="XShell安装完成"></p>
+<p>这里我们使用的方式是别人写好的脚本，后面如果有机会我也会写一个自己的脚本，尽量兼容更多的版本</p>
+<p>到目前为止，基本配置已经完成，我们可以开开心心的打开SS开始外面的世界了。但是这时候的网速会比较差，因为我们没有对SSR进行优化，优化的操作其实就是安装锐速的过程</p>
+<h2 id="安装锐速"><a href="#安装锐速" class="headerlink" title="安装锐速"></a>安装锐速</h2><p>锐速的安装并不是每个服务器都能安装的，像CentOS8好像就不能安装。至于能不能安装，我们需要自己动手检查一下</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">uname -r</span></span><br></pre></td></tr></table></figure>
+
+<p>回车后输出当前系统内核版本。主要分三种情况：</p>
+<p>1、结果以 2 开头，例如 2.6.32-696.18.7.el6.x86_64。</p>
+<p>这种输出结果说明我们的服务器为 CentOS6 x64 系统。</p>
+<p>2、结果以 3 开头，例如 3.10.0-693.11.6.el7.x86_64。</p>
+<p>这种输出结果说明我们的服务器为 CentOS7 x64 系统。</p>
+<p>3、结果以 4 开头，例如 4.12.10-1.el7.elrepo.x86_64。</p>
+<p>这种输出结果说明我们的服务器已经安装 Google BBR 拥塞控制算法，此时已经无法继续安装锐速。</p>
+<h4 id="CentOS6-安装锐速"><a href="#CentOS6-安装锐速" class="headerlink" title="CentOS6 安装锐速"></a>CentOS6 安装锐速</h4><p>使用这段话</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --<span class="keyword">no</span>-check-certificate -O appex.<span class="keyword">sh</span> http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/hombo125/doubi/master/appex.<span class="keyword">sh</span> &amp;&amp; bash appex.<span class="keyword">sh</span> install <span class="string">'2.6.32-642.el6.x86_64'</span></span><br></pre></td></tr></table></figure>
+
+<p>点击回车键，出现如下所示内容<br><img src="/assets/skill/skill_vpn_24.png" alt="锐速准备开始安装"></p>
+<p>之后会要求我们赋予权限，如图中红色方框的内容</p>
+<p><img src="/assets/skill/skill_vpn_25.png" alt="锐速权限赋予"></p>
+<p>完成之后如果出现如下所示图片，表名安装成功</p>
+<p><img src="/assets/skill/skill_vpn_26.png" alt="锐速按钮成功"></p>
+<h4 id="CentOS7-安装锐速"><a href="#CentOS7-安装锐速" class="headerlink" title="CentOS7 安装锐速"></a>CentOS7 安装锐速</h4><p>若确定服务器为 CentOS7 x64 系统则看这一步。</p>
+<p>按照下图提示，我们继续复制下列命令：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --<span class="keyword">no</span>-check-certificate -O rskernel.<span class="keyword">sh</span> http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/hombo125/doubi/master/rskernel.<span class="keyword">sh</span> &amp;&amp; bash rskernel.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/skill/skill_vpn_27.png" alt></p>
+<p>等待内核更换完毕后系统会自动重启并断开连接。然后重新连接，执行下面命令。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install net-tools -<span class="keyword">y</span> &amp;&amp; wget --<span class="keyword">no</span>-check-certificate -O appex.<span class="keyword">sh</span> http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/<span class="number">0</span>oVicero0/serverSpeeder_Install/master/appex.<span class="keyword">sh</span> &amp;&amp; bash appex.<span class="keyword">sh</span> install</span><br></pre></td></tr></table></figure>
+
+<p>回车<br><img src="/assets/skill/skill_vpn_28.png" alt></p>
+<p>按回车键继续，系统会自动安装锐速，同时会先后要求我们设置锐速的三项信息。按照下图提示，我们每次都直接回车继续即可。</p>
+<p><img src="/assets/skill/skill_vpn_29.png" alt></p>
+<p>出现下面信息，就说明锐速安装成功了</p>
+<p><img src="/assets/skill/skill_vpn_30.png" alt></p>
+<h2 id="影梭配置"><a href="#影梭配置" class="headerlink" title="影梭配置"></a>影梭配置</h2><h3 id="android手机"><a href="#android手机" class="headerlink" title="android手机"></a>android手机</h3><p><img src="/assets/skill/skill_vpn_31.png" alt="android手机配置影梭"></p>
+<h3 id="Windows电脑"><a href="#Windows电脑" class="headerlink" title="Windows电脑"></a>Windows电脑</h3><p><img src="/assets/skill/skill_vpn_32.png" alt="Windows电脑配置"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.baishitou.cn/1524.html" target="_blank" rel="noopener">用VPS搭建SSR服务</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSR</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/08/mytools-01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JavaEE-03" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -855,82 +1019,6 @@
 
 
   
-    <article id="post-android-tools-15" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/android-tools-15/">android奇技淫巧 15 Android沉浸式状态栏</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/03/android-tools-15/" class="archive-article-date">
-  	<time datetime="2019-09-03T13:55:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Android 沉浸式状态栏</p>
-        
-          <a class="article-more-a" href="/2019/09/03/android-tools-15/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/03/android-tools-15/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1036,10 +1124,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
@@ -1052,15 +1136,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,11 +1192,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">realm</a>
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
+                <a href="javascript:void(0)" class="js-tag color1">realm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1120,15 +1208,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSR</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">IOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">http/https</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1140,7 +1228,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">动画</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1153,10 +1249,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">动画</a>
               </li>
              
               <li class="article-tag-list-item">
