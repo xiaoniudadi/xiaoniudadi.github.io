@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="是不是以为我会长篇累牍的描述Java语言的各种特性，语法知识点等内容？想多了！Java基础那么多一个个的写，等我写完，假期也就结束了，所以我更愿意将这部分内容改变成Java语法基础知识的查漏补缺。如果Java基础不好的同学请移步到菜鸟教程。这个网站真的很好，各种学习资料都是免费的。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-09T13:44:10.150Z">
+<meta property="og:updated_time" content="2019-10-09T14:19:20.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 02 Java语言基础">
 <meta name="twitter:description" content="是不是以为我会长篇累牍的描述Java语言的各种特性，语法知识点等内容？想多了！Java基础那么多一个个的写，等我写完，假期也就结束了，所以我更愿意将这部分内容改变成Java语法基础知识的查漏补缺。如果Java基础不好的同学请移步到菜鸟教程。这个网站真的很好，各种学习资料都是免费的。">
@@ -540,7 +540,43 @@
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">class</span> StackDemo &#123;</span><br><span class="line"> </span><br><span class="line">    static void showpush(<span class="keyword">Stack</span>&lt;Integer&gt; <span class="keyword">st</span>, int a) &#123;</span><br><span class="line">        <span class="keyword">st</span>.push(new Integer(a));</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"push("</span> + a + <span class="string">")"</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"stack: "</span> + <span class="keyword">st</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    static void showpop(<span class="keyword">Stack</span>&lt;Integer&gt; <span class="keyword">st</span>) &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.<span class="keyword">print</span>(<span class="string">"pop -&gt; "</span>);</span><br><span class="line">        Integer a = (Integer) <span class="keyword">st</span>.pop();</span><br><span class="line">        System.<span class="keyword">out</span>.println(a);</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"stack: "</span> + <span class="keyword">st</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public static void main(String <span class="keyword">args</span>[]) &#123;</span><br><span class="line">        <span class="keyword">Stack</span>&lt;Integer&gt; <span class="keyword">st</span> = new <span class="keyword">Stack</span>&lt;Integer&gt;();</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"stack: "</span> + <span class="keyword">st</span>);</span><br><span class="line">        showpush(<span class="keyword">st</span>, 42);</span><br><span class="line">        showpush(<span class="keyword">st</span>, 66);</span><br><span class="line">        showpush(<span class="keyword">st</span>, 99);</span><br><span class="line">        showpop(<span class="keyword">st</span>);</span><br><span class="line">        showpop(<span class="keyword">st</span>);</span><br><span class="line">        showpop(<span class="keyword">st</span>);</span><br><span class="line">        try &#123;</span><br><span class="line">            showpop(<span class="keyword">st</span>);</span><br><span class="line">        &#125; catch (EmptyStackException <span class="keyword">e</span>) &#123;</span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"empty stack"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>Dictionary类是一个抽象类，用来存储键值对，作用和Map类似。<br>给出键和值，我们可以将只存储早字典对象中，一旦值被存储，就可以通过它的键来获取</p>
-<p>字典常用方法<br>|方法|描述|<br>|—|—|<br>|Enumeration elements()|返回此字典中值的枚举|<br>|Object get(Object key)|返回此字典中该键所映射到的值|<br>|boolean isEmpty()|测试次字典是否不存在从键到值的映射|<br>|Enumeration keys()|返回此字典中键的枚举|<br>|Object put(Object key,Object value)|将制定key映射到此字典中指定的value|<br>|Object remove(Object key)|从此字典中移除key(以及相应的value)|<br>|int size()|返回此字典中条目(不同键)的数量|</p>
+<p>字典常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Enumeration elements()</td>
+<td>返回此字典中值的枚举</td>
+</tr>
+<tr>
+<td>Object get(Object key)</td>
+<td>返回此字典中该键所映射到的值</td>
+</tr>
+<tr>
+<td>boolean isEmpty()</td>
+<td>测试次字典是否不存在从键到值的映射</td>
+</tr>
+<tr>
+<td>Enumeration keys()</td>
+<td>返回此字典中键的枚举</td>
+</tr>
+<tr>
+<td>Object put(Object key,Object value)</td>
+<td>将制定key映射到此字典中指定的value</td>
+</tr>
+<tr>
+<td>Object remove(Object key)</td>
+<td>从此字典中移除key(以及相应的value)</td>
+</tr>
+<tr>
+<td>int size()</td>
+<td>返回此字典中条目(不同键)的数量</td>
+</tr>
+</tbody></table>
 <blockquote>
 <p>字典Dictionary类已经过时了，在实际开发中使用欧冠Map集合来代替</p>
 </blockquote>
@@ -552,7 +588,40 @@
 <li>类型参数能被用来声明返回值类型，并且能作为泛型方法得到的实际参数类型的占位符。</li>
 <li>泛型方法体声明和其他方法一样，注意类型参数只能代表引用型类型，不能是原始类型</li>
 </ol>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericMethodTest</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GenericMethodTest</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;E&gt; <span class="function"><span class="keyword">void</span> <span class="title">printArray</span>(<span class="params">E[] intputArray</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 输入数组元素</span></span><br><span class="line">    <span class="keyword">for</span>(E element:inputArray)&#123;</span><br><span class="line">      System.<span class="keyword">out</span>.println(<span class="string">"%s"</span>,element);</span><br><span class="line">    &#125;</span><br><span class="line">    System.<span class="keyword">out</span>.println();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 创建不同类型数组： Integer, Double 和 Character</span></span><br><span class="line">        Integer[] intArray = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">        Double[] doubleArray = &#123; <span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>, <span class="number">4.4</span> &#125;;</span><br><span class="line">        Character[] charArray = &#123; <span class="string">'H'</span>, <span class="string">'E'</span>, <span class="string">'L'</span>, <span class="string">'L'</span>, <span class="string">'O'</span> &#125;;</span><br><span class="line"> </span><br><span class="line">        System.<span class="keyword">out</span>.println( <span class="string">"整型数组元素为:"</span> );</span><br><span class="line">        printArray( intArray  ); <span class="comment">// 传递一个整型数组</span></span><br><span class="line"> </span><br><span class="line">        System.<span class="keyword">out</span>.println( <span class="string">"\n双精度型数组元素为:"</span> );</span><br><span class="line">        printArray( doubleArray ); <span class="comment">// 传递一个双精度型数组</span></span><br><span class="line"> </span><br><span class="line">        System.<span class="keyword">out</span>.println( <span class="string">"\n字符型数组元素为:"</span> );</span><br><span class="line">        printArray( charArray ); <span class="comment">// 传递一个字符型数组</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有界类型参数：<br>有时候我们想要限制那些被允许传到一个类型参数的参数类型。例如，我们只想接受一个传递的是Number类型或者是Number类型的子类，那么我们就可以约束成有界参数，实现我们想要的功能：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class MaximumTest&#123;</span><br><span class="line">  <span class="comment">// 比较三个值，然后返回最大值</span></span><br><span class="line">  public static &lt;T extends Comparable&lt;T&gt;&gt; T maximum(T x,T y,T z)&#123;</span><br><span class="line">    T max = x;</span><br><span class="line">    if(y.compareTo(max) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="comment">// 说明y更大</span></span><br><span class="line">      max = y；</span><br><span class="line">    &#125;</span><br><span class="line">    if(z.compareTo(max) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="comment">// 说明z更大</span></span><br><span class="line">      max = z;</span><br><span class="line">    &#125;</span><br><span class="line">    return max;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static void main(String [] args)&#123;</span><br><span class="line">    System.out.printf( <span class="string">"%d, %d 和 %d 中最大的数为 %d<span class="subst">\n</span><span class="subst">\n</span>"</span>,</span><br><span class="line">                   <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, maximum( <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> ) );</span><br><span class="line"> </span><br><span class="line">      System.out.printf( <span class="string">"%.1f, %.1f 和 %.1f 中最大的数为 %.1f<span class="subst">\n</span><span class="subst">\n</span>"</span>,</span><br><span class="line">                   <span class="number">6.6</span>, <span class="number">8.8</span>, <span class="number">7.7</span>, maximum( <span class="number">6.6</span>, <span class="number">8.8</span>, <span class="number">7.7</span> ) );</span><br><span class="line"> </span><br><span class="line">      System.out.printf( <span class="string">"%s, %s 和 %s 中最大的数为 %s<span class="subst">\n</span>"</span>,<span class="string">"pear"</span>,</span><br><span class="line">         <span class="string">"apple"</span>, <span class="string">"orange"</span>, maximum( <span class="string">"pear"</span>, <span class="string">"apple"</span>, <span class="string">"orange"</span> ) );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h2><p>泛型类的声明和非泛型类的声明类似，除了在类名后面需要添加类型参数声明部分。<br>和泛型方法一样，泛型类的类型参数声明部分也包含了一个或多个类型参数，参数之间用逗号隔开。一个泛型参数也被称为类型变量，是一个用来指定泛型参数类型的标志符。因为他们接受一个或多个参数，这些类被称为参数化类或参数化类性</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Box</span>&lt;T&gt;&#123;</span></span><br><span class="line">  <span class="keyword">private</span> T t;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.t = t;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> T <span class="title">getValue</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.t;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">    Box&lt;Integer&gt; box = <span class="keyword">new</span> Box&lt;Integer&gt;();</span><br><span class="line">    Box&lt;String&gt; strBox = <span class="keyword">new</span> Box&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">    box.setValue(<span class="keyword">new</span> Integer(<span class="number">100</span>));</span><br><span class="line">    strBox.setValue(<span class="string">"hello world"</span>);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类型通配符"><a href="#类型通配符" class="headerlink" title="类型通配符"></a>类型通配符</h2><ul>
+<li>类型通配符通常使用?来代替具体的参数类型，例如List&lt;?&gt;</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GenericTest</span> &#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span> &#123;</span><br><span class="line">        List&lt;String&gt; name = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        List&lt;Integer&gt; age = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        List&lt;Number&gt; number = <span class="keyword">new</span> ArrayList&lt;Number&gt;();</span><br><span class="line">        </span><br><span class="line">        name.<span class="keyword">add</span>(<span class="string">"icon"</span>);</span><br><span class="line">        age.<span class="keyword">add</span>(<span class="number">18</span>);</span><br><span class="line">        number.<span class="keyword">add</span>(<span class="number">314</span>);</span><br><span class="line"> </span><br><span class="line">        getData(name);</span><br><span class="line">        getData(age);</span><br><span class="line">        getData(number);</span><br><span class="line">       </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getData</span>(<span class="params">List&lt;?&gt; data</span>)</span> &#123;</span><br><span class="line">      System.<span class="keyword">out</span>.println(<span class="string">"data :"</span> + data.<span class="keyword">get</span>(<span class="number">0</span>));</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因为getData方法的参数类型是list，所以name，age，number都可以作为方法的实参，这就是通配符的作用</p>
+</blockquote>
+<ul>
+<li>类型通配符上限通过形如List来定义，如此定义就是通配符泛型类型接受Number以及子类类型</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GenericTest</span> &#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span> &#123;</span><br><span class="line">        List&lt;String&gt; name = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        List&lt;Integer&gt; age = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        List&lt;Number&gt; number = <span class="keyword">new</span> ArrayList&lt;Number&gt;();</span><br><span class="line">        </span><br><span class="line">        name.<span class="keyword">add</span>(<span class="string">"icon"</span>);</span><br><span class="line">        age.<span class="keyword">add</span>(<span class="number">18</span>);</span><br><span class="line">        number.<span class="keyword">add</span>(<span class="number">314</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">//getUperNumber(name);//1</span></span><br><span class="line">        getUperNumber(age);<span class="comment">//2</span></span><br><span class="line">        getUperNumber(number);<span class="comment">//3</span></span><br><span class="line">       </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getData</span>(<span class="params">List&lt;?&gt; data</span>)</span> &#123;</span><br><span class="line">      System.<span class="keyword">out</span>.println(<span class="string">"data :"</span> + data.<span class="keyword">get</span>(<span class="number">0</span>));</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getUperNumber</span>(<span class="params">List&lt;? extends Number&gt; data</span>)</span> &#123;</span><br><span class="line">          System.<span class="keyword">out</span>.println(<span class="string">"data :"</span> + data.<span class="keyword">get</span>(<span class="number">0</span>));</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在(//1)处会出现错误，因为getUperNumber()方法中的参数已经限定了参数泛型上限为Number，所以泛型为String是不在这个范围之内，所以会报错</p>
+</blockquote>
+<ul>
+<li>类型通配符下限通过形如List&lt;? super Number&gt;来定义，表示只接受Number以及其三层父类型</li>
+</ul>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ul>
+<li><p>&lt;? extends T&gt;和&lt;? super T&gt;的区别<br>&lt;? extends T&gt;表示泛型只接受T类型或T类型的子类<br>&lt;？ super T&gt;表示泛型只接受T类型或T类型的父类</p>
+</li>
+<li><p>对于泛型，只是允许程序员在编译时检测到非法的类型而已。但是在运行期时，其中的泛型标志会变化为 Object 类型。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">List</span>&lt;Integer&gt; <span class="keyword">list</span> = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">list</span>.add(12);</span><br><span class="line"><span class="comment">//这里直接添加会报错</span></span><br><span class="line"><span class="keyword">list</span>.add(<span class="string">"a"</span>);</span><br><span class="line"><span class="keyword">Class</span>&lt;? extends <span class="keyword">List</span>&gt; clazz = <span class="keyword">list</span>.getClass();</span><br><span class="line">Method add = clazz.getDeclaredMethod(<span class="string">"add"</span>, Object.<span class="keyword">class</span>);</span><br><span class="line"><span class="comment">//但是通过反射添加，是可以的</span></span><br><span class="line">add.invoke(<span class="keyword">list</span>, <span class="string">"kl"</span>);</span><br><span class="line"></span><br><span class="line">System.<span class="keyword">out</span>.println(<span class="keyword">list</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
       
 
       
@@ -800,27 +869,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">realm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,15 +893,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">高德地图</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">百度地图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -856,7 +913,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">realm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -876,6 +941,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
@@ -888,15 +957,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">动画</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">推送</a>
+                <a href="javascript:void(0)" class="js-tag color3">动画</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -909,6 +974,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">推送</a>
               </li>
              
               <li class="article-tag-list-item">
