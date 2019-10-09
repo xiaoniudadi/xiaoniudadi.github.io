@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="是不是以为我会长篇累牍的描述Java语言的各种特性，语法知识点等内容？想多了！Java基础那么多一个个的写，等我写完，假期也就结束了，所以我更愿意将这部分内容改变成Java语法基础知识的查漏补缺。如果Java基础不好的同学请移步到菜鸟教程。这个网站真的很好，各种学习资料都是免费的。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-09T12:19:59.131Z">
+<meta property="og:updated_time" content="2019-10-09T13:44:10.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 02 Java语言基础">
 <meta name="twitter:description" content="是不是以为我会长篇累牍的描述Java语言的各种特性，语法知识点等内容？想多了！Java基础那么多一个个的写，等我写完，假期也就结束了，所以我更愿意将这部分内容改变成Java语法基础知识的查漏补缺。如果Java基础不好的同学请移步到菜鸟教程。这个网站真的很好，各种学习资料都是免费的。">
@@ -216,15 +216,296 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Enmueration&lt;String&gt; days;</span><br><span class="line">Vector&lt;String&gt; dayNames = new Vector&lt;String&gt;();</span><br><span class="line">dayNames.<span class="builtin-name">add</span>(<span class="string">"Sunday"</span>);</span><br><span class="line">dayNames.<span class="builtin-name">add</span>(<span class="string">"Monday"</span>);</span><br><span class="line">dayNames.<span class="builtin-name">add</span>(<span class="string">"Tuesday"</span>);</span><br><span class="line">dayNames.<span class="builtin-name">add</span>(<span class="string">"Wednesday"</span>);</span><br><span class="line">dayNames.<span class="builtin-name">add</span>(<span class="string">"Thursday"</span>);</span><br><span class="line">dayNames.<span class="builtin-name">add</span>(<span class="string">"Friday"</span>);</span><br><span class="line">dayNames.<span class="builtin-name">add</span>(<span class="string">"Saturday"</span>);</span><br><span class="line">days = dayNames.elements();</span><br><span class="line"><span class="keyword">while</span>(days.hasMoreElements())&#123;</span><br><span class="line">  System.out.<span class="builtin-name">print</span>(day.nextElement());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="位集合"><a href="#位集合" class="headerlink" title="位集合"></a>位集合</h2><p>位集合类实现了一组可以单独设置和清除的位或标志<br>该类在处理一组布尔值的时候非常有用，只需要给每个值赋值一个”位”，然后对位进行适当的设置或清除，就可以对布尔值进行操作了。<br>BitSet定义了两个构造方法：BitSet()和BitSet(int size)</p>
-<p>BitSet中实现了Cloneable接口中定义的方法，如下所示<br>|方法|描述|<br>|—|—|<br>|void and(BitSet set)|对此目标位set和参数位set执行逻辑与操作|<br>|void andNot(BitSet set)|清除此BitSet中所有的位，其相应的位在置顶的BitSet中已设置|<br>|int cardinality()|返回此BitSet中设置为true的位数|<br>|void clear()|将此BitSet中所有位设置为false|<br>|void clear(int index)|将索引指定处的位置设置为false|<br>|Object Clone()|复制此BitSet生成一个与之相等的新BitSet|<br>|boolean equals(Object bitSet)|将此对象与指定的对象进行比较|<br>|void flip(int index)|将指定索引出的位设置为当前值的补码|<br>|void flip(int startIndex,int endIndex)|将制定的fromIndex(包括)到制定的toIndex(不包括)范围内的每一个位设置为当前值的补码|<br>|boolean get(int index)|返回指定索引处的位值|<br>|BitSet get(int startIndex,int endIndex)|返回一个新的BitSet，它由此BitSet中从fromIndex(包括)到toIndex(不包括)范围内的位组成|<br>|int hashCode()|返回此位set的哈希码值|<br>|Boolean intersects(BitSet bitSet)|如果指定的BitSet中有设置为true的位，则返回true|<br>|boolean isEmpty()|如果此BitSet中没有包含任何设置为ture的位，返回true|<br>|int length()|返回此BitSet的逻辑大小，BitSet中最高设置位的索引加1|<br>|int nextClearBit(int startIndex)|返回第一个设置为false的位的索引，这发生在指定的其实索引或之后的索引上|<br>|int nextSetBit(int startIndex)|返回第一个设置为true的位的索引，这发生在置顶的其实索引或之后的索引上|<br>|void or(BitSet bitSet)|对此为set和为set参数执行逻辑或操作|<br>|void set(int index)|将指定索引处的位置设置为true|<br>|void set(int index,boolean v)|将制定索引处的位设置为指定的值|<br>|void set(int startIndex,int endIndex)|将指定的fromIndex(包括)到指定的toIndex(不包括)范围内的位设置为true|<br>|void set(int startIndex,int endIndex,boolean v)|将制定的fromIndex(包括)到指定的toIndex(不包括)范围内的位置设置为指定的值|<br>|int size()|返回此位set的字符串表示形式|<br>|String toString()|返回此位set的字符串表示形式|<br>|void xor(BitSet bitSet)|对此位set和位set参数执行逻辑异或操作|</p>
+<p>BitSet中实现了Cloneable接口中定义的方法，如下所示</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void and(BitSet set)</td>
+<td>对此目标位set和参数位set执行逻辑与操作</td>
+</tr>
+<tr>
+<td>void andNot(BitSet set)</td>
+<td>清除此BitSet中所有的位，其相应的位在置顶的BitSet中已设置</td>
+</tr>
+<tr>
+<td>int cardinality()</td>
+<td>返回此BitSet中设置为true的位数</td>
+</tr>
+<tr>
+<td>void clear()</td>
+<td>将此BitSet中所有位设置为false</td>
+</tr>
+<tr>
+<td>void clear(int index)</td>
+<td>将索引指定处的位置设置为false</td>
+</tr>
+<tr>
+<td>Object Clone()</td>
+<td>复制此BitSet生成一个与之相等的新BitSet</td>
+</tr>
+<tr>
+<td>boolean equals(Object bitSet)</td>
+<td>将此对象与指定的对象进行比较</td>
+</tr>
+<tr>
+<td>void flip(int index)</td>
+<td>将指定索引出的位设置为当前值的补码</td>
+</tr>
+<tr>
+<td>void flip(int startIndex,int endIndex)</td>
+<td>将制定的fromIndex(包括)到制定的toIndex(不包括)范围内的每一个位设置为当前值的补码</td>
+</tr>
+<tr>
+<td>boolean get(int index)</td>
+<td>返回指定索引处的位值</td>
+</tr>
+<tr>
+<td>BitSet get(int startIndex,int endIndex)</td>
+<td>返回一个新的BitSet，它由此BitSet中从fromIndex(包括)到toIndex(不包括)范围内的位组成</td>
+</tr>
+<tr>
+<td>int hashCode()</td>
+<td>返回此位set的哈希码值</td>
+</tr>
+<tr>
+<td>Boolean intersects(BitSet bitSet)</td>
+<td>如果指定的BitSet中有设置为true的位，则返回true</td>
+</tr>
+<tr>
+<td>boolean isEmpty()</td>
+<td>如果此BitSet中没有包含任何设置为ture的位，返回true</td>
+</tr>
+<tr>
+<td>int length()</td>
+<td>返回此BitSet的逻辑大小，BitSet中最高设置位的索引加1</td>
+</tr>
+<tr>
+<td>int nextClearBit(int startIndex)</td>
+<td>返回第一个设置为false的位的索引，这发生在指定的其实索引或之后的索引上</td>
+</tr>
+<tr>
+<td>int nextSetBit(int startIndex)</td>
+<td>返回第一个设置为true的位的索引，这发生在置顶的其实索引或之后的索引上</td>
+</tr>
+<tr>
+<td>void or(BitSet bitSet)</td>
+<td>对此为set和为set参数执行逻辑或操作</td>
+</tr>
+<tr>
+<td>void set(int index)</td>
+<td>将指定索引处的位置设置为true</td>
+</tr>
+<tr>
+<td>void set(int index,boolean v)</td>
+<td>将制定索引处的位设置为指定的值</td>
+</tr>
+<tr>
+<td>void set(int startIndex,int endIndex)</td>
+<td>将指定的fromIndex(包括)到指定的toIndex(不包括)范围内的位设置为true</td>
+</tr>
+<tr>
+<td>void set(int startIndex,int endIndex,boolean v)</td>
+<td>将制定的fromIndex(包括)到指定的toIndex(不包括)范围内的位置设置为指定的值</td>
+</tr>
+<tr>
+<td>int size()</td>
+<td>返回此位set的字符串表示形式</td>
+</tr>
+<tr>
+<td>String toString()</td>
+<td>返回此位set的字符串表示形式</td>
+</tr>
+<tr>
+<td>void xor(BitSet bitSet)</td>
+<td>对此位set和位set参数执行逻辑异或操作</td>
+</tr>
+</tbody></table>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">BitSet bits1 = new BitSet(<span class="number">16</span>)<span class="comment">;</span></span><br><span class="line">     BitSet bits2 = new BitSet(<span class="number">16</span>)<span class="comment">;</span></span><br><span class="line">      </span><br><span class="line">     // set some bits</span><br><span class="line">     for(<span class="name">int</span> i=0<span class="comment">; i&lt;16; i++) &#123;</span></span><br><span class="line">        if((<span class="name">i</span>%<span class="number">2</span>) == <span class="number">0</span>) bits1.set(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">        if((<span class="name">i</span>%<span class="number">5</span>) != <span class="number">0</span>) bits2.set(<span class="name">i</span>)<span class="comment">;</span></span><br><span class="line">     &#125;</span><br><span class="line">     System.out.println(<span class="string">"Initial pattern in bits1: "</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="name">bits1</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="string">"\nInitial pattern in bits2: "</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="name">bits2</span>)<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">     // AND bits</span><br><span class="line">     bits2.and(<span class="name">bits1</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="string">"\nbits2 AND bits1: "</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="name">bits2</span>)<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">     // OR bits</span><br><span class="line">     bits2.or(<span class="name">bits1</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="string">"\nbits2 OR bits1: "</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="name">bits2</span>)<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">     // XOR bits</span><br><span class="line">     bits2.xor(<span class="name">bits1</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="string">"\nbits2 XOR bits1: "</span>)<span class="comment">;</span></span><br><span class="line">     System.out.println(<span class="name">bits2</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2><p>Vector类实现了一个动态数组，和ArrayList很相似，但两者有不同</p>
 <ul>
 <li>Vector是同步访问的</li>
-<li>Vector包含了很多传统方法，这些方法不属于集合框架<br>Vector主要用在实现不知道数组的大小，或者只是需要一个可以改变大小的数组的情况<br>Vector有四个构造方法：Vector(),Vector(int size),Vector(int size,int incr),Vector(Collection c)<br>其中Vector(int size)是创建指定大小的向量，Vector(int size,int incr)创建指定大小的向量并且增量用incr指定。增量表示向量每次增加的元素数目</li>
+<li>Vector包含了很多传统方法，这些方法不属于集合框架</li>
 </ul>
-<p>Vector常用方法<br>|方法|描述|<br>|—|—|<br>|void add(int index,Object element)|在此向量的指定位置插入指定的元素|<br>|boolean add(Object o)|将指定元素添加到向量的末尾|<br>|boolean addAll(Collection c)|将制定Collection中的所有元素添加到此向量的末尾，按照指定collection的迭代器所返回的顺序添加这些元素|<br>|boolean addAll(int index,Collection c)|在置顶位置将制定Collection中的所有元素插入到向量中|<br>|void addElement(Object o)|将制定的组件添加到此向量的末尾，将其大小增加1|<br>|int capacity()|返回此向量的当前容量|<br>|void clear()|从此向量中移除所有元素|<br>|Object clone()|返回向量的一个副本|<br>|boolean contains(Object elem)|如果此向量包含指定的元素，则返回true|<br>|boolean containsAll(Collection c)|如果此向量包含指定Collection中的所有元素，返回true|<br>|void copyInto(Object[] anArray)|将此向量的组件复制到指定的数组中|<br>|Object elementAt(int index)|返回指定索引处的组件|<br>|Enumeration elements()|返回此向量的组件的枚举|<br>|void ensureCapacity(int minCapacity)|增加此向量的容量，以确保其至少能够保存最小容量参数指定的组件数|<br>|boolean equals(Object o)|比较置顶对象与此向量的相等性|<br>|Object firstElement()|返回此向量的第一个组件(下标从0开始)|<br>|Object get(int index)|返回向量中指定位置的元素|<br>|int hashCode()|返回此向量的哈希码值|<br>|int indexOf(Object elem)|返回词向量中第一次出现的指定元素的索引，如果此向量不包含该元素，返回-1|<br>|int indexOf(Obect element,int index)|返回此向量中第一次出现指定元素的索引，从index出正向搜索，如果未找到该元素，则返回-1|<br>|void insertElementAt(Object obj,int index)|将制定对象作为词向量中的组件插入到指定的index处|<br>|boolean isEmpty()|测试词向量是否不包含组件|<br>|Object lastElement()|返回此向量的最后一个组件|<br>|int lastIndexOf(Object elem)|返回此向量中最后一次出现的指定元素的索引，如果不包含该元素，返回-1|<br>|int lastIndexOf(Object elem,int index)|返回词向量中最后一次出现的指定元素的索引，从index处逆向搜索，如果未找到该元素，返回-1|<br>|Object remove(index)|移除此向量中置顶位置的元素|<br>|boolean remove(Object o)|移除此向量中指定元素的第一个匹配项，如果向量不包含该元素，则元素保持不变|<br>|boolean removeAll(Collection c)|从词向量中移除包含在指定Collection中全部元素|<br>|void removeAllElements()|从此向量中移除全部组件，并将其大小设置为0|<br>|boolean removeElement(Object o)|从此向量中移除变量的第一个(索引最小的)匹配项|<br>|void removeElementAt(int index)|删除指定索引处的组件|<br>|protected void removeRange(int formIndex,int toIndex)|从此List中移除索引位于formIndex(包括)与toIndex(不包括)之间的所有元素|<br>|boolean retainAll(Collection c)|在此向量中仅包括包含指定collection中的元素|<br>|Object set(int index,Object element)|用指定的元素替换此向量中指定位置处的元素|<br>|void setElementAt(Object obj,int index)|向此向量指定index处的组件设置为指定的对象|<br>|void setSize(int newSize)|设置此向量的大小|<br>|List subList(int fromIndex,int toIndex)|返回此List的部分视图，从fromIndex(包括)至toIndex(不包括)|<br>|Object[] toArray()|返回一个数组，包含此向量中以前当顺序存放的所有元素|<br>|Object[] toArray(Object[] a)|返回一个数组，包含此向量中以恰当顺序存放的所有元素，返回数组的运行时类型为置顶数组的类型|<br>|String toString()| 返回此向量的字符串表示形式，其中包含每个元素的String表示形式|<br>|void trimToSize()|对此向量的容量进行微调，使其等于向量的当前大小|</p>
+<p>Vector主要用在实现不知道数组的大小，或者只是需要一个可以改变大小的数组的情况<br>Vector有四个构造方法：Vector(),Vector(int size),Vector(int size,int incr),Vector(Collection c)<br>其中Vector(int size)是创建指定大小的向量，Vector(int size,int incr)创建指定大小的向量并且增量用incr指定。增量表示向量每次增加的元素数目</p>
+<p>Vector常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void add(int index,Object element)</td>
+<td>在此向量的指定位置插入指定的元素</td>
+</tr>
+<tr>
+<td>boolean add(Object o)</td>
+<td>将指定元素添加到向量的末尾</td>
+</tr>
+<tr>
+<td>boolean addAll(Collection c)</td>
+<td>将制定Collection中的所有元素添加到此向量的末尾，按照指定collection的迭代器所返回的顺序添加这些元素</td>
+</tr>
+<tr>
+<td>boolean addAll(int index,Collection c)</td>
+<td>在置顶位置将制定Collection中的所有元素插入到向量中</td>
+</tr>
+<tr>
+<td>void addElement(Object o)</td>
+<td>将制定的组件添加到此向量的末尾，将其大小增加1</td>
+</tr>
+<tr>
+<td>int capacity()</td>
+<td>返回此向量的当前容量</td>
+</tr>
+<tr>
+<td>void clear()</td>
+<td>从此向量中移除所有元素</td>
+</tr>
+<tr>
+<td>Object clone()</td>
+<td>返回向量的一个副本</td>
+</tr>
+<tr>
+<td>boolean contains(Object elem)</td>
+<td>如果此向量包含指定的元素，则返回true</td>
+</tr>
+<tr>
+<td>boolean containsAll(Collection c)</td>
+<td>如果此向量包含指定Collection中的所有元素，返回true</td>
+</tr>
+<tr>
+<td>void copyInto(Object[] anArray)</td>
+<td>将此向量的组件复制到指定的数组中</td>
+</tr>
+<tr>
+<td>Object elementAt(int index)</td>
+<td>返回指定索引处的组件</td>
+</tr>
+<tr>
+<td>Enumeration elements()</td>
+<td>返回此向量的组件的枚举</td>
+</tr>
+<tr>
+<td>void ensureCapacity(int minCapacity)</td>
+<td>增加此向量的容量，以确保其至少能够保存最小容量参数指定的组件数</td>
+</tr>
+<tr>
+<td>boolean equals(Object o)</td>
+<td>比较置顶对象与此向量的相等性</td>
+</tr>
+<tr>
+<td>Object firstElement()</td>
+<td>返回此向量的第一个组件(下标从0开始)</td>
+</tr>
+<tr>
+<td>Object get(int index)</td>
+<td>返回向量中指定位置的元素</td>
+</tr>
+<tr>
+<td>int hashCode()</td>
+<td>返回此向量的哈希码值</td>
+</tr>
+<tr>
+<td>int indexOf(Object elem)</td>
+<td>返回词向量中第一次出现的指定元素的索引，如果此向量不包含该元素，返回-1</td>
+</tr>
+<tr>
+<td>int indexOf(Obect element,int index)</td>
+<td>返回此向量中第一次出现指定元素的索引，从index出正向搜索，如果未找到该元素，则返回-1</td>
+</tr>
+<tr>
+<td>void insertElementAt(Object obj,int index)</td>
+<td>将制定对象作为词向量中的组件插入到指定的index处</td>
+</tr>
+<tr>
+<td>boolean isEmpty()</td>
+<td>测试词向量是否不包含组件</td>
+</tr>
+<tr>
+<td>Object lastElement()</td>
+<td>返回此向量的最后一个组件</td>
+</tr>
+<tr>
+<td>int lastIndexOf(Object elem)</td>
+<td>返回此向量中最后一次出现的指定元素的索引，如果不包含该元素，返回-1</td>
+</tr>
+<tr>
+<td>int lastIndexOf(Object elem,int index)</td>
+<td>返回词向量中最后一次出现的指定元素的索引，从index处逆向搜索，如果未找到该元素，返回-1</td>
+</tr>
+<tr>
+<td>Object remove(index)</td>
+<td>移除此向量中置顶位置的元素</td>
+</tr>
+<tr>
+<td>boolean remove(Object o)</td>
+<td>移除此向量中指定元素的第一个匹配项，如果向量不包含该元素，则元素保持不变</td>
+</tr>
+<tr>
+<td>boolean removeAll(Collection c)</td>
+<td>从词向量中移除包含在指定Collection中全部元素</td>
+</tr>
+<tr>
+<td>void removeAllElements()</td>
+<td>从此向量中移除全部组件，并将其大小设置为0</td>
+</tr>
+<tr>
+<td>boolean removeElement(Object o)</td>
+<td>从此向量中移除变量的第一个(索引最小的)匹配项</td>
+</tr>
+<tr>
+<td>void removeElementAt(int index)</td>
+<td>删除指定索引处的组件</td>
+</tr>
+<tr>
+<td>protected void removeRange(int formIndex,int toIndex)</td>
+<td>从此List中移除索引位于formIndex(包括)与toIndex(不包括)之间的所有元素</td>
+</tr>
+<tr>
+<td>boolean retainAll(Collection c)</td>
+<td>在此向量中仅包括包含指定collection中的元素</td>
+</tr>
+<tr>
+<td>Object set(int index,Object element)</td>
+<td>用指定的元素替换此向量中指定位置处的元素</td>
+</tr>
+<tr>
+<td>void setElementAt(Object obj,int index)</td>
+<td>向此向量指定index处的组件设置为指定的对象</td>
+</tr>
+<tr>
+<td>void setSize(int newSize)</td>
+<td>设置此向量的大小</td>
+</tr>
+<tr>
+<td>List subList(int fromIndex,int toIndex)</td>
+<td>返回此List的部分视图，从fromIndex(包括)至toIndex(不包括)</td>
+</tr>
+<tr>
+<td>Object[] toArray()</td>
+<td>返回一个数组，包含此向量中以前当顺序存放的所有元素</td>
+</tr>
+<tr>
+<td>Object[] toArray(Object[] a)</td>
+<td>返回一个数组，包含此向量中以恰当顺序存放的所有元素，返回数组的运行时类型为置顶数组的类型</td>
+</tr>
+<tr>
+<td>String toString()</td>
+<td>返回此向量的字符串表示形式，其中包含每个元素的String表示形式</td>
+</tr>
+<tr>
+<td>void trimToSize()</td>
+<td>对此向量的容量进行微调，使其等于向量的当前大小</td>
+</tr>
+</tbody></table>
 <figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Vector v = <span class="keyword">new</span> Vector(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">System.<span class="keyword">out</span>.print(<span class="string">"初始化大小是"</span>+v.size());</span><br><span class="line">System.<span class="keyword">out</span>.print(<span class="string">"初始化Capacity"</span>+v.capacity());</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">1</span>));</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">2</span>));</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">3</span>));</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">4</span>));</span><br><span class="line">System.<span class="keyword">out</span>.println(<span class="string">"当前的capacity"</span>+v.capacity());</span><br><span class="line">v.addElement(<span class="keyword">new</span> Double(<span class="number">5.45</span>));</span><br><span class="line">System.<span class="keyword">out</span>.println(<span class="string">"当前capacity"</span>+v.capacity());</span><br><span class="line">v,addElement(<span class="keyword">new</span> Double(<span class="number">6.08</span>));</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">7</span>));</span><br><span class="line">System.<span class="keyword">out</span>.println(<span class="string">"Current capacity: "</span> +</span><br><span class="line">v.capacity());</span><br><span class="line">v.addElement(<span class="keyword">new</span> Float(<span class="number">9.4</span>));</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">10</span>));</span><br><span class="line">System.<span class="keyword">out</span>.println(<span class="string">"Current capacity: "</span> +</span><br><span class="line">v.capacity());</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">11</span>));</span><br><span class="line">v.addElement(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">12</span>));</span><br><span class="line">System.<span class="keyword">out</span>.println(<span class="string">"First element: "</span> +</span><br><span class="line">  (<span class="built_in">Integer</span>)v.firstElement());</span><br><span class="line">System.<span class="keyword">out</span>.println(<span class="string">"Last element: "</span> +</span><br><span class="line">  (<span class="built_in">Integer</span>)v.lastElement());</span><br><span class="line"><span class="keyword">if</span>(v.contains(<span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">3</span>)))</span><br><span class="line">    System.<span class="keyword">out</span>.println(<span class="string">"Vector contains 3."</span>);</span><br><span class="line">    // enumerate the elements <span class="keyword">in</span> the vector.</span><br><span class="line">    Enumeration vEnum = v.elements();</span><br><span class="line">    System.<span class="keyword">out</span>.println(<span class="string">"\nElements in vector:"</span>);</span><br><span class="line">    <span class="keyword">while</span>(vEnum.hasMoreElements())</span><br><span class="line">        System.<span class="keyword">out</span>.print(vEnum.nextElement() + <span class="string">" "</span>);</span><br><span class="line">    System.<span class="keyword">out</span>.println();</span><br></pre></td></tr></table></figure>
 
 <h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈是Vector的一个子类，他实现了一个标准的后进先出的栈<br>堆栈之定义了默认的构造函数，用来创建一个空栈，堆栈除了包括有Vector定义的所有方法，也定义了自己的一些方法</p>
@@ -519,11 +800,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">realm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,15 +856,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">realm</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,15 +876,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gradle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,6 +892,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">推送</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">sqlite</a>
               </li>
              
@@ -624,10 +909,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">推送</a>
               </li>
              
               <li class="article-tag-list-item">
