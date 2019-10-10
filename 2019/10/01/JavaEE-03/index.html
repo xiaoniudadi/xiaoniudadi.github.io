@@ -17,7 +17,8 @@
 <meta property="og:description" content="内容可能较多，包括Servlet，Jsp，Maven，html，Js等内容">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_01.png">
-<meta property="og:updated_time" content="2019-10-09T15:12:18.604Z">
+<meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_02.png">
+<meta property="og:updated_time" content="2019-10-10T12:37:35.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 03 JavaWeb基础">
 <meta name="twitter:description" content="内容可能较多，包括Servlet，Jsp，Maven，html，Js等内容">
@@ -228,7 +229,49 @@
 <p>看一下map</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>FirstServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.paulniu.dao.FirstServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>FirstServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/first<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<p>补充说明：<br>destory方法被调用后，servlet被销毁，但是并没有立即回收，再次请求时，并没有重新初始化</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    message = <span class="string">"Hello World , Nect To Meet You: "</span> + System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">"servlet初始化……"</span>);</span><br><span class="line">    <span class="keyword">super</span>.init();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">    PrintWriter writer = response.getWriter();</span><br><span class="line">    writer.write(<span class="string">"&lt;h1&gt;"</span> + message + <span class="string">"&lt;/h1&gt;"</span>);</span><br><span class="line">    destroy();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    <span class="keyword">super</span>.doPost(req, resp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"servlet销毁！"</span>);</span><br><span class="line">    <span class="keyword">super</span>.destroy();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>Log日志打印：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">servlet</span>初始化……</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line">2017<span class="selector-tag">-7-6</span> 19<span class="selector-pseudo">:48</span><span class="selector-pseudo">:52</span> <span class="selector-tag">org</span><span class="selector-class">.apache</span><span class="selector-class">.catalina</span><span class="selector-class">.core</span><span class="selector-class">.StandardContext</span> <span class="selector-tag">reload</span></span><br><span class="line">信息: <span class="selector-tag">Reloading</span> <span class="selector-tag">Context</span> <span class="selector-tag">with</span> <span class="selector-tag">name</span> <span class="selector-attr">[/myServlet]</span> <span class="selector-tag">has</span> <span class="selector-tag">started</span></span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line">2017<span class="selector-tag">-7-6</span> 19<span class="selector-pseudo">:48</span><span class="selector-pseudo">:52</span> <span class="selector-tag">org</span><span class="selector-class">.apache</span><span class="selector-class">.catalina</span><span class="selector-class">.core</span><span class="selector-class">.StandardContext</span> <span class="selector-tag">reload</span></span><br><span class="line">信息: <span class="selector-tag">Reloading</span> <span class="selector-tag">Context</span> <span class="selector-tag">with</span> <span class="selector-tag">name</span> <span class="selector-attr">[/myServlet]</span> <span class="selector-tag">is</span> <span class="selector-tag">completed</span></span><br><span class="line"><span class="selector-tag">servlet</span>初始化……</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br><span class="line"><span class="selector-tag">servlet</span>销毁！</span><br></pre></td></tr></table></figure>
+
+<p>Servlet浏览器访问路径配置的小问题<br>有两种方式配置路径</p>
+<ul>
+<li><p>java 类里的注解 —— @WebServlet(“/HelloServlet”) 对应浏览器路径</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/TomcatTest/</span>HelloServlet</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件（web.xml）里对应的浏览器访问路径：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/TomcatTest/</span>TomcatTest<span class="regexp">/HelloServlet</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>两种配置使用一种即可，不然路径重名反而会让tomcat启动不了</p>
+<h2 id="Servlet生命周期"><a href="#Servlet生命周期" class="headerlink" title="Servlet生命周期"></a>Servlet生命周期</h2><p>Servlet生命周期可被定义为冲创建知道毁灭的过程，遵循以下过程</p>
+<ol>
+<li>Servlet通过调用init()方法进行初始化</li>
+<li>Servlet调用service()方法来处理客户端请求</li>
+<li>Servlet通过调用destory()方法终止(结束)</li>
+<li>最后Servlet是由JVM的垃圾回收器进行垃圾回收的</li>
+</ol>
+<h3 id="init-方法"><a href="#init-方法" class="headerlink" title="init()方法"></a>init()方法</h3><p>init方法被设计成只调用一次，在第一次创建该Servlet时被调用，在后续每次用户请求时不再调用，因此它是用一次性初始化<br>Servlet创建于用户第一次调用欧冠对象与该Servlet的URL时，但是我们也可以指定Servlet在服务器第一次启动时被加载。当用户调用Servlet时，创建一个Servlet实例，每一个用户请求都会产生新的线程，适当的时候交给doGet或者doPost方法。init方法简单的创建或加载一些数据，这些数据将被用于Servlet的整个生命周期<br>init方法的定义如下</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException</span>&#123;</span><br><span class="line">    <span class="comment">// 初始化代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="service-方法"><a href="#service-方法" class="headerlink" title="service()方法"></a>service()方法</h3><p>service()方法是执行实际任务的主要方法.Servlet容器(即Web服务器)调用service()方法来处理来自客户端浏览器的请求，并把格式化的响应写回给客户端<br>每次服务器接收到一个Servlet请求时，服务器会产生一个新的线程并调用服务。service()方法检查HTTP请求类型(GET,POST,PUT,DELETE等)，并在适当的时候调用相应的方法</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> service(ServletRequest request, </span><br><span class="line">                    ServletResponse response) </span><br><span class="line">      <span class="keyword">throws</span> ServletException, IOException&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>service()方法由容器调用，service方法在适当的时侯调用doGet,doPost,doPut,doDelete等方法，所以，不用对service()方法做任何动作，只需要根据来自客户端的请求类型重写相应的方法即可<br>doGet和doPost方法是每次服务请求中最常用的方法，</p>
+<h4 id="doGet-方法"><a href="#doGet-方法" class="headerlink" title="doGet()方法"></a>doGet()方法</h4><p>GET 请求来自于一个 URL 的正常请求，或者来自于一个未指定 METHOD 的 HTML 表单，它由 doGet() 方法处理。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> doGet(HttpServletRequest request,</span><br><span class="line">                  HttpServletResponse response)</span><br><span class="line">    <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">    <span class="comment">// Servlet 代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="doPost-方法"><a href="#doPost-方法" class="headerlink" title="doPost()方法"></a>doPost()方法</h4><p>POST 请求来自于一个特别指定了 METHOD 为 POST 的 HTML 表单，它由 doPost() 方法处理。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> doPost(HttpServletRequest request,</span><br><span class="line">                   HttpServletResponse response)</span><br><span class="line">    <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">    <span class="comment">// Servlet 代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="destory-方法"><a href="#destory-方法" class="headerlink" title="destory()方法"></a>destory()方法</h3><p>destroy() 方法只会被调用一次，在 Servlet 生命周期结束时被调用。destroy() 方法可以让您的 Servlet 关闭数据库连接、停止后台线程、把 Cookie 列表或点击计数器写入到磁盘，并执行其他类似的清理活动。</p>
+<p>在调用 destroy() 方法之后，servlet 对象被标记为垃圾回收。destroy 方法定义如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 终止化代码...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h3><p><img src="/assets/JavaEE/javaweb_02.png" alt="Servlet生命周期架构图">  </p>
+<h2 id="表单数据"><a href="#表单数据" class="headerlink" title="表单数据"></a>表单数据</h2>
       
 
       
@@ -464,19 +507,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,7 +519,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,6 +536,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">音视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">realm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,15 +575,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">realm</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,10 +592,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">IOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -576,15 +619,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">推送</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">推送</a>
               </li>
              
               <li class="article-tag-list-item">

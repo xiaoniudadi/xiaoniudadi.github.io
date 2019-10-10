@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://www.paulniu.com/assets/tools/tools-storage-02.png">
 <meta property="og:image" content="http://www.paulniu.com/assets/tools/tools-storage-03.png">
 <meta property="og:image" content="http://www.paulniu.com/assets/tools/tools-storage-04.png">
-<meta property="og:updated_time" content="2019-08-24T13:48:58.604Z">
+<meta property="og:updated_time" content="2019-10-10T12:37:35.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android奇技淫巧 13 Android内部存储和外部存储">
 <meta name="twitter:description" content="在Android开发中我们经常会听到这几个概念，内存，外部存储，内部存储，很多时候我们常常把这个概念弄混淆，所以这篇博客就在这里做一下总结">
@@ -194,10 +194,10 @@
 <li>内部存储：内部ROM</li>
 <li>外部存储：外部ROM和SDCard</li>
 </ol>
-<p>其中最容易混淆的就是外部存储，如果说PC上也要区分内部存储和外部存储的话，那么自带硬盘就算是内部存储，U盘或者移动硬盘就属于外部存储，因此我们也很容易带着这样的理解去看待Android手机，认为机身固有的存储就是内部存储，而扩展的T卡就是外部存储。早期Android设备的内部存储确实是固定的，而外部存储确实可以向U盘一样移动。到那时后来的设备中，很多中高端收卷机豆浆自己的机身存储扩展到了8G以上，他们将存储的概念分为”内部Internal”和”外部External”两部分，但是其实都在手机内部。所以不管Android手机是否有可移动的SDCard，他们总是有外部存储和内部存储。关键的是我们都可以通过相同的Api来访问可移动SDCard或者手机自带的存储。</p>
+<p>其中最容易混淆的就是外部存储，如果说PC上也要区分内部存储和外部存储的话，那么自带硬盘就算是内部存储，U盘或者移动硬盘就属于外部存储，因此我们也很容易带着这样的理解去看待Android手机，认为机身固有的存储就是内部存储，而扩展的T卡就是外部存储。早期Android设备的内部存储确实是固定的，而外部存储确实可以向U盘一样移动。到那时后来的设备中，很多中高端手机将自己的机身存储扩展到了8G以上，他们将存储的概念分为”内部Internal”和”外部External”两部分，但是其实都在手机内部。所以不管Android手机是否有可移动的SDCard，他们总是有外部存储和内部存储。关键的是我们都可以通过相同的Api来访问可移动SDCard或者手机自带的存储。</p>
 <p><img src="/assets/tools/tools-storage-01.png" alt></p>
 <p>使用Android studio打开手机目录，这里有三个文件夹需要我们注意，data，mnt和storage，data是指内部存储，mnt和storage指外部存储，下面我们来具体分析一下</p>
-<h1 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h1><p>内部存储位于系统中很特殊的位置，如果我们想将文件存储在内部存储中，那么文件默认只能放在我们的应用可以访问到，且一个医用创建的所有文件都在和应用包名相同的目录下。也就是说，应用创建内部存储的文件，与这个应用关联起来了。当一个应用被卸载的时候，内部存储中的文件也随之被删除。从技术上来讲如果我们在创建内部存储问件事将这个文件属性设置为可读，那么其他App能够访问自己应用的数据，欠他是他知道你这个应用的包名，如果这个文件属性为私有的，那么即使知道报名其他应用也无法访问。内部存储控件十分有限，因而显得很重要，另外他也是系统本身和系统应用程序主要的数据存储所在地，一旦内部存储耗尽，手机也将无法使用。<br>在内部存储中有两个重要的目录</p>
+<h1 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h1><p>内部存储位于系统中很特殊的位置，如果我们想将文件存储在内部存储中，那么文件默认只能放在我们的应用可以访问到，且一个应用创建的所有文件都在和应用包名相同的目录下。也就是说，应用创建内部存储的文件，与这个应用关联起来了。当一个应用被卸载的时候，内部存储中的文件也随之被删除。从技术上来讲如果我们在创建内部存储文件是将这个文件属性设置为可读，那么其他App能够访问自己应用的数据，其实他知道你这个应用的包名，如果这个文件属性为私有的，那么即使知道包名其他应用也无法访问。内部存储控件十分有限，因而显得很重要，另外他也是系统本身和系统应用程序主要的数据存储所在地，一旦内部存储耗尽，手机也将无法使用。<br>在内部存储中有两个重要的目录</p>
 <ol>
 <li>app文件夹：如果没有root，我们是无法打开该文件夹的。app文件夹内存放着我们所有安装app的APK文件，当我们调试一个app的时候，可以看到控制台输出的内容，有一项是uploading…就是上传我们的APK到这个文件夹</li>
 <li>data文件夹：这个文件夹里包含一些包名，打开这些包名，我们就会看到一些文件如<ul>
@@ -208,7 +208,7 @@
 </ul>
 </li>
 </ol>
-<p>我们在使用SharedPerference的时候，将数据十九华存储到本地，其实就是存储到这个文件夹中的xml文件中，我们的app里面的数据库文件就存储在databases文件中，还有我们的普通数据存储在files中，缓存在cache文件夹中</p>
+<p>我们在使用SharedPerference的时候，将数据90%存储到本地，其实就是存储到这个文件夹中的xml文件中，我们的app里面的数据库文件就存储在databases文件中，还有我们的普通数据存储在files中，缓存在cache文件夹中</p>
 <p><img src="/assets/tools/tools-storage-02.png" alt></p>
 <p><img src="/assets/tools/tools-storage-03.png" alt></p>
 <h1 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h1><p>外部存储就是上面我们所说道的storage文件夹，也有可能是mnt文件夹，在storeage文件中有一个sdcard的文件夹，这个文件夹中的文件分为两类，一类是共有目录，还有一类是私有目录。其中共有目录分为9大类，比如DCIM，Download等这些系统为我们创建的文件夹，私有目录就是android这个文件夹，这个文件夹打开后面有一个data的文件夹，打开这个data文件夹里面包好了许多报名组成的文件夹</p>
@@ -487,19 +487,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,7 +499,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,6 +516,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">音视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">realm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,15 +555,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">realm</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,10 +572,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">IOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,15 +599,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">推送</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">推送</a>
               </li>
              
               <li class="article-tag-list-item">
