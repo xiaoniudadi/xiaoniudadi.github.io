@@ -18,7 +18,8 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_01.png">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_02.png">
-<meta property="og:updated_time" content="2019-10-10T12:37:35.343Z">
+<meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_03.png">
+<meta property="og:updated_time" content="2019-10-11T12:35:56.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 03 JavaWeb基础">
 <meta name="twitter:description" content="内容可能较多，包括Servlet，Jsp，Maven，html，Js等内容">
@@ -271,7 +272,89 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 终止化代码...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h3><p><img src="/assets/JavaEE/javaweb_02.png" alt="Servlet生命周期架构图">  </p>
-<h2 id="表单数据"><a href="#表单数据" class="headerlink" title="表单数据"></a>表单数据</h2>
+<h2 id="表单数据"><a href="#表单数据" class="headerlink" title="表单数据"></a>表单数据</h2><p>在我们的开发过程中表单是非常常用的一个组件，不管是登录也好，还是搜索，等等。浏览器使用两种方法可将表单信息传递给web服务器，分别是GET和POST<br>GET方法是默认的从浏览器向web服务器传递信息的方法，它会产生一个很长的字符串，并且出现在浏览器的地址栏中。如果我们想要传递一些比较敏感的信息，不要使用GET方法，并且GET方法对字符串大小也有限制，请求字符串中最多只能有1024个字符<br>POST方法是向后台传递信息比较可靠的方法。POST方法打包信息的方式与GET方法基本相同。但是POST方法不是吧信息直接放在URL的文本字符串发送，而是将这些信息作为一个单独的消息进行传递。消息以标准输出的形式传到后台程序。</p>
+<p>使用Servlet读取表单数据，这些数据会根据不同的情况使用不同的方法自动解析：</p>
+<ol>
+<li>getParameter():可以调用request.getParameter()方法来获取表单参数的值</li>
+<li>getParameterValues():如果参数出现一次以上，则调用该方法，并且返回多个值，比如复选框</li>
+<li>getParameterNames():如果想要得到当前请求中的所有参数的完整列表，则调用该方法</li>
+</ol>
+<p>一个例子：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class LoginServlet extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> doGet(HttpServletRequest req, HttpServletResponse resp) <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        resp.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line">        <span class="keyword">String</span> title = <span class="string">"使用get方法读取表单内容"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">String</span> name = req.getParameter(<span class="string">"inputEmail"</span>);</span><br><span class="line">        System.out.<span class="built_in">println</span>(name);</span><br><span class="line">        System.out.<span class="built_in">println</span>(req.getParameter(<span class="string">"inputEmail"</span>));</span><br><span class="line">        <span class="keyword">String</span> password = req.getParameter(<span class="string">"inputPassword"</span>);</span><br><span class="line">        <span class="keyword">String</span> remember = req.getParameter(<span class="string">"remember"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">String</span> docType = <span class="string">"&lt;!DOCTYPE html&gt; \n"</span>;</span><br><span class="line">        out.<span class="built_in">println</span>(docType +</span><br><span class="line">                <span class="string">"&lt;html&gt; \n"</span> +</span><br><span class="line">                <span class="string">"&lt;head&gt;&lt;title&gt;"</span> + title + <span class="string">"&lt;/title&gt;&lt;/head&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;body bgcolor=\"#f0f0f0\"&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;h1 align=\"center\"&gt;"</span> + title + <span class="string">"&lt;/h1&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;ul&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;li&gt;&lt;b&gt;姓名&lt;/b&gt;："</span></span><br><span class="line">                + name + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;li&gt;&lt;b&gt;密码&lt;/b&gt;："</span></span><br><span class="line">                + password + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;li&gt;&lt;b&gt;是否选择记住我&lt;/b&gt;: "</span></span><br><span class="line">                + remember + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"&lt;/ul&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;/body&gt;&lt;/html&gt;"</span>);</span><br><span class="line">        System.out.<span class="built_in">println</span>(getAllParameter(req));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> doPost(HttpServletRequest req, HttpServletResponse resp) <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        resp.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line">        <span class="keyword">String</span> title = <span class="string">"使用post方法读取表单内容"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">String</span> name = <span class="keyword">new</span> <span class="keyword">String</span>(req.getParameter(<span class="string">"inputName"</span>).getBytes(<span class="string">"ISO8859-1"</span>), <span class="string">"UTF-8"</span>);</span><br><span class="line">        <span class="keyword">String</span> password = req.getParameter(<span class="string">"inputPassword"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">String</span> docType = <span class="string">"&lt;!DOCTYPE html&gt; \n"</span>;</span><br><span class="line">        out.<span class="built_in">println</span>(docType +</span><br><span class="line">                <span class="string">"&lt;html&gt; \n"</span> +</span><br><span class="line">                <span class="string">"&lt;head&gt;&lt;title&gt;"</span> + title + <span class="string">"&lt;/title&gt;&lt;/head&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;body bgcolor=\"#f0f0f0\"&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;h1 align=\"center\"&gt;"</span> + title + <span class="string">"&lt;/h1&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;ul&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;li&gt;&lt;b&gt;姓名&lt;/b&gt;："</span></span><br><span class="line">                + name + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;li&gt;&lt;b&gt;密码&lt;/b&gt;："</span></span><br><span class="line">                + password + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"&lt;/ul&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;/body&gt;&lt;/html&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取所有的参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; getAllParameter(HttpServletRequest request) &#123;</span><br><span class="line">        <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; result = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (request == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        Enumeration paramNames = request.getParameterNames();</span><br><span class="line">        <span class="keyword">while</span> (paramNames.hasMoreElements()) &#123;</span><br><span class="line">            <span class="keyword">String</span> paramName = (<span class="keyword">String</span>) paramNames.nextElement();</span><br><span class="line">            <span class="keyword">String</span>[] paramValues = request.getParameterValues(paramName);</span><br><span class="line">            <span class="keyword">if</span> (paramValues.length == <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="comment">// 只有一个数据，就去当前值</span></span><br><span class="line">                <span class="keyword">String</span> paramValue = paramValues[<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">if</span> (paramValue.length() == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="comment">// 没有数据，不用执行</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 有数据，将key/value值写入到Map中</span></span><br><span class="line">                    result.put(paramName, paramValue);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 读取到了多个值</span></span><br><span class="line">                <span class="keyword">String</span> paramVlue = paramValues[paramValues.length - <span class="number">1</span>];</span><br><span class="line">                result.put(paramName, paramVlue);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>网页代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"bootstrap/css/bootstrap.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery/jquery.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bootstrap/js/bootstrap.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>表单<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"form-horizontal"</span> <span class="attr">action</span>=<span class="string">"login"</span> <span class="attr">method</span>=<span class="string">"get"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"control-group"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"control-label"</span> <span class="attr">for</span>=<span class="string">"inputEmail"</span>&gt;</span>邮箱<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"controls"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"inputEmail"</span> <span class="attr">id</span>=<span class="string">"inputEmail"</span> <span class="attr">placeholder</span>=<span class="string">"请输入邮箱"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"control-group"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"control-label"</span> <span class="attr">for</span>=<span class="string">"inputPassword"</span>&gt;</span>密码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"controls"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"inputPassword"</span> <span class="attr">id</span>=<span class="string">"inputPassword"</span> <span class="attr">placeholder</span>=<span class="string">"请输入密码"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"control-group"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"controls"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"checkbox"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"remember"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span>&gt;</span> 记住我</span><br><span class="line">                <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">class</span>=<span class="string">"btn"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端HTTP请求"><a href="#客户端HTTP请求" class="headerlink" title="客户端HTTP请求"></a>客户端HTTP请求</h2><p>这里主要介绍在浏览器向后台发送HTTP请求的时候发送的是哪些参数<br>浏览器端重要的头信息：</p>
+<table>
+<thead>
+<tr>
+<th>头信息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>这个头信息指定浏览器或其他客户端可以处理的 MIME 类型。值 image/png 或 image/jpeg 是最常见的两种可能值</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>这个头信息指定浏览器可以用来显示信息的字符集。例如 ISO-8859-1。</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>这个头信息指定浏览器知道如何处理的编码类型。值 gzip 或 compress 是最常见的两种可能值。</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>这个头信息指定客户端的首选语言，在这种情况下，Servlet 会产生多种语言的结果。例如，en、en-us、ru 等。</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>这个头信息用于客户端在访问受密码保护的网页时识别自己的身份。</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>这个头信息指示客户端是否可以处理持久 HTTP 连接。持久连接允许客户端或其他浏览器通过单个请求来检索多个文件。值 Keep-Alive 意味着使用了持续连接。</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>这个头信息只适用于 POST 请求，并给出 POST 数据的大小（以字节为单位）。</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>这个头信息把之前发送到浏览器的 cookies 返回到服务器。</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>这个头信息指定原始的 URL 中的主机和端口。</td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>这个头信息表示只有当页面在指定的日期后已更改时，客户端想要的页面。如果没有新的结果可以使用，服务器会发送一个 304 代码，表示 Not Modified 头信息。</td>
+</tr>
+<tr>
+<td>If-Unmodified-Since</td>
+<td>这个头信息是 If-Modified-Since 的对立面，它指定只有当文档早于指定日期时，操作才会成功。</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>这个头信息指示所指向的 Web 页的 URL。例如，如果您在网页 1，点击一个链接到网页 2，当浏览器请求网页 2 时，网页 1 的 URL 就会包含在 Referer 头信息中。</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>这个头信息识别发出请求的浏览器或其他客户端，并可以向不同类型的浏览器返回不同的内容。</td>
+</tr>
+</tbody></table>
+<p>读取HTTP头的方法<br>|方法|描述|<br>|—|—|<br>|Cookie[] getCookies()|返回一个数组，包含客户端发送该请求的所有Cookie对象|<br>|Enumeration getAttributeNames()|返回一个枚举，包含提供给该请求可用的属性名称|<br>|Enumeration getHeaderNames()|返回一个枚举，包含在该请求中包含的所有的头名|<br>|Enumeration getParameterNames()|返回一个String对象的枚举，包含在该请求中包含的参数的名称|<br>|HttpSession getSession()|返回与该请求相关联的当前session会话，如果没有请求session会话，则会创建一个|<br>|HttpSession getSession(boolean create)|返回与该请求相关的当前HttpSession，或者如果没有当前会话，且创建时真的，则返回新建的session会话|<br>|Locale getLocale()|基于Accept-Language头，返回客户端接收内容的首选的区域设置|<br>|Object getAttribute(String name)|一对象形式返回已命名属性的值，如果没有给定名称的属性存在，则返回null|<br>|ServletInputStream getIputStream()|使用ServletInputStream，以二进制数形式检索请求的主体|<br>|String getAuthType()|返回用于保护Servlet的身份验证方案的名称，如”BASIC”或”SSL”，如果JSP没有收到保护则返回null|<br>|String getCharacterEncoding()|返回请求主体中使用的字符编码的名称|<br>|String getContentType()|返回请求主体MIME类型，如果不知道类型则返回null|<br>|String getContextPath()|返回指示请求上下文的请求URI部分|<br>|String getHeader(String name)|以字符串形式返回指定的请求头的值|<br>|String getMethod()|返回请求的HTTP方法额名称，例如GET，POST，PUT|<br>|String getParameter(String name)|以字符串形式返回请求参数的值，或者如果参数不存在则返回null|<br>|String getPathInfo()|当请求发出时，返回与客户端发送的URL相关的任何额外的路径信息|<br>|String getProtocol()|返回请求协议的名称和版本|<br>|String getQueryString()|返回包含在路径后的请求URL中查询字符串|<br>|String getRemoteAddr()|返回发送请求的客户端的互联网协议(IP)地址|<br>|String getRemoteHost()|返回发送请求的客户端的完全限定名称|<br>|String getRemoteUser()|如果用户已通过身份验证，则返回发出请求的登录用户，或者如果用户未通过身份验证，则返回null|<br>|String getRequestURI()|从协议名称知道HTTP请求的第一行的查询字符串中，返回该请求的URL的一部分|<br>|String getRequestedSessionId()|返回有客户端指定的session会话id|<br>|String getSevletPath()|返回调用JSP的请求的URL的一部分|<br>|String[] getParameterValues(String name)|返回一个字符串对象的数组，包含所有给定的请求参数的值，如果参数不存在则返回null|<br>|boolean isSecure()|返回一个布尔值，指示请求是否使用安全通道，如HTTPS|<br>|int getCountentLength()|以字节为单位返回请求主体的长度，并提供输入流，如果长度位置则返回-1|<br>|int getIntHeader(String name)|返回指定的请求头的值为一个int值|<br>|int getServerPort()|返回接收到这个请求的端口号|<br>|int getParameterMap()|将参数封装成Map类型|</p>
+<p>例子：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class HTTPServlet extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line"><span class="comment">// 设置响应内容类型</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line"></span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">        String title = <span class="string">"HTTP Header 请求实例 "</span>;</span><br><span class="line">        String docType =</span><br><span class="line">                <span class="string">"&lt;!DOCTYPE html&gt; <span class="subst">\n</span>"</span>;</span><br><span class="line">        out.println(docType +</span><br><span class="line">                <span class="string">"&lt;html&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;head&gt;&lt;meta charset=<span class="subst">\"</span>utf-8<span class="subst">\"</span>&gt;&lt;title&gt;"</span> + title + <span class="string">"&lt;/title&gt;&lt;/head&gt;<span class="subst">\n</span>"</span>+</span><br><span class="line">                <span class="string">"&lt;body bgcolor=<span class="subst">\"</span>#f0f0f0<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;h1 align=<span class="subst">\"</span>center<span class="subst">\"</span>&gt;"</span> + title + <span class="string">"&lt;/h1&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;table width=<span class="subst">\"</span>100%<span class="subst">\"</span> border=<span class="subst">\"</span>1<span class="subst">\"</span> align=<span class="subst">\"</span>center<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr bgcolor=<span class="subst">\"</span>#949494<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;th&gt;Header 名称&lt;/th&gt;&lt;th&gt;Header 值&lt;/th&gt;<span class="subst">\n</span>"</span>+</span><br><span class="line">                <span class="string">"&lt;/tr&gt;<span class="subst">\n</span>"</span>);</span><br><span class="line"></span><br><span class="line">        Enumeration headerNames = request.getHeaderNames();</span><br><span class="line"></span><br><span class="line">        while(headerNames.hasMoreElements()) &#123;</span><br><span class="line">            String paramName = (String)headerNames.nextElement();</span><br><span class="line">            out.print(<span class="string">"&lt;tr&gt;&lt;td&gt;"</span> + paramName + <span class="string">"&lt;/td&gt;<span class="subst">\n</span>"</span>);</span><br><span class="line">            String paramValue = request.getHeader(paramName);</span><br><span class="line">            out.println(<span class="string">"&lt;td&gt; "</span> + paramValue + <span class="string">"&lt;/td&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(<span class="string">"&lt;/table&gt;<span class="subst">\n</span>&lt;/body&gt;&lt;/html&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>网页代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"bootstrap/css/bootstrap.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery/jquery.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bootstrap/js/bootstrap.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-primary btn-danger"</span> <span class="attr">href</span>=<span class="string">"http"</span>&gt;</span>发送请求<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/JavaEE/javaweb_03.png" alt="Http请求header"></p>
+
       
 
       
@@ -515,15 +598,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,18 +619,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">音视频</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">realm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,7 +646,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">realm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -595,7 +674,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,6 +683,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">video</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,15 +702,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">推送</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">推送</a>
               </li>
              
               <li class="article-tag-list-item">
