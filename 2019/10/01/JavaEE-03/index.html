@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_01.png">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_02.png">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_03.png">
-<meta property="og:updated_time" content="2019-10-11T12:35:56.267Z">
+<meta property="og:updated_time" content="2019-10-12T14:12:23.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 03 JavaWeb基础">
 <meta name="twitter:description" content="内容可能较多，包括Servlet，Jsp，Maven，html，Js等内容">
@@ -346,7 +346,139 @@
 <td>这个头信息识别发出请求的浏览器或其他客户端，并可以向不同类型的浏览器返回不同的内容。</td>
 </tr>
 </tbody></table>
-<p>读取HTTP头的方法<br>|方法|描述|<br>|—|—|<br>|Cookie[] getCookies()|返回一个数组，包含客户端发送该请求的所有Cookie对象|<br>|Enumeration getAttributeNames()|返回一个枚举，包含提供给该请求可用的属性名称|<br>|Enumeration getHeaderNames()|返回一个枚举，包含在该请求中包含的所有的头名|<br>|Enumeration getParameterNames()|返回一个String对象的枚举，包含在该请求中包含的参数的名称|<br>|HttpSession getSession()|返回与该请求相关联的当前session会话，如果没有请求session会话，则会创建一个|<br>|HttpSession getSession(boolean create)|返回与该请求相关的当前HttpSession，或者如果没有当前会话，且创建时真的，则返回新建的session会话|<br>|Locale getLocale()|基于Accept-Language头，返回客户端接收内容的首选的区域设置|<br>|Object getAttribute(String name)|一对象形式返回已命名属性的值，如果没有给定名称的属性存在，则返回null|<br>|ServletInputStream getIputStream()|使用ServletInputStream，以二进制数形式检索请求的主体|<br>|String getAuthType()|返回用于保护Servlet的身份验证方案的名称，如”BASIC”或”SSL”，如果JSP没有收到保护则返回null|<br>|String getCharacterEncoding()|返回请求主体中使用的字符编码的名称|<br>|String getContentType()|返回请求主体MIME类型，如果不知道类型则返回null|<br>|String getContextPath()|返回指示请求上下文的请求URI部分|<br>|String getHeader(String name)|以字符串形式返回指定的请求头的值|<br>|String getMethod()|返回请求的HTTP方法额名称，例如GET，POST，PUT|<br>|String getParameter(String name)|以字符串形式返回请求参数的值，或者如果参数不存在则返回null|<br>|String getPathInfo()|当请求发出时，返回与客户端发送的URL相关的任何额外的路径信息|<br>|String getProtocol()|返回请求协议的名称和版本|<br>|String getQueryString()|返回包含在路径后的请求URL中查询字符串|<br>|String getRemoteAddr()|返回发送请求的客户端的互联网协议(IP)地址|<br>|String getRemoteHost()|返回发送请求的客户端的完全限定名称|<br>|String getRemoteUser()|如果用户已通过身份验证，则返回发出请求的登录用户，或者如果用户未通过身份验证，则返回null|<br>|String getRequestURI()|从协议名称知道HTTP请求的第一行的查询字符串中，返回该请求的URL的一部分|<br>|String getRequestedSessionId()|返回有客户端指定的session会话id|<br>|String getSevletPath()|返回调用JSP的请求的URL的一部分|<br>|String[] getParameterValues(String name)|返回一个字符串对象的数组，包含所有给定的请求参数的值，如果参数不存在则返回null|<br>|boolean isSecure()|返回一个布尔值，指示请求是否使用安全通道，如HTTPS|<br>|int getCountentLength()|以字节为单位返回请求主体的长度，并提供输入流，如果长度位置则返回-1|<br>|int getIntHeader(String name)|返回指定的请求头的值为一个int值|<br>|int getServerPort()|返回接收到这个请求的端口号|<br>|int getParameterMap()|将参数封装成Map类型|</p>
+<p>读取HTTP头的方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cookie[] getCookies()</td>
+<td>返回一个数组，包含客户端发送该请求的所有Cookie对象</td>
+</tr>
+<tr>
+<td>Enumeration getAttributeNames()</td>
+<td>返回一个枚举，包含提供给该请求可用的属性名称</td>
+</tr>
+<tr>
+<td>Enumeration getHeaderNames()</td>
+<td>返回一个枚举，包含在该请求中包含的所有的头名</td>
+</tr>
+<tr>
+<td>Enumeration getParameterNames()</td>
+<td>返回一个String对象的枚举，包含在该请求中包含的参数的名称</td>
+</tr>
+<tr>
+<td>HttpSession getSession()</td>
+<td>返回与该请求相关联的当前session会话，如果没有请求session会话，则会创建一个</td>
+</tr>
+<tr>
+<td>HttpSession getSession(boolean create)</td>
+<td>返回与该请求相关的当前HttpSession，或者如果没有当前会话，且创建时真的，则返回新建的session会话</td>
+</tr>
+<tr>
+<td>Locale getLocale()</td>
+<td>基于Accept-Language头，返回客户端接收内容的首选的区域设置</td>
+</tr>
+<tr>
+<td>Object getAttribute(String name)</td>
+<td>一对象形式返回已命名属性的值，如果没有给定名称的属性存在，则返回null</td>
+</tr>
+<tr>
+<td>ServletInputStream getIputStream()</td>
+<td>使用ServletInputStream，以二进制数形式检索请求的主体</td>
+</tr>
+<tr>
+<td>String getAuthType()</td>
+<td>返回用于保护Servlet的身份验证方案的名称，如”BASIC”或”SSL”，如果JSP没有收到保护则返回null</td>
+</tr>
+<tr>
+<td>String getCharacterEncoding()</td>
+<td>返回请求主体中使用的字符编码的名称</td>
+</tr>
+<tr>
+<td>String getContentType()</td>
+<td>返回请求主体MIME类型，如果不知道类型则返回null</td>
+</tr>
+<tr>
+<td>String getContextPath()</td>
+<td>返回指示请求上下文的请求URI部分</td>
+</tr>
+<tr>
+<td>String getHeader(String name)</td>
+<td>以字符串形式返回指定的请求头的值</td>
+</tr>
+<tr>
+<td>String getMethod()</td>
+<td>返回请求的HTTP方法额名称，例如GET，POST，PUT</td>
+</tr>
+<tr>
+<td>String getParameter(String name)</td>
+<td>以字符串形式返回请求参数的值，或者如果参数不存在则返回null</td>
+</tr>
+<tr>
+<td>String getPathInfo()</td>
+<td>当请求发出时，返回与客户端发送的URL相关的任何额外的路径信息</td>
+</tr>
+<tr>
+<td>String getProtocol()</td>
+<td>返回请求协议的名称和版本</td>
+</tr>
+<tr>
+<td>String getQueryString()</td>
+<td>返回包含在路径后的请求URL中查询字符串</td>
+</tr>
+<tr>
+<td>String getRemoteAddr()</td>
+<td>返回发送请求的客户端的互联网协议(IP)地址</td>
+</tr>
+<tr>
+<td>String getRemoteHost()</td>
+<td>返回发送请求的客户端的完全限定名称</td>
+</tr>
+<tr>
+<td>String getRemoteUser()</td>
+<td>如果用户已通过身份验证，则返回发出请求的登录用户，或者如果用户未通过身份验证，则返回null</td>
+</tr>
+<tr>
+<td>String getRequestURI()</td>
+<td>从协议名称知道HTTP请求的第一行的查询字符串中，返回该请求的URL的一部分</td>
+</tr>
+<tr>
+<td>String getRequestedSessionId()</td>
+<td>返回有客户端指定的session会话id</td>
+</tr>
+<tr>
+<td>String getSevletPath()</td>
+<td>返回调用JSP的请求的URL的一部分</td>
+</tr>
+<tr>
+<td>String[] getParameterValues(String name)</td>
+<td>返回一个字符串对象的数组，包含所有给定的请求参数的值，如果参数不存在则返回null</td>
+</tr>
+<tr>
+<td>boolean isSecure()</td>
+<td>返回一个布尔值，指示请求是否使用安全通道，如HTTPS</td>
+</tr>
+<tr>
+<td>int getCountentLength()</td>
+<td>以字节为单位返回请求主体的长度，并提供输入流，如果长度位置则返回-1</td>
+</tr>
+<tr>
+<td>int getIntHeader(String name)</td>
+<td>返回指定的请求头的值为一个int值</td>
+</tr>
+<tr>
+<td>int getServerPort()</td>
+<td>返回接收到这个请求的端口号</td>
+</tr>
+<tr>
+<td>int getParameterMap()</td>
+<td>将参数封装成Map类型</td>
+</tr>
+</tbody></table>
 <p>例子：</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class HTTPServlet extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line"><span class="comment">// 设置响应内容类型</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line"></span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">        String title = <span class="string">"HTTP Header 请求实例 "</span>;</span><br><span class="line">        String docType =</span><br><span class="line">                <span class="string">"&lt;!DOCTYPE html&gt; <span class="subst">\n</span>"</span>;</span><br><span class="line">        out.println(docType +</span><br><span class="line">                <span class="string">"&lt;html&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;head&gt;&lt;meta charset=<span class="subst">\"</span>utf-8<span class="subst">\"</span>&gt;&lt;title&gt;"</span> + title + <span class="string">"&lt;/title&gt;&lt;/head&gt;<span class="subst">\n</span>"</span>+</span><br><span class="line">                <span class="string">"&lt;body bgcolor=<span class="subst">\"</span>#f0f0f0<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;h1 align=<span class="subst">\"</span>center<span class="subst">\"</span>&gt;"</span> + title + <span class="string">"&lt;/h1&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;table width=<span class="subst">\"</span>100%<span class="subst">\"</span> border=<span class="subst">\"</span>1<span class="subst">\"</span> align=<span class="subst">\"</span>center<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr bgcolor=<span class="subst">\"</span>#949494<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;th&gt;Header 名称&lt;/th&gt;&lt;th&gt;Header 值&lt;/th&gt;<span class="subst">\n</span>"</span>+</span><br><span class="line">                <span class="string">"&lt;/tr&gt;<span class="subst">\n</span>"</span>);</span><br><span class="line"></span><br><span class="line">        Enumeration headerNames = request.getHeaderNames();</span><br><span class="line"></span><br><span class="line">        while(headerNames.hasMoreElements()) &#123;</span><br><span class="line">            String paramName = (String)headerNames.nextElement();</span><br><span class="line">            out.print(<span class="string">"&lt;tr&gt;&lt;td&gt;"</span> + paramName + <span class="string">"&lt;/td&gt;<span class="subst">\n</span>"</span>);</span><br><span class="line">            String paramValue = request.getHeader(paramName);</span><br><span class="line">            out.println(<span class="string">"&lt;td&gt; "</span> + paramValue + <span class="string">"&lt;/td&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(<span class="string">"&lt;/table&gt;<span class="subst">\n</span>&lt;/body&gt;&lt;/html&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -354,7 +486,178 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"bootstrap/css/bootstrap.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery/jquery.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bootstrap/js/bootstrap.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-primary btn-danger"</span> <span class="attr">href</span>=<span class="string">"http"</span>&gt;</span>发送请求<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/assets/JavaEE/javaweb_03.png" alt="Http请求header"></p>
+<h2 id="客户端HTTP响应"><a href="#客户端HTTP响应" class="headerlink" title="客户端HTTP响应"></a>客户端HTTP响应</h2><p>和前面的你饿哦让一样，当一个web服务器响应一个HTTP请求时，响应通常包括一个状态行，一些响应报头，一个空行和文档。典型的如下所示</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Header2: ...</span><br><span class="line">...</span><br><span class="line">HeaderN: ...</span><br><span class="line">  (Blank Line)</span><br><span class="line"><span class="meta">&lt;!doctype ...&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>...<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<p>状态行包括HTTP版本(HTTP/1.1)，一个状态码(200)和一个对应于状态码的短消息(OK)</p>
+<p>下表总结了从Web服务器端返回到浏览器的最有用的HTTP1.1响应报头，我们可能会在开发中频繁使用:</p>
+<table>
+<thead>
+<tr>
+<th>头信息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Allow</td>
+<td>这个头信息指定服务器支持的请求方法（GET、POST 等）。</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>这个头信息指定响应文档在何种情况下可以安全地缓存。可能的值有：public、private 或 no-cache 等。Public 意味着文档是可缓存，Private 意味着文档是单个用户私用文档，且只能存储在私有（非共享）缓存中，no-cache 意味着文档不应被缓存。</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>这个头信息指示浏览器是否使用持久 HTTP 连接。值 close 指示浏览器不使用持久 HTTP 连接，值 keep-alive 意味着使用持久连接。</td>
+</tr>
+<tr>
+<td>Content-Disposition</td>
+<td>这个头信息可以让您请求浏览器要求用户以给定名称的文件把响应保存到磁盘。</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>在传输过程中，这个头信息指定页面的编码方式。</td>
+</tr>
+<tr>
+<td>Content-Language</td>
+<td>这个头信息表示文档编写所使用的语言。例如，en、en-us、ru 等。</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>这个头信息指示响应中的字节数。只有当浏览器使用持久（keep-alive）HTTP 连接时才需要这些信息。</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>这个头信息提供了响应文档的 MIME（Multipurpose Internet Mail Extension）类型。</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>这个头信息指定内容过期的时间，在这之后内容不再被缓存。</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>这个头信息指示文档的最后修改时间。然后，客户端可以缓存文件，并在以后的请求中通过 If-Modified-Since 请求头信息提供一个日期。</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>这个头信息应被包含在所有的带有状态码的响应中。在 300s 内，这会通知浏览器文档的地址。浏览器会自动重新连接到这个位置，并获取新的文档。</td>
+</tr>
+<tr>
+<td>Refresh</td>
+<td>这个头信息指定浏览器应该如何尽快请求更新的页面。您可以指定页面刷新的秒数。</td>
+</tr>
+<tr>
+<td>Retry-After</td>
+<td>这个头信息可以与 503（Service Unavailable 服务不可用）响应配合使用，这会告诉客户端多久就可以重复它的请求。</td>
+</tr>
+<tr>
+<td>Set-Cookie</td>
+<td>这个头信息指定一个与页面关联的 cookie。</td>
+</tr>
+</tbody></table>
+<p>设置HTTP响应报头的方法<br>这些方法可用于在Servlet程序中设置HTTP响应报头，通过HttpServletResponse对象可用</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String encodeRedorectURL(String url)</td>
+<td>为sendRedirect方法中使用的指定的URL进行编码，或者如果编码不是必须的，则返回URL未改变</td>
+</tr>
+<tr>
+<td>String encodeURL(String url)</td>
+<td>对包含session会话ID的指定URL编码，或者如果编码不是必须的，则返回URL未改变</td>
+</tr>
+<tr>
+<td>boolean containsHeader(String name)</td>
+<td>返回一个布尔值，指示是否已经设置已命名的相应报头</td>
+</tr>
+<tr>
+<td>boolean isCommitted()</td>
+<td>返回一个布尔值，指示响应是否已经提交</td>
+</tr>
+<tr>
+<td>void addCookie(Cookie coookie)</td>
+<td>把置顶的cookie添加到响应</td>
+</tr>
+<tr>
+<td>void addHeader(String name,String value)</td>
+<td>添加一个带有给定的名称和值的响应报头</td>
+</tr>
+<tr>
+<td>void addDateHeader(String name,long date)</td>
+<td>添加一个带有给定名称和日期值的响应报头</td>
+</tr>
+<tr>
+<td>void addIntHeader(String name,int value)</td>
+<td>添加一个带有给定名称和整数值的响应报头</td>
+</tr>
+<tr>
+<td>void flushBuffer()</td>
+<td>强制任何在缓冲区中的内容被写入到客户端</td>
+</tr>
+<tr>
+<td>void reset()</td>
+<td>清除缓冲区中存在的任何数据，包括状态码和头</td>
+</tr>
+<tr>
+<td>void resetBuffer()</td>
+<td>清除响应中基础缓存区的内容，不清除状态码和头</td>
+</tr>
+<tr>
+<td>void sendError(int sc)</td>
+<td>使用指定的状态码发送错误响应到客户端，并清除缓冲区</td>
+</tr>
+<tr>
+<td>void sendError(int sc,String msg)</td>
+<td>使用指定的状态发送错误响应到客户端</td>
+</tr>
+<tr>
+<td>void sendRedirect(String location)</td>
+<td>使用指定的重定向位置URL发送临时重定向响应到客户端</td>
+</tr>
+<tr>
+<td>void setBufferSize(int size)</td>
+<td>为响应主体设置首选的缓冲区大小</td>
+</tr>
+<tr>
+<td>void setCharacterEncoding(String charset)</td>
+<td>设置被发送到客户端的响应的字符编码(MIME字符集),例如UTF-8</td>
+</tr>
+<tr>
+<td>void setContentLength(int len)</td>
+<td>设置在HTTPServlet响应中内容主体的长度，该方法设置HTTP content-Length头</td>
+</tr>
+<tr>
+<td>void setContentType(String type)</td>
+<td>如果响应还未被提交，设置被发送到客户端的响应内容的类型</td>
+</tr>
+<tr>
+<td>void setDateHeader(String name,long date)</td>
+<td>设置一个带有给定名称和日期值的响应报头</td>
+</tr>
+<tr>
+<td>void setHeader(String name,String value)</td>
+<td>设置一个带有给定名称和值的响应报头</td>
+</tr>
+<tr>
+<td>void setIntHeader(String name,int value)</td>
+<td>设置一个带有给定的名称和整数值的响应报头</td>
+</tr>
+<tr>
+<td>void setLocale(Locale loc)</td>
+<td>如果响应还未被提交，设置响应的区域</td>
+</tr>
+<tr>
+<td>void setStatus(int sc)</td>
+<td>为该响应设置状态码</td>
+</tr>
+</tbody></table>
+<p>一个例子：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Refresh</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理 GET 方法请求的方法</span></span><br><span class="line">      public void doGet(<span class="type">HttpServletRequest</span> request,</span><br><span class="line">                        <span class="type">HttpServletResponse</span> response)</span><br><span class="line">                <span class="keyword">throws</span> <span class="type">ServletException</span>, <span class="type">IOException</span></span><br><span class="line">      &#123;</span><br><span class="line">          <span class="comment">// 设置刷新自动加载时间为 5 秒</span></span><br><span class="line">          response.setIntHeader(<span class="string">"Refresh"</span>, <span class="number">5</span>);</span><br><span class="line">          <span class="comment">// 设置响应内容类型</span></span><br><span class="line">          response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">         </span><br><span class="line">          <span class="comment">//使用默认时区和语言环境获得一个日历  </span></span><br><span class="line">          <span class="type">Calendar</span> cale = <span class="type">Calendar</span>.getInstance();  </span><br><span class="line">          <span class="comment">//将Calendar类型转换成Date类型  </span></span><br><span class="line">          <span class="type">Date</span> tasktime=cale.getTime();  </span><br><span class="line">          <span class="comment">//设置日期输出的格式  </span></span><br><span class="line">          <span class="type">SimpleDateFormat</span> df=<span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);  </span><br><span class="line">          <span class="comment">//格式化输出  </span></span><br><span class="line">          <span class="type">String</span> nowTime = df.format(tasktime);</span><br><span class="line">          <span class="type">PrintWriter</span> out = response.getWriter();</span><br><span class="line">          <span class="type">String</span> title = <span class="string">"自动刷新 Header 设置 - 菜鸟教程实例"</span>;</span><br><span class="line">          <span class="type">String</span> docType =</span><br><span class="line">          <span class="string">"&lt;!DOCTYPE html&gt;\n"</span>;</span><br><span class="line">          out.println(docType +</span><br><span class="line">            <span class="string">"&lt;html&gt;\n"</span> +</span><br><span class="line">            <span class="string">"&lt;head&gt;&lt;title&gt;"</span> + title + <span class="string">"&lt;/title&gt;&lt;/head&gt;\n"</span>+</span><br><span class="line">            <span class="string">"&lt;body bgcolor=\"#f0f0f0\"&gt;\n"</span> +</span><br><span class="line">            <span class="string">"&lt;h1 align=\"center\"&gt;"</span> + title + <span class="string">"&lt;/h1&gt;\n"</span> +</span><br><span class="line">            <span class="string">"&lt;p&gt;当前时间是："</span> + nowTime + <span class="string">"&lt;/p&gt;\n"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 处理 POST 方法请求的方法</span></span><br><span class="line">      public void doPost(<span class="type">HttpServletRequest</span> request,</span><br><span class="line">                         <span class="type">HttpServletResponse</span> response)</span><br><span class="line">          <span class="keyword">throws</span> <span class="type">ServletException</span>, <span class="type">IOException</span> &#123;</span><br><span class="line">         doGet(request, response);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -590,11 +893,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,11 +909,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,15 +981,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">record</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">video</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
