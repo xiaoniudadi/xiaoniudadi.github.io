@@ -21,7 +21,11 @@
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_03.png">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_04.png">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_05.png">
-<meta property="og:updated_time" content="2019-10-13T15:01:07.000Z">
+<meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_06.png">
+<meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_07.png">
+<meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_08.png">
+<meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_09.png">
+<meta property="og:updated_time" content="2019-10-14T16:03:31.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 03 JavaWeb基础">
 <meta name="twitter:description" content="内容可能较多，包括Servlet，Jsp，Maven，html，Js等内容">
@@ -760,7 +764,142 @@
 <li>当浏览器再次访问那个服务器，会把这个Cookie放在请求头并发送给服务器</li>
 <li>服务器从请求头中提取Cookie，判别数据执行相应的操作</li>
 </ol>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://www.cnblogs.com/vmax-tam/p/4130589.html" target="_blank" rel="noopener">Cookie和Session</a></p>
+<h3 id="Cookie剖析"><a href="#Cookie剖析" class="headerlink" title="Cookie剖析"></a>Cookie剖析</h3><p>Cookie通常设置在HTTP头信息中(虽然JavaScript也可以直接在浏览器设置一个Cookie)。设置Cookie的Servlet会发送如下的头信息<br><img src="/assets/JavaEE/javaweb_06.png" alt="图片是我拷贝的"></p>
+<p>如图所示，Set-Cookie头包含了一个名称值对，一个GMT日期，一个路径和一个域。名称和值会被URL编码。expires字段是一个指令，告诉浏览器在给定的时间和日期之后忘记Cookie<br>如果浏览器被配置为存储Cookie，他将会保留此信息直到到期日期。如果用户的浏览器指向任何匹配该Cookie的路径和域的页面，他会重新发送Cookie到服务器，浏览器的头信息可能如下：<br><img src="/assets/JavaEE/javaweb_07.png" alt="图片是我拷贝的"></p>
+<p>Cookie方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public void setDomain(String pattern)</td>
+<td>该方法设置cookie使用的域</td>
+</tr>
+<tr>
+<td>public String getDomain()</td>
+<td>该方法获取cookie适用的域</td>
+</tr>
+<tr>
+<td>public void setMaxAge(int expiry)</td>
+<td>设置cookie过期的时间，以秒为单位，如果不设置，则cookie会在当前Session会话中持续有效</td>
+</tr>
+<tr>
+<td>public int getMaxAge()</td>
+<td>该方法返回cookie的最大生存周期，以秒为单位，默认情况下为-1，表示cookie会持续下去，知道浏览器关闭</td>
+</tr>
+<tr>
+<td>public String getName()</td>
+<td>该方法返回cookie名称，名称在创建后不能改变</td>
+</tr>
+<tr>
+<td>public void setValue(String newValue)</td>
+<td>该方法设置与cookie关联的值</td>
+</tr>
+<tr>
+<td>public String getValue()</td>
+<td>方法获取与cookie相关联的值</td>
+</tr>
+<tr>
+<td>public void setPath(String uri)</td>
+<td>该方法设置cookie使用的路径，如果不指定路径，与当前页面相同目录下的(包括子目录)所有URL都会返回cookie</td>
+</tr>
+<tr>
+<td>public String getPath()</td>
+<td>该方法获取Cookie使用的路径</td>
+</tr>
+<tr>
+<td>public void setSecure(boolean flag)</td>
+<td>该方法设置布尔值，表示cookie是否应该只在加密的(即SSL)连接上发送</td>
+</tr>
+<tr>
+<td>public void setComment(String purpose)</td>
+<td>设置cookie的注解，该注解在浏览器向用户呈现cookie时非常有用</td>
+</tr>
+<tr>
+<td>public String getComment()</td>
+<td>获取cookie的注释，如果cookie没有注释则返回null</td>
+</tr>
+</tbody></table>
+<h3 id="Cookie的使用"><a href="#Cookie的使用" class="headerlink" title="Cookie的使用"></a>Cookie的使用</h3><p>创建一个Cookie</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">CookieServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> void doPost(<span class="type">HttpServletRequest</span> req, <span class="type">HttpServletResponse</span> resp) <span class="keyword">throws</span> <span class="type">ServletException</span>, <span class="type">IOException</span> &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> void doGet(<span class="type">HttpServletRequest</span> req, <span class="type">HttpServletResponse</span> resp) <span class="keyword">throws</span> <span class="type">ServletException</span>, <span class="type">IOException</span> &#123;</span><br><span class="line">        <span class="type">Cookie</span> cookie = <span class="keyword">new</span> <span class="type">Cookie</span>(<span class="string">"name"</span>, <span class="string">"value"</span>);</span><br><span class="line">        resp.addCookie(cookie);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到浏览器传递的cookie数据</span></span><br><span class="line">        <span class="type">Cookie</span>[] cookies = req.getCookies();</span><br><span class="line">        <span class="keyword">if</span> (cookies != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">Cookie</span> c : cookies) &#123;</span><br><span class="line">                <span class="type">String</span> name = c.getName();</span><br><span class="line">                <span class="type">String</span> value = c.getValue();</span><br><span class="line">                <span class="type">System</span>.out.println(name + <span class="string">"="</span> + value);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">System</span>.out.println(<span class="string">"没有Cookie信息！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：<br><img src="/assets/JavaEE/javaweb_08.png" alt="Cookie使用"></p>
+<p>这里我们可以模拟一个登陆的例子，因为里面需要使用到Session的内容，所以我们等Session的内容完成之后一块写一个例子</p>
+<h2 id="Servlet中的Session"><a href="#Servlet中的Session" class="headerlink" title="Servlet中的Session"></a>Servlet中的Session</h2><p>HTTP是一种无状态的协议，这意味着每次客户端检索网页时，客户端打开一个单独的链接到服务器，服务器会自动不保留之前客户端的任何请求记录。但是仍然以下面三种方式维持客户端和服务器之间的session回话</p>
+<ul>
+<li>Cookie:一个web服务器可以分配一个唯一的SessionID作为每一个客户端的Cookie，对于客户端的后续请求，可以使用接收到的Cookie来识别。(但是很多浏览器可能不支持Cookie，所以这个并不是最优的解决方案)</li>
+<li>隐藏的表单字段：一个Web服务器可以发送一个隐藏的HTML表单字段，以及唯一的一个Session回话ID，如<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="attribute">type</span>=<span class="string">"hide"</span> <span class="attribute">name</span>=<span class="string">"sessionid"</span> <span class="attribute">value</span>=<span class="string">"123456"</span>&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>,这意味着当表单被提交的时候，指定的名称和值会自动包含在GET和POST请求中。每当浏览器发送请求时，session_id值可以可以用于保持不同浏览器的追踪。这个方式相对而言比较合理，但是对于一些超链接标签，我们没有发送网络请求，所以不会提交表单，所以也不是非常好的解决办法</p>
+<ul>
+<li>URL重定向：我们可以为每一个URL的末尾追加一些额外的数据来标识session会话。服务器会将传递过来session标识和已存储的相关session会话数据相关联，如：<a href="http://www.paulniu.com/login.jsp;sessionid=123456">http://www.paulniu.com/login.jsp;sessionid=123456</a> URL重定向是一种更好的方式来维持Session会话，他在浏览器不支持Cookie时可以很好的完成维持Session会话的工作，缺点是会动态的生成每个URL来为页面分配一个sessionid，即使是很简单的静态页面也是如此。</li>
+</ul>
+<p>除了上面的三种方式，Servlet还提供了HttpSession接口，该接口提供了一种跨多个页面请求或访问网站时识别用户以及存储用户相关信息的方法。<br>Servlet 容器使用这个接口来创建一个 HTTP 客户端和 HTTP 服务器之间的 session 会话。会话持续一个指定的时间段，跨多个连接或页面请求。<br>我们会通过调用 HttpServletRequest 的公共方法 getSession() 来获取 HttpSession 对象</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">HttpSession session</span> = request.getSession();</span><br></pre></td></tr></table></figure>
+
+<p>Session常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public Object getAttribute(String name)</td>
+<td>该方法返回在该Session会话中具有指定名称的对象，如果没有指定名称的对象，返回null</td>
+</tr>
+<tr>
+<td>public Enumeration getAttributeNames()</td>
+<td>该方法返回String类型对象的枚举，String对象包含所有绑定到该Session会话的对象的名称</td>
+</tr>
+<tr>
+<td>public long getCreationTime()</td>
+<td>该方法返回Session会话被创建的时间,以毫秒为单位</td>
+</tr>
+<tr>
+<td>public String getId()</td>
+<td>该方法返回一个包含Session会话唯一标识符的字符串</td>
+</tr>
+<tr>
+<td>public long getLastAccessedTime()</td>
+<td>该方法返回客户端最后一次发送与Session会话相关的请求的时间，以毫秒为单位</td>
+</tr>
+<tr>
+<td>public int getMaxInactiveInterval()</td>
+<td>该方法返回Servlet容器在客户端访问时保持session会话打开的最大时间间隔，以秒为单位</td>
+</tr>
+<tr>
+<td>public void invalindate()</td>
+<td>指示该Session会话无效，并解除绑定到它上面的任何对象</td>
+</tr>
+<tr>
+<td>public boolean isNew()</td>
+<td>如果客户端还不知道该Session会话，或者客户端选择不参与该Session会话，返回true</td>
+</tr>
+<tr>
+<td>public void removeAttribute(String name)</td>
+<td>从Session会话中移除指定名称对象</td>
+</tr>
+<tr>
+<td>public void setAttribute(String name,Object value)</td>
+<td>该方法使用指定的名称绑定一个对象到该Session会话</td>
+</tr>
+<tr>
+<td>public void setMaxInactiveInterval(int interval)</td>
+<td>该方法在Servlet中指示该Session会话无效之前，指定客户端请求之前的时间，以秒为单位</td>
+</tr>
+</tbody></table>
+<p>Session追踪实例：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">public class SessionTrackServlet extends HttpServlet &#123;</span><br><span class="line"></span><br><span class="line">    private static final long serialVersionUID = <span class="number">1</span>L;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">// 如果不存在Session会话，则创建一个Session会话</span></span><br><span class="line">        HttpSession session = req.getSession(true);</span><br><span class="line">        <span class="comment">// 获取Session创建的时间</span></span><br><span class="line">        Date createTime = new Date(session.getCreationTime());</span><br><span class="line">        <span class="comment">// 获取该网页最后一次访问的时间</span></span><br><span class="line">        Date lastAccessTime = new Date(session.getLastAccessedTime());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置日期输出格式</span></span><br><span class="line">        SimpleDateFormat df = new SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line"></span><br><span class="line">        String title = <span class="string">"Servlet session 实例"</span>;</span><br><span class="line">        Integer visitCount = new Integer(<span class="number">0</span>);</span><br><span class="line">        String visitCountKey = new String(<span class="string">"visitCount"</span>);</span><br><span class="line">        String userIDKey = new String(<span class="string">"userID"</span>);</span><br><span class="line">        String userID = new String(<span class="string">"paulniu"</span>);</span><br><span class="line">        if (session.getAttribute(visitCountKey) == null) &#123;</span><br><span class="line">            session.setAttribute(visitCountKey, new Integer(<span class="number">0</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检查网页上是否有新的访问者</span></span><br><span class="line">        if (session.isNew()) &#123;</span><br><span class="line">            title = <span class="string">"Servlet Session 实例"</span>;</span><br><span class="line">            session.setAttribute(userIDKey, userID);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            visitCount = (Integer) session.getAttribute(visitCountKey);</span><br><span class="line">            visitCount = visitCount + <span class="number">1</span>;</span><br><span class="line">            userID = (String) session.getAttribute(userIDKey);</span><br><span class="line">        &#125;</span><br><span class="line">        session.setAttribute(visitCountKey, visitCount);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置响应内容类型</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line"></span><br><span class="line">        String docType = <span class="string">"&lt;!DOCTYPE html&gt;<span class="subst">\n</span>"</span>;</span><br><span class="line">        out.println(docType +</span><br><span class="line">                <span class="string">"&lt;html&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;head&gt;&lt;title&gt;"</span> + title + <span class="string">"&lt;/title&gt;&lt;/head&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;body bgcolor=<span class="subst">\"</span>#f0f0f0<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;h1 align=<span class="subst">\"</span>center<span class="subst">\"</span>&gt;"</span> + title + <span class="string">"&lt;/h1&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;h2 align=<span class="subst">\"</span>center<span class="subst">\"</span>&gt;Session 信息&lt;/h2&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;table border=<span class="subst">\"</span>1<span class="subst">\"</span> align=<span class="subst">\"</span>center<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr bgcolor=<span class="subst">\"</span>#949494<span class="subst">\"</span>&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;th&gt;Session 信息&lt;/th&gt;&lt;th&gt;值&lt;/th&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;id&lt;/td&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + session.getId() + <span class="string">"&lt;/td&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;创建时间&lt;/td&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + df.format(createTime) +</span><br><span class="line">                <span class="string">"  &lt;/td&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;最后访问时间&lt;/td&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + df.format(lastAccessTime) +</span><br><span class="line">                <span class="string">"  &lt;/td&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;用户 ID&lt;/td&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + userID +</span><br><span class="line">                <span class="string">"  &lt;/td&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;访问统计：&lt;/td&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + visitCount + <span class="string">"&lt;/td&gt;&lt;/tr&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;/table&gt;<span class="subst">\n</span>"</span> +</span><br><span class="line">                <span class="string">"&lt;/body&gt;&lt;/html&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>处理结果：<br><img src="/assets/JavaEE/javaweb_09.png" alt="session追踪"></p>
+<h2 id="登录demo"><a href="#登录demo" class="headerlink" title="登录demo"></a>登录demo</h2><h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a href="https://www.cnblogs.com/vmax-tam/p/4130589.html" target="_blank" rel="noopener">Cookie和Session</a><br><a href="https://blog.csdn.net/weixin_36146275/article/details/55673211" target="_blank" rel="noopener">登录Demo</a></p>
 
       
 
@@ -989,19 +1128,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1065,11 +1204,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1085,15 +1224,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">record</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">video</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
