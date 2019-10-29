@@ -17,7 +17,7 @@
 <meta property="og:description" content="JSP 全称Java Server Page，是一种动态网页开发技术。它是用JSP标签在HTML网页中插入Java代码，标签通常是以&amp;lt;%开头以%&amp;gt;结束">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/javaweb_18.jpg">
-<meta property="og:updated_time" content="2019-10-16T15:10:26.817Z">
+<meta property="og:updated_time" content="2019-10-19T09:58:26.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 03 JavaWeb基础(JSP)">
 <meta name="twitter:description" content="JSP 全称Java Server Page，是一种动态网页开发技术。它是用JSP标签在HTML网页中插入Java代码，标签通常是以&amp;lt;%开头以%&amp;gt;结束">
@@ -200,7 +200,169 @@
 <li>Web服务器以静态HTML的形式将HTTP response返回到浏览器中</li>
 <li>最终浏览器处理HTTP请求，动态产生HTML</li>
 </ol>
-<h2 id="JSP语法"><a href="#JSP语法" class="headerlink" title="JSP语法"></a>JSP语法</h2><h3 id="脚本程序"><a href="#脚本程序" class="headerlink" title="脚本程序"></a>脚本程序</h3>
+<h2 id="JSP语法"><a href="#JSP语法" class="headerlink" title="JSP语法"></a>JSP语法</h2><h3 id="脚本程序"><a href="#脚本程序" class="headerlink" title="脚本程序"></a>脚本程序</h3><p>脚本程序可以包含任意量的Java语句，变量，方法或表达式，只要他们在脚本中是有效的。<br>形式可以如下</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="meta">%</span> 代码片段 <span class="meta">%</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:scriptlet</span>&gt;</span></span><br><span class="line">  代码片段</span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:scriptlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>任何文本，HTML标签，JSP元素必须卸载脚本程序的外面</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">Hello World!<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby"></span></span><br><span class="line"><span class="ruby">out.println(<span class="string">"Your IP address is "</span> + request.getRemoteAddr());</span></span><br><span class="line"><span class="ruby"></span><span class="xml">%&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在使用JSP页面的时候，会出现中文编码的问题，如果我们想要显示中文，可以在JSP文件头部添加如下代码</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@<span class="built_in"> page </span><span class="attribute">language</span>=<span class="string">"java"</span> <span class="attribute">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attribute">pageEncoding</span>=<span class="string">"UTF-8"</span> %&gt;</span><br></pre></td></tr></table></figure>
+
+<p>JSP的声明<br>一个声明语句可以声明一个或多个变量，方法，供后面的Java代码使用。在JSP文件中，我们必须先声明这些变量和方法，然后才能使用</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%! <span class="keyword">int</span> i = <span class="number">0</span>; %&gt; </span><br><span class="line">&lt;%! <span class="keyword">int</span> a, b, c; %&gt; </span><br><span class="line">&lt;%! Circle a = new Circle(<span class="number">2.0</span>); %&gt;</span><br></pre></td></tr></table></figure>
+
+<p>JSP表达式<br>一个JSP表达式中包含的脚本语言表达式，先被转换成String，然后插入到表达时出现的地方。<br>由于表达式的值会被转换成String，所我们可以在一个文本杭中使用表达式而不用管它是否是HTML标签<br>表达式元素中可以包含任何符合Java语言规范的表达式，但是不能用分号结束表达式</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>菜鸟教程(runoob.com)<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">   今天的日期是: <span class="tag">&lt;<span class="name">%=</span> (<span class="attr">new</span> <span class="attr">java.util.Date</span>())<span class="attr">.toLocaleString</span>()%&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>JSP注释分为以下几种</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;%– 注释内容 –%&gt;</td>
+<td>JSp注释，注释内容不会被发送到浏览器甚至不会被编译</td>
+</tr>
+</tbody></table>
+<p>JSP指令<br>JSP指令用来设置与整个JSP页面相关的属性<br>这里有三种指令标签</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;%@ page … %&gt;</td>
+<td>定义页面中的依赖属性，比如脚本语言，error页面，缓存需求等</td>
+</tr>
+<tr>
+<td>&lt;%@ include … %&gt;</td>
+<td>包好其他文件</td>
+</tr>
+<tr>
+<td>&lt;%@ taglib … %&gt;</td>
+<td>引入标签库的定义，可以是自定义标签</td>
+</tr>
+</tbody></table>
+<p>JSP行为<br>JSP行为标签使用XML语法结构来控制Servlet引擎，它能够懂她插入一个文件，重用JavaBean组件，引导用户去另一个页面，为Jav插件产生英冠的HTML等<br>应为标签只有一种语法格式，而且必须严格遵守XML标准</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:action_name</span> <span class="attr">attribute</span>=<span class="string">"value"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>行为标签基本上是一些预先定义好的函数，下面是一些可用的JSP行为标签</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>jsp:include</td>
+<td>用于在当前页面中包含鼎泰或动态资源</td>
+</tr>
+<tr>
+<td>jsp:useBean</td>
+<td>寻找和初始化一个JavaBean组件</td>
+</tr>
+<tr>
+<td>jsp:setProperty</td>
+<td>设置JavaBean组件的值</td>
+</tr>
+<tr>
+<td>jsp:getProperty</td>
+<td>将JavaBean组件的值插入到output中</td>
+</tr>
+<tr>
+<td>jsp:forward</td>
+<td>从一个JSP文件向另一个文件传递一个包含用户请求的request对象</td>
+</tr>
+<tr>
+<td>jsp:plugin</td>
+<td>用于在生成的HTML页面中包含Applet和JavaBean对象</td>
+</tr>
+<tr>
+<td>jsp:element</td>
+<td>动态创建一个XML元素</td>
+</tr>
+<tr>
+<td>jsp:attribute</td>
+<td>定义动态创建的XML元素属性</td>
+</tr>
+<tr>
+<td>jsp:body</td>
+<td>定义动态创建的XML元素的主体</td>
+</tr>
+<tr>
+<td>jsp:text</td>
+<td>用于封装模板数据</td>
+</tr>
+</tbody></table>
+<p>JSP隐含对象<br>JSP支持九个自动定义的变量，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>对象名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>request</td>
+<td>HttpServletRequest类实例</td>
+</tr>
+<tr>
+<td>response</td>
+<td>HttpServletResponse类实例</td>
+</tr>
+<tr>
+<td>out</td>
+<td>PrintWriter类实例，用于把结果输出至网页上</td>
+</tr>
+<tr>
+<td>session</td>
+<td>HttpSession类实例</td>
+</tr>
+<tr>
+<td>application</td>
+<td>ServletContext类实例，与应用上下文有关</td>
+</tr>
+<tr>
+<td>config</td>
+<td>ServletConfig类实例</td>
+</tr>
+<tr>
+<td>pageContext</td>
+<td>PageContext类实例，提供对JSP页面所有对象以及命名空间的访问</td>
+</tr>
+<tr>
+<td>page</td>
+<td>类似于Java中的this关键字</td>
+</tr>
+<tr>
+<td>Exception</td>
+<td>Exception类对象，代表发生错误的JSP页面中对应的异常对象</td>
+</tr>
+</tbody></table>
+<p>JSP字面量</p>
+<ul>
+<li>布尔值：boolean</li>
+<li>整型：int</li>
+<li>浮点型：float</li>
+<li>字符串：String</li>
+<li>Null：null</li>
+</ul>
+<h3 id="JSP的控制流语句"><a href="#JSP的控制流语句" class="headerlink" title="JSP的控制流语句"></a>JSP的控制流语句</h3><h4 id="判断语句"><a href="#判断语句" class="headerlink" title="判断语句"></a>判断语句</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%!</span> <span class="attr">int</span> <span class="attr">day</span> = <span class="string">3;</span> %&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>判断语句<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>IF...ELSE 实例<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">day</span> == <span class="string">1</span> | <span class="attr">day</span> == <span class="string">7)</span> &#123; %&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>今天是周末<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; <span class="attr">else</span> &#123; %&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>今天不是周末<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>switch…case语句</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span></span></span><br><span class="line"><span class="ruby">    pageEncoding=<span class="string">"UTF-8"</span></span><span class="xml">%&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">! int day = <span class="number">3</span>; </span><span class="xml"><span class="tag">%&gt;</span> </span></span><br><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">title</span>&gt;</span>判断语句<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>SWITCH...CASE 实例<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby"> </span></span><br><span class="line"><span class="ruby">switch(day) &#123;</span></span><br><span class="line"><span class="ruby"><span class="keyword">case</span> <span class="number">0</span><span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">   out.println(<span class="string">"星期天"</span>);</span></span><br><span class="line"><span class="ruby">   <span class="keyword">break</span>;</span></span><br><span class="line"><span class="ruby"><span class="keyword">case</span> <span class="number">1</span><span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">   out.println(<span class="string">"星期一"</span>);</span></span><br><span class="line"><span class="ruby">   <span class="keyword">break</span>;</span></span><br><span class="line"><span class="ruby"><span class="keyword">case</span> <span class="number">2</span><span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">   out.println(<span class="string">"星期二"</span>);</span></span><br><span class="line"><span class="ruby">   <span class="keyword">break</span>;</span></span><br><span class="line"><span class="ruby"><span class="keyword">case</span> <span class="number">3</span><span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">   out.println(<span class="string">"星期三"</span>);</span></span><br><span class="line"><span class="ruby">   <span class="keyword">break</span>;</span></span><br><span class="line"><span class="ruby"><span class="keyword">case</span> <span class="number">4</span><span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">   out.println(<span class="string">"星期四"</span>);</span></span><br><span class="line"><span class="ruby">   <span class="keyword">break</span>;</span></span><br><span class="line"><span class="ruby"><span class="keyword">case</span> <span class="number">5</span><span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">   out.println(<span class="string">"星期五"</span>);</span></span><br><span class="line"><span class="ruby">   <span class="keyword">break</span>;</span></span><br><span class="line"><span class="ruby"><span class="symbol">default:</span></span></span><br><span class="line"><span class="ruby">   out.println(<span class="string">"星期六"</span>);</span></span><br><span class="line"><span class="ruby">&#125;</span></span><br><span class="line"><span class="ruby"></span><span class="xml">%&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h4> <figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></span></span><br><span class="line"><span class="xml">    pageEncoding="UTF-8"%&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%!</span> <span class="attr">int</span> <span class="attr">fontSize</span>; %&gt;</span> </span></span><br><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">title</span>&gt;</span>循环语句<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>For 循环实例<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%for</span> ( <span class="attr">fontSize</span> = <span class="string">1;</span> <span class="attr">fontSize</span> &lt;= <span class="string">3;</span> <span class="attr">fontSize</span>++)&#123; %&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"green"</span> <span class="attr">size</span>=<span class="string">"&lt;%= fontSize %&gt;"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    循环语句测试</span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%&#125;%</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
       
 
       
@@ -427,11 +589,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -439,11 +605,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,11 +617,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">音视频</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">音视频</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,7 +649,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,11 +661,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,10 +674,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">IOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
