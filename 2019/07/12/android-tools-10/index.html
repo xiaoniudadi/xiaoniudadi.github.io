@@ -184,7 +184,7 @@
         <p>android软键盘属性SoftInputMode属性设置介绍</p>
 <a id="more"></a>
 <p>SoftInputMode用来设置软键盘的各种属性.有两种方式可以设置，第一种是在清单配置文件也就是AndroidManifest.xml文件，另一种也就是在java代码中动态设置</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种  xml清单文件中进行设置</span></span><br><span class="line"> android:windowSoftInputMode=<span class="string">"adjustResize"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种  代码设置 (在Activity对象中  可以调用  getWindow()  方法   )</span></span><br><span class="line">getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE <span class="string">| WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN );</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种  xml清单文件中进行设置</span></span><br><span class="line"> android:windowSoftInputMode=<span class="string">"adjustResize"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种  代码设置 (在Activity对象中  可以调用  getWindow()  方法   )</span></span><br><span class="line">get<span class="constructor">Window()</span>.set<span class="constructor">SoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN )</span>;</span><br></pre></td></tr></table></figure>
 
 <p>windowSoftInputMode共有9个取值：<br>stateUnspecified，stateUnchanged，stateHidden，stateAlwaysHidden，stateVisible，stateAlwaysVisible，adjustUnspecified，adjustResize，adjustPan。<br>这9个取值可以划分成两大类 ： StateXXX 类型，和AdjustXXX类型。<br>其中StateXXX类型的设置主要与软键盘的显示有关（例如 刚进入界面的时候软键盘是否显示）<br>而AdjustXXX类型主要涉及到软键盘弹出时候界面的调整（例如 在回复评论信息的时候我们希望软键盘弹出的时候能够把底下的EditText输入框也顶上去）</p>
 <h2 id="stateXXX各种类型"><a href="#stateXXX各种类型" class="headerlink" title="stateXXX各种类型"></a>stateXXX各种类型</h2><h4 id="stateUnspecified"><a href="#stateUnspecified" class="headerlink" title="stateUnspecified"></a>stateUnspecified</h4><p>这是系统默认的设置，系统会根据界面要求来显示软键盘，一般来说软键盘是不会自动弹出的，但是当有获得焦点的输入框有滚动需求时候就会自动弹出软键盘（例如EditText外面嵌套了ScrollView，并且EditText获得焦点）。</p>
@@ -433,15 +433,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -449,7 +445,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,7 +453,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,7 +489,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +509,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

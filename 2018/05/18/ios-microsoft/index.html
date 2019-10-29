@@ -230,7 +230,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> app: UIApplication, <span class="keyword">open</span> url: URL, options: [UIApplicationOpenURLOptionsKey : <span class="keyword">Any</span>] = [:])</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"文件路径是 \(url)"</span>)</span><br><span class="line">        <span class="keyword">let</span> vc: <span class="type">DocumentViewController</span> = <span class="type">DocumentViewController</span>(filePath: url)</span><br><span class="line">        <span class="comment">//跳转到打开文件的页面</span></span><br><span class="line">        <span class="type">UIViewController</span>.currentViewController()?.navigationController?.pushViewController(vc, animated: <span class="literal">true</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>扩展方法</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取当期页面的presentview</span></span><br><span class="line">extension UIViewController &#123;</span><br><span class="line">    <span class="keyword">class</span> func currentViewController(<span class="keyword">base</span>: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -&gt; UIViewController? &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> nav = <span class="keyword">base</span> <span class="keyword">as</span>? UINavigationController &#123;</span><br><span class="line">            <span class="keyword">return</span> currentViewController(<span class="keyword">base</span>: nav.visibleViewController)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> tab = <span class="keyword">base</span> <span class="keyword">as</span>? UITabBarController &#123;</span><br><span class="line">            <span class="keyword">return</span> currentViewController(<span class="keyword">base</span>: tab.selectedViewController)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> presented = <span class="keyword">base</span>?.presentedViewController &#123;</span><br><span class="line">            <span class="keyword">return</span> currentViewController(<span class="keyword">base</span>: presented)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">base</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取当期页面的presentview</span></span><br><span class="line">extension UIViewController &#123;</span><br><span class="line">    <span class="keyword">class</span> func current<span class="constructor">ViewController(<span class="params">base</span>: UIViewController? = UIApplication.<span class="params">shared</span>.<span class="params">keyWindow</span>?.<span class="params">rootViewController</span>)</span> -&gt; UIViewController? &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> nav = base <span class="keyword">as</span>? UINavigationController &#123;</span><br><span class="line">            return current<span class="constructor">ViewController(<span class="params">base</span>: <span class="params">nav</span>.<span class="params">visibleViewController</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> tab = base <span class="keyword">as</span>? UITabBarController &#123;</span><br><span class="line">            return current<span class="constructor">ViewController(<span class="params">base</span>: <span class="params">tab</span>.<span class="params">selectedViewController</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> presented = base?.presentedViewController &#123;</span><br><span class="line">            return current<span class="constructor">ViewController(<span class="params">base</span>: <span class="params">presented</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line">        return base</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -468,15 +468,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,7 +480,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,7 +488,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,7 +524,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,11 +544,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

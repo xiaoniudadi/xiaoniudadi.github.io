@@ -213,7 +213,7 @@
 
 <p>首先svg是可缩放矢量图，所以我们在项目中只要添加一张svg，就可以在不同的地方使用，并且在使用的时候可以根据不同的大小显示出不同的样式，这样可以大大减少图片资源带来的APK体积增加。</p>
 <p>但是只有这些是不行的，因为我们的Android要适配，我们在app-&gt;build.gradle中的defaultConfig标签中添加如下的内容</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//5.0的兼容适配</span></span><br><span class="line">       <span class="comment">//5.0以下 将svg图片生成指定维度的png图片,下面写几个就会生成几个相应的图片</span></span><br><span class="line">       vectorDrawables.generatedDensities(<span class="string">'xhdpi'</span>,<span class="string">'xxhdpi'</span>)</span><br><span class="line">       <span class="comment">//5.0以上 以上使用support-v7进行兼容</span></span><br><span class="line">       vectorDrawables<span class="selector-class">.useSupportLibrary</span> = true</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//5.0的兼容适配</span></span><br><span class="line">       <span class="comment">//5.0以下 将svg图片生成指定维度的png图片,下面写几个就会生成几个相应的图片</span></span><br><span class="line">       vectorDrawables.generated<span class="constructor">Densities('<span class="params">xhdpi</span>','<span class="params">xxhdpi</span>')</span></span><br><span class="line">       <span class="comment">//5.0以上 以上使用support-v7进行兼容</span></span><br><span class="line">       vectorDrawables.useSupportLibrary = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 <p>这个是我找到的解决方案，但是我编译了一下试了试。如果我单写顶上那一句，会在相应的文件夹下生成出图片，但是加上后面这句，相应的图片就没有了！我就好奇了，为什么呢？然后我找到了相应的手机试了一下，加不加上面这句没有什么卵用！我是在19版本上测试的！找这样的手机真心费劲，要不是我父母我还真找不到！！！所以呢？大家斟酌一下吧！！！</p>
 <p>这个问题，大神们早就帮我们解决了！！！</p>
@@ -474,15 +474,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,7 +486,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,7 +494,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,7 +530,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,11 +550,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

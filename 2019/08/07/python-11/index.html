@@ -196,7 +196,7 @@
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">languages = [<span class="string">"C"</span>, <span class="string">"C++"</span>, <span class="string">"Java"</span>, <span class="string">"Kotlin"</span>, <span class="string">"Python"</span>]</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">item</span> <span class="keyword">in</span> languages:</span><br><span class="line">    print(<span class="built_in">item</span>)</span><br></pre></td></tr></table></figure>
 
 <p>在for循环中我们可以使用break语句表示跳出当前循环体，如下</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">num</span> <span class="keyword">in</span> nums:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">num</span> &gt;= <span class="number">5</span>:</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"当前数字是%d"</span> <span class="symbol">%</span> <span class="built_in">num</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"退出循环了"</span>)</span><br><span class="line"></span><br><span class="line">```    </span><br><span class="line"># <span class="built_in">range</span>()函数</span><br><span class="line">如果我们需要遍历数字列表，我们可以使用内置函数<span class="built_in">range</span>()，他会生成数列，如下所示</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">    <span class="keyword">if</span> num &gt;= <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(<span class="string">"当前数字是%d"</span> % num)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"退出循环了"</span>)</span><br><span class="line"></span><br><span class="line">```    </span><br><span class="line"># range()函数</span><br><span class="line">如果我们需要遍历数字列表，我们可以使用内置函数range()，他会生成数列，如下所示</span><br></pre></td></tr></table></figure>
 
 <p>for i in range(10):<br>    print(“当前的数字是%d” % i)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">同样我们可以指定遍历数字列表的范围</span><br></pre></td></tr></table></figure>
@@ -223,10 +223,10 @@
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">pass</span>语句在Python是空语句，是为了保持程序结构的完整性</span><br><span class="line"><span class="keyword">pass</span>不做任何事情，一般做占位符语句</span><br><span class="line"></span><br><span class="line">使用内置enumerate函数进行遍历</span><br></pre></td></tr></table></figure>
 
 <p>sequence = [12, 34, 56, 23, 34, 45, 56]<br>for i, j in enumerate(sequence):<br>    print(i, j)</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">for循环<span class="number">1</span><span class="number">-100</span>内所有证书的和</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span>循环<span class="number">1</span><span class="number">-100</span>内所有证书的和</span><br></pre></td></tr></table></figure>
 
 <p>n = 0<br>sum = 0<br>for n in range(0, 101):<br>    sum += n<br>print(“结果是%d” % sum)</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用循环嵌套实现<span class="number">99</span>乘法法则</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用循环嵌套实现<span class="number">99</span>乘法法则</span><br></pre></td></tr></table></figure>
 
 <p>start = 1<br>while start &lt;= 9:<br>    sec = 1<br>    while sec &lt;= start:<br>        mut = start * sec<br>        print(“%d x %d = %d” % (start, sec, mut), end=” “)<br>        sec += 1<br>    print(“”)<br>    print(“”)<br>    start += 1</p>
 <pre><code></code></pre>
@@ -465,15 +465,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,7 +477,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,7 +485,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,7 +521,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,11 +541,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -222,7 +222,7 @@
 <p>“声明一个名字是 maximumNumberOfLoginAttempts 的新常量，并给它一个值 10 。然后，声明一个名字是 currentLoginAttempt 的变量并将它的值初始化为 0 。”</p>
 <p>在这个例子中，允许的最大尝试登录次数被声明为一个常量，因为这个值不会改变。当前尝试登录次数被声明为一个变量，因为每次尝试登录失败的时候都需要增加这个值。</p>
 <p>你可以在一行中声明多个常量或者多个变量，用逗号隔开</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var x = <span class="number">0.0</span>, y = <span class="number">0.0</span>, z = <span class="number">0.0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var x = <span class="number">0.0</span>, y = <span class="number">0.0</span>, z = <span class="number">0.0</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>如果你的代码中有不需要改变的值，请使用 let 关键字将它声明为常量。只将需要改变的值声明为变量。</p>
@@ -269,7 +269,7 @@
 <h3 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h3><p>整数就是没有小数部分的数字，比如 42 和 -23 。整数可以是 有符号（正、负、零）或者 无符号（正、零）。</p>
 <p>Swift 提供了8，16，32和64位的有符号和无符号整数类型。这些整数类型和 C 语言的命名方式很像，比如8位无符号整数类型是UInt8，32位有符号整数类型是 Int32 。就像 Swift 的其他类型一样，整数类型采用大写命名法。</p>
 <h3 id="整数的范围"><a href="#整数的范围" class="headerlink" title="整数的范围"></a>整数的范围</h3><p>你可以访问不同整数类型的 min 和 max 属性来获取对应类型的最小值和最大值：</p>
-<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> minValue = <span class="built_in">UInt8</span>.min  // minValue 为 <span class="number">0</span>，是 <span class="built_in">UInt8</span> 类型</span><br><span class="line"><span class="keyword">let</span> maxValue = <span class="built_in">UInt8</span>.max  // maxValue 为 <span class="number">255</span>，是 <span class="built_in">UInt8</span> 类型</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> minValue = <span class="module-access"><span class="module"><span class="identifier">UInt8</span>.</span></span>min  <span class="comment">// minValue 为 0，是 UInt8 类型</span></span><br><span class="line"><span class="keyword">let</span> maxValue = <span class="module-access"><span class="module"><span class="identifier">UInt8</span>.</span></span>max  <span class="comment">// maxValue 为 255，是 UInt8 类型</span></span><br></pre></td></tr></table></figure>
 
 <p>min 和 max 所传回值的类型，正是其所对的整数类型(如上例UInt8, 所传回的类型是UInt8)，可用在表达式中相同类型值旁。</p>
 <h3 id="Int"><a href="#Int" class="headerlink" title="Int"></a>Int</h3><p>一般来说，你不需要专门指定整数的长度。Swift 提供了一个特殊的整数类型Int，长度与当前平台的原生字长相同：</p>
@@ -295,13 +295,13 @@
 <p>因为有类型推断，和 C 或者 Objective-C 比起来 Swift 很少需要声明类型。常量和变量虽然需要明确类型，但是大部分工作并不需要你自己来完成。</p>
 <p>当你声明常量或者变量并赋初值的时候类型推断非常有用。当你在声明常量或者变量的时候赋给它们一个字面量（literal value 或 literal）即可触发类型推断。（字面量就是会直接出现在你代码中的值，比如 42 和 3.14159 。）</p>
 <p>例如，如果你给一个新常量赋值 42 并且没有标明类型，Swift 可以推断出常量类型是 Int ，因为你给它赋的初始值看起来像一个整数：</p>
-<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> meaningOfLife = <span class="number">42</span></span><br><span class="line"><span class="comment">// meaningOfLife 会被推测为 Int 类型</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let meaningOfLife = <span class="number">42</span></span><br><span class="line"><span class="comment">// meaningOfLife 会被推测为 Int 类型</span></span><br></pre></td></tr></table></figure>
 
 <p>同理，如果你没有给浮点字面量标明类型，Swift 会推断你想要的是 Double：</p>
 <figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="literal">pi</span> = <span class="number">3.14159</span></span><br><span class="line">// <span class="literal">pi</span> 会被推测为 Double 类型</span><br></pre></td></tr></table></figure>
 
 <p>当推断浮点数的类型时，Swift 总是会选择 Double 而不是Float。<br>如果表达式中同时出现了整数和浮点数，会被推断为 Double 类型：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let anotherPi = <span class="number">3</span> + <span class="number">0.14159</span></span><br><span class="line"><span class="comment">// anotherPi 会被推测为 Double 类型</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let anotherPi = <span class="number">3</span> + <span class="number">0.14159</span></span><br><span class="line"><span class="comment">// anotherPi 会被推测为 Double 类型</span></span><br></pre></td></tr></table></figure>
 
 <p>原始值 3 没有显式声明类型，而表达式中出现了一个浮点字面量，所以表达式会被推断为 Double 类型。</p>
 <h3 id="数值型字面量"><a href="#数值型字面量" class="headerlink" title="数值型字面量"></a>数值型字面量</h3><p>整数字面量可以被写作：</p>
@@ -580,15 +580,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,7 +592,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,7 +600,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,7 +636,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -660,11 +656,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

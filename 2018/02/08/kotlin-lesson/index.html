@@ -199,7 +199,7 @@
 </li>
 </ol>
 <p>但是如果我们通过Kotlin语言来实现，代码就会减少很多</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data <span class="keyword">class</span> Article(</span><br><span class="line">    <span class="keyword">var</span> id:Long,</span><br><span class="line">    <span class="keyword">var</span> <span class="keyword">name</span>:<span class="keyword">String</span>,</span><br><span class="line">    <span class="keyword">var</span> url:<span class="keyword">String</span>,</span><br><span class="line">    <span class="keyword">var</span> mbid:<span class="keyword">String</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data <span class="keyword">class</span> <span class="symbol">Article</span>(</span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">id:<span class="symbol">Long</span>,</span></span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">name:<span class="symbol">String</span>,</span></span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">url:<span class="symbol">String</span>,</span></span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">mbid:<span class="symbol">String</span></span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <p>这个类它就会自动生成所有的属性和他们的访问器，以及一些有用的方法，比如toString()方法</p>
 <ol start="2">
@@ -215,7 +215,7 @@
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fragment.toast(<span class="string">"你好"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 
 <ol start="4">
-<li>函数式支持：有时候我们做开发的时候总会遇到这样的情况：当我们添加点击事件的时候，总是不得不使用一个匿名函数作为接口回调，实现点击之后的操作。其实最终我们可以这样实现<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">view</span>.setOnclickListener(</span><br><span class="line">    toast(<span class="string">"hello world"</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<li>函数式支持：有时候我们做开发的时候总会遇到这样的情况：当我们添加点击事件的时候，总是不得不使用一个匿名函数作为接口回调，实现点击之后的操作。其实最终我们可以这样实现<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">view.setOnclickListener</span>(</span><br><span class="line">    <span class="function"><span class="title">toast</span>(<span class="string">"hello world"</span>)</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -456,15 +456,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,7 +468,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,7 +476,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,7 +512,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,11 +532,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

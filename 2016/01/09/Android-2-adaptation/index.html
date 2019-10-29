@@ -202,7 +202,7 @@
 
 <h2 id="使用字符资源"><a href="#使用字符资源" class="headerlink" title="使用字符资源"></a>使用字符资源</h2><p>我们可以通过源代码和其他XML文件总通过<pre><string></string></pre>元素的name属性来引入自己的字符串资源</p>
 <p>在源代码中可以通过R.string.<string_name>语法来引入一个字符串资源，很多方法都可以通过这种方式来接受字符串</string_name></p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String</span> ss = getResources().getString(R.<span class="keyword">string</span>.app_name);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String ss = get<span class="constructor">Resources()</span>.get<span class="constructor">String(R.<span class="params">string</span>.<span class="params">app_name</span>)</span>;</span><br></pre></td></tr></table></figure>
 
 <p>在其他的XML文件中，每当XML属性需要接受一个字符串值时，我们可以通过@string/<string_name>的方式来引入</string_name></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;TextView</span><br><span class="line">    android:<span class="attribute">layout_width</span>=<span class="string">"wrap_content"</span></span><br><span class="line">    android:<span class="attribute">layout_height</span>=<span class="string">"wrap_content"</span></span><br><span class="line">    android:<span class="attribute">text</span>=<span class="string">"@string/hello_world"</span> /&gt;</span><br></pre></td></tr></table></figure>
@@ -402,11 +402,11 @@
 <p>任何时候，当引用@drawable/ic_launch是系统就会自动使用恰当的bitmap</p>
 <h1 id="适配不同的系统版本"><a href="#适配不同的系统版本" class="headerlink" title="适配不同的系统版本"></a>适配不同的系统版本</h1><p>新的Android版本会为我们的app提供更棒的APIs，但我们的app仍应支持旧版本的Android，直到更多的设备升级到新版本为止<br>当我们通过AS创建一个应用时，有一些地方的数据信息对我们开发APP应用是有很大的帮助的<br><a href="/assets/android/androidversion-1.png"></a><br>所以，在一般情况下，在更新APP到最新版本的android时，最好保证新版本的APP可以支持90%</p>
 <h2 id="指定最小和目标API级别"><a href="#指定最小和目标API级别" class="headerlink" title="指定最小和目标API级别"></a>指定最小和目标API级别</h2><p>android的清单配置文件中描述了我们的APP的细节，以及APP支持哪些android版本。具体说<uses-sdk>元素中的minSdkVersion和targetSdkVersion属性，表明了在设计和测试APP是最低兼容API的级别和最高使用的API级别<br>当然现在这个属性设置在了gradle中</uses-sdk></p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">android</span> &#123;</span><br><span class="line">    <span class="attribute">compileSdkVersion</span> <span class="number">26</span></span><br><span class="line">    buildToolsVersion <span class="string">"26.0.1"</span></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        <span class="attribute">applicationId</span> <span class="string">"com.paul.android_demo_01"</span></span><br><span class="line">        minSdkVersion <span class="number">18</span></span><br><span class="line">        targetSdkVersion <span class="number">26</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        <span class="section">release</span> &#123;</span><br><span class="line">            <span class="attribute">minifyEnabled</span> <span class="literal">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">android</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="attr">compileSdkVersion</span> <span class="string">26</span></span><br><span class="line">    <span class="attr">buildToolsVersion</span> <span class="string">"26.0.1"</span></span><br><span class="line">    <span class="attr">defaultConfig</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">applicationId</span> <span class="string">"com.paul.android_demo_01"</span></span><br><span class="line">        <span class="attr">minSdkVersion</span> <span class="string">18</span></span><br><span class="line">        <span class="attr">targetSdkVersion</span> <span class="string">26</span></span><br><span class="line">        <span class="attr">versionCode</span> <span class="string">1</span></span><br><span class="line">        <span class="attr">versionName</span> <span class="string">"1.0"</span></span><br><span class="line">        <span class="attr">testInstrumentationRunner</span> <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">buildTypes</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">release</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="attr">minifyEnabled</span> <span class="string">false</span></span><br><span class="line">            <span class="attr">proguardFiles</span> <span class="string">getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'</span></span><br><span class="line">        <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>随着新版本Android的发布，一些风格和行为可能会改变，为了能使app能利用这些变化，而且能适配不同风格的用户的设备，我们应该将targetSdkVersion的值尽量的设置与最新可用的Android版本匹配</p>
 <h2 id="运行时检查系统版本"><a href="#运行时检查系统版本" class="headerlink" title="运行时检查系统版本"></a>运行时检查系统版本</h2><p>android在build常量类中提供了对每一个版本的唯一代号，在我们的APP中使用这些代号可以建立条件，保证依赖于高级别的API代码，只会在这些API在当前系统中可用</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setUpActionBar</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//确保我们当前运行的版本是大于等于Honeycomb版本(sdk11)</span></span><br><span class="line">        <span class="keyword">if</span>(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB)&#123;</span><br><span class="line">            android.app.ActionBar actionBar = getActionBar();</span><br><span class="line">            actionBar.setDisplayHomeAsUpEnabled(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void set<span class="constructor">UpActionBar()</span>&#123;</span><br><span class="line">        <span class="comment">//确保我们当前运行的版本是大于等于Honeycomb版本(sdk11)</span></span><br><span class="line">        <span class="keyword">if</span>(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB)&#123;</span><br><span class="line">            android.app.ActionBar actionBar = get<span class="constructor">ActionBar()</span>;</span><br><span class="line">            actionBar.set<span class="constructor">DisplayHomeAsUpEnabled(<span class="params">true</span>)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="使用平台风格和主题"><a href="#使用平台风格和主题" class="headerlink" title="使用平台风格和主题"></a>使用平台风格和主题</h3><p>Android提供了用户体验主题，为app提供基础操作系统的外观和体验。这些主题可以在manifest文件中被应用于app中。通过使用内置的风格和主题，我们的app自然地随着Android新版本的发布，自动适配最新的外观和体验.</p>
 <p>例如<br>使activity看起来像一个对话框:</p>
@@ -659,15 +659,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,7 +671,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -683,7 +679,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,7 +715,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,11 +735,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

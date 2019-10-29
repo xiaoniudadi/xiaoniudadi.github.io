@@ -215,7 +215,7 @@
 <p>无需广播:所有的接受者都可以接受事件，不可以被修改，不可以被拦截<br>有序广播:按照优先级，一级一级的往下传递，接受者可以修改广播数据，也可以终止广播</p>
 </blockquote>
 <h2 id="无序广播的使用"><a href="#无序广播的使用" class="headerlink" title="无序广播的使用"></a>无序广播的使用</h2><p>定义一个按钮，为他添加点击事件，然后发送一个无序广播</p>
-<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Intent</span> <span class="keyword">intent</span> = new <span class="keyword">Intent</span>();</span><br><span class="line">//设置<span class="keyword">intent</span>的动作为com.example.broadcast，可以任意定义</span><br><span class="line"><span class="keyword">intent</span>.setAction(<span class="string">"com.example.broadcast"</span>);</span><br><span class="line">//发送无序广播</span><br><span class="line">sendBroadcast(<span class="keyword">intent</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> <span class="constructor">Intent()</span>;</span><br><span class="line"><span class="comment">//设置intent的动作为com.example.broadcast，可以任意定义</span></span><br><span class="line">intent.set<span class="constructor">Action(<span class="string">"com.example.broadcast"</span>)</span>;</span><br><span class="line"><span class="comment">//发送无序广播</span></span><br><span class="line">send<span class="constructor">Broadcast(<span class="params">intent</span>)</span>;</span><br></pre></td></tr></table></figure>
 
 <p>定义一个广播接受者，来接受这个广播</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">MyReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line">    public <span class="type">MyReceiver</span>() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public void onReceive(<span class="type">Context</span> context, <span class="type">Intent</span> intent) &#123;</span><br><span class="line">        <span class="type">Toast</span>.makeText(context,<span class="string">"收到广播"</span>, <span class="type">Toast</span>.<span class="type">LENGTH_SHORT</span>).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -224,7 +224,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".MyReceiver"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 动作设置为发送的广播动作 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.example.broadcast"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="有序广播"><a href="#有序广播" class="headerlink" title="有序广播"></a>有序广播</h2><p>和无序广播使用不同的是 通过 mContext.sendOrderedBroadcast(Intent, String, BroadCastReceiver, Handler, int, String, Bundle)和每个接收者设置优先级，就可以在小于自己优先级的接收者得到广播前，修改或终止广播。<br>定义一个按钮，设置其点击事件，发送一个有序广播。</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span>  <span class="type">Intent</span>();</span><br><span class="line"><span class="comment">//设置intent的动作为com.example.broadcast，可以任意定义</span></span><br><span class="line">intent.setAction(<span class="string">"com.example.broadcast"</span>);</span><br><span class="line"><span class="comment">//发送无序广播</span></span><br><span class="line"><span class="comment">//第一个参数：intent</span></span><br><span class="line"><span class="comment">//第二个参数：String类型的接收者权限</span></span><br><span class="line"><span class="comment">//第三个参数：BroadcastReceiver 指定的接收者</span></span><br><span class="line"><span class="comment">//第四个参数：Handler scheduler</span></span><br><span class="line"><span class="comment">//第五个参数：int 此次广播的标记 </span></span><br><span class="line"><span class="comment">//第六个参数：String 初始数据</span></span><br><span class="line"><span class="comment">//第七个参数：Bundle 往Intent中添加的额外数据</span></span><br><span class="line">sendOrderedBroadcast(intent, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="string">"这是初始数据"</span>, );</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span>  <span class="constructor">Intent()</span>;</span><br><span class="line"><span class="comment">//设置intent的动作为com.example.broadcast，可以任意定义</span></span><br><span class="line">intent.set<span class="constructor">Action(<span class="string">"com.example.broadcast"</span>)</span>;</span><br><span class="line"><span class="comment">//发送无序广播</span></span><br><span class="line"><span class="comment">//第一个参数：intent</span></span><br><span class="line"><span class="comment">//第二个参数：String类型的接收者权限</span></span><br><span class="line"><span class="comment">//第三个参数：BroadcastReceiver 指定的接收者</span></span><br><span class="line"><span class="comment">//第四个参数：Handler scheduler</span></span><br><span class="line"><span class="comment">//第五个参数：int 此次广播的标记 </span></span><br><span class="line"><span class="comment">//第六个参数：String 初始数据</span></span><br><span class="line"><span class="comment">//第七个参数：Bundle 往Intent中添加的额外数据</span></span><br><span class="line">send<span class="constructor">OrderedBroadcast(<span class="params">intent</span>, <span class="params">null</span>, <span class="params">null</span>, <span class="params">null</span>, <span class="string">"这是初始数据"</span>, )</span>;</span><br></pre></td></tr></table></figure>
 
 <p>定义多个广播接收者，来接收这个广播事件。通过Toast的打印判断是否收到广播</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">MyReceiver1</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line">    public <span class="type">MyReceiver1</span>() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public void onReceive(<span class="type">Context</span> context, <span class="type">Intent</span> intent) &#123;</span><br><span class="line">        <span class="comment">//获取广播中的数据（即得到 "这是初始数据" 字符串）</span></span><br><span class="line">        <span class="type">String</span> message = getResultData();</span><br><span class="line">        <span class="type">Toast</span>.makeText(context ,message ,<span class="type">Toast</span>.<span class="type">LENGTH_SHORT</span>).show();</span><br><span class="line">        <span class="comment">//修改数据</span></span><br><span class="line">        setResultData(<span class="string">"这是修改后的数据"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -474,15 +474,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,7 +486,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,7 +494,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,7 +530,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,11 +550,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">

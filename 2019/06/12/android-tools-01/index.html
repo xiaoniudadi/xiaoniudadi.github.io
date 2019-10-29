@@ -195,7 +195,7 @@
 <li><p>绑定toolbar，通过setSupportActionBar(toolbar)设置toolbar为标题栏</p>
 </li>
 <li><p>设置常用属性：</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">toolbar.setNavigationIcon(int resId)<span class="comment">;</span></span><br><span class="line">toolbar.setLogo(int resId)<span class="comment">;</span></span><br><span class="line">toolbar.setTitle(<span class="string">""</span>)<span class="comment">;</span></span><br><span class="line">toolbar.setSubtitle(<span class="string">""</span>)<span class="comment">;</span></span><br><span class="line">toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener listener)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">toolbar.set<span class="constructor">NavigationIcon(<span class="params">int</span> <span class="params">resId</span>)</span>;</span><br><span class="line">toolbar.set<span class="constructor">Logo(<span class="params">int</span> <span class="params">resId</span>)</span>;</span><br><span class="line">toolbar.set<span class="constructor">Title(<span class="string">""</span>)</span>;</span><br><span class="line">toolbar.set<span class="constructor">Subtitle(<span class="string">""</span>)</span>;</span><br><span class="line">toolbar.set<span class="constructor">OnMenuItemClickListener(Toolbar.OnMenuItemClickListener <span class="params">listener</span>)</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>引用菜单</p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 引入options菜单</span></span><br><span class="line">    getMenuInflater().inflate(R.menu.menu,menu);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -250,7 +250,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">getWindow</span>()<span class="selector-class">.addFlags</span>(<span class="selector-tag">WindowManager</span><span class="selector-class">.LayoutParams</span><span class="selector-class">.FLAG_TRANSLUCENT_STATUS</span>);</span><br><span class="line"><span class="selector-tag">setContentView</span>(<span class="selector-tag">R</span><span class="selector-class">.layout</span><span class="selector-class">.activity_main</span>);</span><br></pre></td></tr></table></figure>
 
 <p>实现toolbar渐变颜色：AppbarLayout提供了滑动偏移监听，偏移量除以appbar总高度可以得到当前滑动百分比。注意：这个verticalOffset是0或者负数，需要转绝对值</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appbarLayout.addOnOffsetChangedListener(<span class="keyword">new</span> AppBarLayout.OnOffsetChangedListener() &#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onOffsetChanged</span><span class="params">(AppBarLayout appBarLayout, <span class="keyword">int</span> verticalOffset)</span> </span>&#123;</span><br><span class="line"><span class="comment">//verticalOffset始终为0以下的负数</span></span><br><span class="line"><span class="keyword">float</span> percent = (Math.abs(verticalOffset * <span class="number">1.0</span>f)/appBarLayout.getTotalScrollRange());</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appbarLayout.add<span class="constructor">OnOffsetChangedListener(<span class="params">new</span> AppBarLayout.OnOffsetChangedListener()</span> &#123;</span><br><span class="line">@Override</span><br><span class="line">public void on<span class="constructor">OffsetChanged(AppBarLayout <span class="params">appBarLayout</span>, <span class="params">int</span> <span class="params">verticalOffset</span>)</span> &#123;</span><br><span class="line"><span class="comment">//verticalOffset始终为0以下的负数</span></span><br><span class="line"><span class="built_in">float</span> percent = (<span class="module-access"><span class="module"><span class="identifier">Math</span>.</span></span>abs(verticalOffset<span class="operator"> * </span><span class="number">1.0</span>f)/appBarLayout.get<span class="constructor">TotalScrollRange()</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 
       
@@ -488,15 +488,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,7 +500,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,7 +508,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,7 +544,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,11 +564,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
