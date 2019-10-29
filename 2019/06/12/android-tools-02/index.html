@@ -203,12 +203,9 @@
 </ol>
 <p>onLayoutChildren() 方法顾名思义，就是对所有的 itemView 进行布局，一般会在初始化和调用 Adapter 的 notifyDataSetChanged() 方法时调用。代码思路已经注释的很清楚了，其中有几个方法需要简单提下：</p>
 <p>标注2处 detachAndScrapAttachedViews(recycler) 方法会将所有的 itemView 从View树中全部detach，然后放入scrap缓存中。了解过RecyclerView的同学应该知道，RecyclerView是有一个二级缓存的，一级缓存是 scrap 缓存,二级缓存是 recycler 缓存，其中从View树上detach的View会放入scrap缓存里，调用removeView()删除的View会放入recycler缓存中。</p>
-<p>标注3处 recycler.getViewForPosition(i)  方法会从缓存中拿到对应索引的 itemView，这个方法内部会先从 scrap 缓存中取 itemView，如果没有则从 recycler 缓存中取，如果还没有则调用 adapter 的 onCreateViewHolder() 去创建 itemView。<br>标注5处 layoutDecorated() 方法会对 itemView 进行布局排版，这里可以看出来，我们是根据宽依次往父容器的右边排下去，直到下一个 itemView的顶点位置超过了RecyclerView 的宽度</p>
-<ol start="4">
-<li>对RecyclerView进行滚动和回收itemView处理<br>对RecyclerView的子item进行排版布局后，运行一下效果就会出现了，不过这时候我们滑动列表会发现滑动后变成空白了，所以就该对滑动操作进行处理了。<br>前面说过,我们打开了横向滚动的开关，所以对应的，我们要重写 scrollHorizontallyBy()方法进行横向滑动操作。<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public <span class="built_in">int</span> scroll<span class="constructor">HorizontallyBy(<span class="params">int</span> <span class="params">dx</span>, RecyclerView.Recycler <span class="params">recycler</span>, RecyclerView.State <span class="params">state</span>)</span> &#123;</span><br><span class="line">        <span class="comment">//标注1.横向滑动的时候，对左右两边按顺序填充itemView</span></span><br><span class="line">        <span class="built_in">int</span> travl = fill(dx, recycler, state);</span><br><span class="line">        <span class="keyword">if</span> (travl<span class="operator"> == </span><span class="number">0</span>) &#123;</span><br><span class="line">            return <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2.滑动</span></span><br><span class="line">        offset<span class="constructor">ChildrenHorizontal(-<span class="params">travl</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3.回收已经不可见的itemView</span></span><br><span class="line">        recycler<span class="constructor">HideView(<span class="params">dx</span>, <span class="params">recycler</span>, <span class="params">state</span>)</span>;</span><br><span class="line">        return travl;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>标注3处 recycler.getViewForPosition(i)  方法会从缓存中拿到对应索引的 itemView，这个方法内部会先从 scrap 缓存中取 itemView，如果没有则从 recycler 缓存中取，如果还没有则调用 adapter 的 onCreateViewHolder() 去创建 itemView。<br>标注5处 layoutDecorated() 方法会对 itemView 进行布局排版，这里可以看出来，我们是根据宽依次往父容器的右边排下去，直到下一个 itemView的顶点位置超过了RecyclerView 的宽度<br>4. 对RecyclerView进行滚动和回收itemView处理<br>对RecyclerView的子item进行排版布局后，运行一下效果就会出现了，不过这时候我们滑动列表会发现滑动后变成空白了，所以就该对滑动操作进行处理了。<br>前面说过,我们打开了横向滚动的开关，所以对应的，我们要重写 scrollHorizontallyBy()方法进行横向滑动操作。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public <span class="built_in">int</span> scroll<span class="constructor">HorizontallyBy(<span class="params">int</span> <span class="params">dx</span>, RecyclerView.Recycler <span class="params">recycler</span>, RecyclerView.State <span class="params">state</span>)</span> &#123;</span><br><span class="line">        <span class="comment">//标注1.横向滑动的时候，对左右两边按顺序填充itemView</span></span><br><span class="line">        <span class="built_in">int</span> travl = fill(dx, recycler, state);</span><br><span class="line">        <span class="keyword">if</span> (travl<span class="operator"> == </span><span class="number">0</span>) &#123;</span><br><span class="line">            return <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2.滑动</span></span><br><span class="line">        offset<span class="constructor">ChildrenHorizontal(-<span class="params">travl</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3.回收已经不可见的itemView</span></span><br><span class="line">        recycler<span class="constructor">HideView(<span class="params">dx</span>, <span class="params">recycler</span>, <span class="params">state</span>)</span>;</span><br><span class="line">        return travl;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
 <p>可以看到，滑动逻辑很简单，总结为三步：</p>
 <ul>
 <li>横向滑动的时候，对左右两边按顺序填充itemView</li>
@@ -468,11 +465,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,19 +533,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -201,13 +201,11 @@
 <p>但是如果我们通过Kotlin语言来实现，代码就会减少很多</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data <span class="keyword">class</span> <span class="symbol">Article</span>(</span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">id:<span class="symbol">Long</span>,</span></span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">name:<span class="symbol">String</span>,</span></span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">url:<span class="symbol">String</span>,</span></span><br><span class="line">    <span class="symbol">var</span> <span class="symbol">mbid:<span class="symbol">String</span></span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
-<p>这个类它就会自动生成所有的属性和他们的访问器，以及一些有用的方法，比如toString()方法</p>
-<ol start="2">
-<li><p>空安全：java语言我们可以称之为防御性语言，如果我们不想遇到空指针异常，那么我们需要在使用它之前不停地判断他是否为空，如果为空则不能执行操作。Kotlin语言和其他的现代语言是相类似的，都是空安全的，因为我们需要通过一个安全调用操作符(用?标识)明确的来指定一个对象是否为空</p>
+<p>这个类它就会自动生成所有的属性和他们的访问器，以及一些有用的方法，比如toString()方法<br>2. 空安全：java语言我们可以称之为防御性语言，如果我们不想遇到空指针异常，那么我们需要在使用它之前不停地判断他是否为空，如果为空则不能执行操作。Kotlin语言和其他的现代语言是相类似的，都是空安全的，因为我们需要通过一个安全调用操作符(用?标识)明确的来指定一个对象是否为空</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里是不能通过编译的，因为我们这规定了，notNullArticle不能为空</span></span><br><span class="line"><span class="keyword">var</span> notNullArticle:Article = <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可以编译，因为我们这里变量可以为空</span></span><br><span class="line"><span class="keyword">var</span> artist:Article? = <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//无法编译，因为artist可能为空，那么如果是空，则不能调用方法</span></span><br><span class="line">artist.<span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以编译，这里只有当artist不为空的时候才可以执行响应的函数</span></span><br><span class="line">artist?.<span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果我们在使用之前就调用判断是否为空，那么我们这里可以直接使用</span></span><br><span class="line"><span class="keyword">if</span>(artist != <span class="keyword">null</span>)&#123;</span><br><span class="line">    artist.<span class="built_in">print</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//只有确保artis不为空的情况下才能调用print，否则不给调用</span></span><br><span class="line">artist!!.<span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">//我们有时候可以使用Elvis来判断当前是否为空，然后如果为空需要赋予额一个值，我们也可以成为是三元运算符</span></span><br><span class="line"><span class="keyword">var</span> name = artist?.name ? : <span class="string">"empty"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>拓展方法：我们可以给任何类添加方法，他比我们那些在项目中使用额工具类拥有更加良好的可读性，下面是书里面给举得例子</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> Fragment.<span class="title">Toast</span><span class="params">(message:<span class="type">CharSequeue</span>,duration:<span class="type">Int</span> = Toast.SHORT)</span></span>&#123;</span><br><span class="line">    Toast.makeText(getActivity(),message,duration).show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>拓展方法：我们可以给任何类添加方法，他比我们那些在项目中使用额工具类拥有更加良好的可读性，下面是书里面给举得例子<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> Fragment.<span class="title">Toast</span><span class="params">(message:<span class="type">CharSequeue</span>,duration:<span class="type">Int</span> = Toast.SHORT)</span></span>&#123;</span><br><span class="line">    Toast.makeText(getActivity(),message,duration).show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -456,11 +454,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,19 +522,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
               </li>
              
               <li class="article-tag-list-item">

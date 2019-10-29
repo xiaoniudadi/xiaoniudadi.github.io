@@ -324,10 +324,7 @@
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//</span> 第1部分：在网络请求接口的注解设置</span><br><span class="line"> @GET<span class="params">("openapi.do?<span class="attr">keyfrom</span>=Yanzhikai&amp;<span class="attr">key</span>=2032414398&amp;<span class="attr">type</span>=data&amp;<span class="attr">doctype</span>=json&amp;<span class="attr">version</span>=1.1&amp;<span class="attr">q</span>=car")</span></span><br><span class="line">Call&lt;Translation&gt;  getCall<span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> 第2部分：在创建Retrofit实例时通过<span class="string">.baseUrl</span><span class="params">()</span>设置</span><br><span class="line">Retrofit retrofit = new Retrofit.Builder<span class="params">()</span></span><br><span class="line">                <span class="string">.baseUrl</span><span class="params">("http://fanyi.youdao.com/")</span> <span class="string">//</span>设置网络请求的Url地址</span><br><span class="line">                <span class="string">.addConverterFactory</span><span class="params">(GsonConverterFactory.create()</span>) <span class="string">//</span>设置数据解析器</span><br><span class="line">                <span class="string">.build</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> 从上面看出：一个请求的URL可以通过 替换块 和 请求方法的参数 来进行动态的URL更新。</span><br><span class="line"><span class="string">//</span> 替换块是由 被&#123;&#125;包裹起来的字符串构成</span><br><span class="line"><span class="string">//</span> 即：Retrofit支持动态改变网络请求根目录</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>网络请求的完整 Url =在创建Retrofit实例时通过.baseUrl()设置 +网络请求接口的注解设置（下面称 “path“ ）</p>
-<ol start="2">
-<li>@HTTP<br>作用：替换@GET、@POST、@PUT、@DELETE、@HEAD注解的作用 及 更多功能拓展<br>具体使用：通过属性method、path、hasBody进行设置</li>
-</ol>
+<p>网络请求的完整 Url =在创建Retrofit实例时通过.baseUrl()设置 +网络请求接口的注解设置（下面称 “path“ ）<br>2. @HTTP<br>作用：替换@GET、@POST、@PUT、@DELETE、@HEAD注解的作用 及 更多功能拓展<br>具体使用：通过属性method、path、hasBody进行设置</p>
 </blockquote>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">public</span> <span class="selector-tag">interface</span> <span class="selector-tag">GetRequest_Interface</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * method：网络请求的方法（区分大小写）</span></span><br><span class="line"><span class="comment">     * path：网络请求地址路径</span></span><br><span class="line"><span class="comment">     * hasBody：是否有请求体</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="variable">@HTTP</span>(method = <span class="string">"GET"</span>, path = <span class="string">"blog/&#123;id&#125;"</span>, hasBody = false)</span><br><span class="line">    Call&lt;ResponseBody&gt; getCall(<span class="variable">@Path</span>(<span class="string">"id"</span>) int id);</span><br><span class="line">    <span class="comment">// &#123;id&#125; 表示是一个变量</span></span><br><span class="line">    <span class="comment">// method 的值 retrofit 不会做处理，所以要自行保证准确</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -671,11 +668,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,19 +736,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
               </li>
              
               <li class="article-tag-list-item">

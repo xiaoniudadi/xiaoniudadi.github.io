@@ -228,16 +228,11 @@
 
 </li>
 </ol>
-<p><img src="/assets/gradle/gradle10.png" alt="在这里插入图片描述"></p>
-<ol start="2">
-<li>需要在build.gradle(project)中引入该配置文件，如下所示<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Top-level build file where you can add configuration options common to all sub-projects/modules.</span></span><br><span class="line">apply <span class="keyword">from</span>: <span class="string">"config.gradle"</span></span><br><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.android.tools.build:gradle:3.0.0'</span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'org.greenrobot:greendao-gradle-plugin:3.0.0'</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here; they belong</span></span><br><span class="line">        <span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">allprojects</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral()</span><br><span class="line">        maven &#123; url <span class="string">"https://jitpack.io"</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">'https://dl.bintray.com/umsdk/release'</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> clean(type: <span class="keyword">Delete</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/assets/gradle/gradle10.png" alt="在这里插入图片描述"><br>2. 需要在build.gradle(project)中引入该配置文件，如下所示</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Top-level build file where you can add configuration options common to all sub-projects/modules.</span></span><br><span class="line">apply <span class="keyword">from</span>: <span class="string">"config.gradle"</span></span><br><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.android.tools.build:gradle:3.0.0'</span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'org.greenrobot:greendao-gradle-plugin:3.0.0'</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here; they belong</span></span><br><span class="line">        <span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">allprojects</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral()</span><br><span class="line">        maven &#123; url <span class="string">"https://jitpack.io"</span> &#125;</span><br><span class="line">        maven &#123; url <span class="string">'https://dl.bintray.com/umsdk/release'</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> clean(type: <span class="keyword">Delete</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<p><img src="/assets/gradle/gradle11.png" alt="在这里插入图片描述"></p>
-<ol start="3">
-<li>使用的时候直接可以在Module的builde.gradle中使用，如下所示<br><img src="/assets/gradle/gradle12.png" alt="在这里插入图片描述"><h3 id="repositories"><a href="#repositories" class="headerlink" title="repositories"></a>repositories</h3>仓库，jcenter()、maven()和google()就是托管第三方插件的平台</li>
-</ol>
+<p><img src="/assets/gradle/gradle11.png" alt="在这里插入图片描述"><br>3. 使用的时候直接可以在Module的builde.gradle中使用，如下所示<br><img src="/assets/gradle/gradle12.png" alt="在这里插入图片描述"></p>
+<h3 id="repositories"><a href="#repositories" class="headerlink" title="repositories"></a>repositories</h3><p>仓库，jcenter()、maven()和google()就是托管第三方插件的平台</p>
 <h3 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h3><p>简单的配置完仓库是不够的，我们还需要在dependencies{}里面的配置里，把需要配置的依赖用classpath配置上，因为这个dependencies在buildscript{}里面，所以代表的是Gradle需要的插件。</p>
 <figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">allprojects</span> &#123;</span><br><span class="line">    <span class="variable">repositories</span> &#123;</span><br><span class="line">        <span class="function"><span class="title">google</span>()</span></span><br><span class="line">        <span class="function"><span class="title">jcenter</span>()</span></span><br><span class="line">        <span class="function"><span class="title">mavenCentral</span>()</span></span><br><span class="line">        <span class="variable">maven</span> &#123; <span class="variable">url</span> <span class="string">"https://jitpack.io"</span> &#125;</span><br><span class="line">        <span class="variable">maven</span> &#123; <span class="variable">url</span> <span class="string">'https://dl.bintray.com/umsdk/release'</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -555,11 +550,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,19 +618,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
               </li>
              
               <li class="article-tag-list-item">

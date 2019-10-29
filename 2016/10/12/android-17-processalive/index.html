@@ -274,24 +274,15 @@
 <li>拥有不在前台、但仍对用户可见的 Activity（已调用 onPause()）。 </li>
 <li>拥有绑定到可见（或前台）Activity 的 Service</li>
 </ul>
-<p>用户正在使用，看得到，但是摸不着，没有覆盖到整个屏幕,只有屏幕的一部分可见进程不包含任何前台组件，一般系统也是不会杀死可见进程的，除非要在资源吃紧的情况下，要保持某个或多个前台进程存活</p>
-<ol start="3">
-<li>服务进程<br>场景 </li>
-</ol>
+<p>用户正在使用，看得到，但是摸不着，没有覆盖到整个屏幕,只有屏幕的一部分可见进程不包含任何前台组件，一般系统也是不会杀死可见进程的，除非要在资源吃紧的情况下，要保持某个或多个前台进程存活<br>3. 服务进程<br>场景 </p>
 <ul>
 <li>某个进程中运行着一个Service且该Service是通过startService()启动的，与用户看见的界面没有直接关联。</li>
 </ul>
-<p>在内存不足以维持所有前台进程和可见进程同时运行的情况下，服务进程会被杀死</p>
-<ol start="4">
-<li>后台进程<br>场景： </li>
-</ol>
+<p>在内存不足以维持所有前台进程和可见进程同时运行的情况下，服务进程会被杀死<br>4. 后台进程<br>场景： </p>
 <ul>
 <li>在用户按了”back”或者”home”后,程序本身看不到了,但是其实还在运行的程序，比如Activity调用了onPause方法</li>
 </ul>
-<p>系统可能随时终止它们，回收内存</p>
-<ol start="5">
-<li>空进程<br>场景： </li>
-</ol>
+<p>系统可能随时终止它们，回收内存<br>5. 空进程<br>场景： </p>
 <ul>
 <li>某个进程不包含任何活跃的组件时该进程就会被置为空进程，完全没用,杀了它只有好处没坏处,第一个干它!</li>
 </ul>
@@ -532,11 +523,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,19 +591,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSR</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
               </li>
              
               <li class="article-tag-list-item">
