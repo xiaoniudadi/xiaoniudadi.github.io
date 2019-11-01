@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.paulniu.com">
-  <title>Tag: java | 以梦为码，不负韶华</title>
+  <title>JavaEE 05 JavaWeb基础(MySql) | 以梦为码，不负韶华</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
-<meta name="keywords" content="android,移动端开发,Java,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="以梦为码，不负韶华">
-<meta property="og:url" content="http://www.paulniu.com/tags/java/index.html">
+  <meta name="description" content="常用数据库操作语言">
+<meta name="keywords" content="JavaEE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaEE 05 JavaWeb基础(MySql)">
+<meta property="og:url" content="http://www.paulniu.com/2019/10/21/JavaEE-05/index.html">
 <meta property="og:site_name" content="以梦为码，不负韶华">
-<meta property="og:description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
+<meta property="og:description" content="常用数据库操作语言">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-30T14:51:12.537Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="以梦为码，不负韶华">
-<meta name="twitter:description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
+<meta name="twitter:title" content="JavaEE 05 JavaWeb基础(MySql)">
+<meta name="twitter:description" content="常用数据库操作语言">
   
     <link rel="alternative" href="/atom.xml" title="以梦为码，不负韶华" type="application/atom+xml">
   
@@ -160,116 +161,285 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JavaEE-05" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/23/JavaEE-2 JavaBase/" class="archive-article-date">
-  	<time datetime="2019-06-23T12:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/23/JavaEE-2 JavaBase/">JavaEE Java基础</a>
+    <h1 class="article-title" itemprop="name">
+      JavaEE 05 JavaWeb基础(MySql)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/10/21/JavaEE-05/" class="archive-article-date">
+  	<time datetime="2019-10-21T13:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>常用数据库操作语言</p>
+<a id="more"></a>
+
+<h1 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h1><ol>
+<li><p>创建数据库</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> dbname;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建数据库判断不存在，再创建</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> dbname;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建数据库并制定字符集</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database dbname<span class="built_in"> default </span>character <span class="builtin-name">set</span> gbk;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看所有的数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看某个数据库的定义信息</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">database</span> dbname;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据库默认字符集</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter database dbname<span class="built_in"> default </span>character <span class="builtin-name">set</span> gbk;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据库</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">database</span> dbname;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看正在使用的数据库</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">database</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用/切换数据库</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">dbname</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h1><p>常用数据类型</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int</td>
+<td>整型</td>
+</tr>
+<tr>
+<td>double</td>
+<td>浮点型</td>
+</tr>
+<tr>
+<td>varchar</td>
+<td>字符串型</td>
+</tr>
+<tr>
+<td>date</td>
+<td>日期类型，格式为yyyy-MM-dd，只有年月日，没有时分秒</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>创建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> student&#123;</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span>,<span class="comment">---整数</span></span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>),<span class="comment">---字符串</span></span><br><span class="line">    birthday <span class="built_in">date</span>,<span class="comment">---生日，日期</span></span><br><span class="line">    insert_time <span class="built_in">timestamp</span> <span class="comment">--插入时间，如果没有给他赋值则为null，默认使用当前系统时间来填充</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询某个数据库中所有表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看表结构</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc student<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看创建表的SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> student;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> student;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断表是否存在，如果存在则删除表</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> table <span class="keyword">if</span> <span class="keyword">exists</span> <span class="symbol">`student`</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加表列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span> age <span class="built_in">int</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改列类型</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">modify</span> <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改列名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">change</span> <span class="keyword">name</span> stuName <span class="built_in">varchar</span>(<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">drop</span> stuName;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改表名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> <span class="keyword">table</span> student <span class="keyword">to</span> students;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> students <span class="built_in">character</span> <span class="keyword">set</span> utf8;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1><ol>
+<li>插入数据<br>所有字段名都写出来<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students (<span class="keyword">id</span>,stuName,age,birthday,create_time) <span class="keyword">values</span> (<span class="number">1001</span>,<span class="string">'张三'</span>,<span class="number">18</span>,生日,<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>不写字段名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students <span class="keyword">values</span> (<span class="number">1002</span>,<span class="string">'李四'</span>,<span class="number">18</span>,生日,<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>插入部分数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students (<span class="keyword">id</span>,stuName,age) <span class="keyword">values</span> (<span class="number">1001</span>,<span class="string">'张三'</span>,<span class="number">18</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>insert注意事项<br>插入数据应与字段的数据类型相同<br>数据的大小应在列的规定范围内，如不能讲一个长度为80的字符创加入到长度是40的列中<br>在values中列出数据位置必须与被加入的列的排列位置相对应。<br>字符和日期类型数据窨井盖该包含在单引号中，MySql也可以使用双引号作为分隔符<br>不指定列或使用null，表示插入空值</p>
+</blockquote>
+<ol start="2">
+<li>更新表数据<br>不带条件的修改数据<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update students <span class="builtin-name">set</span> <span class="attribute">name</span>=<span class="string">'无名氏'</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>带条件修改数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> students <span class="keyword">set</span> <span class="keyword">name</span>=<span class="string">'王五'</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1001</span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除表数据<br>不带条件的删除<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> students;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>带条件的删除</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> students <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1002</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用truncate删除表记录(相当于将当前表删除， 然后在创建一个新表)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> students;</span><br></pre></td></tr></table></figure>
+
+<h1 id="查询表数据"><a href="#查询表数据" class="headerlink" title="查询表数据"></a>查询表数据</h1><p>语法：<br>        select<br>            字段列表<br>        from<br>            表名列表<br>        where<br>            条件列表<br>        group by<br>            分组字段<br>        having<br>            分组之后的条件<br>        order by<br>            排序<br>        limit<br>            分页限定</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">基础</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaEE</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.paulniu.com/2019/10/21/JavaEE-05/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
+<nav id="article-nav">
+  
+    <a href="/2019/10/23/android-tools-21/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          android奇技淫巧 21 code review
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/16/JavaEE-04/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaEE 04 JavaWeb基础(JSP)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/12/07/javaEE-1/" class="archive-article-date">
-  	<time datetime="2016-12-07T12:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-07</time>
-</a>
-        </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/07/javaEE-1/">JavaEE mysql</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -292,9 +462,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
@@ -362,23 +532,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JavaEE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">基础</a>
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -398,11 +564,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">豆瓣电影APP</a>
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -418,11 +584,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">swift</a>
+                <a href="javascript:void(0)" class="js-tag color5">高德地图</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color5">百度地图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">swift</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -447,6 +621,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ios</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSR</a>
               </li>
              
               <li class="article-tag-list-item">
