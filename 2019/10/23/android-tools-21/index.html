@@ -16,10 +16,14 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="Code Review">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-08T14:01:07.278Z">
+<meta property="og:image" content="http://www.paulniu.com/assets/tools/tools-review-01.png">
+<meta property="og:image" content="http://www.paulniu.com/assets/tools/tools-review-02.png">
+<meta property="og:image" content="http://www.paulniu.com/assets/tools/tools-review-03.png">
+<meta property="og:updated_time" content="2019-11-08T15:20:25.208Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android奇技淫巧 21 code review">
 <meta name="twitter:description" content="Code Review">
+<meta name="twitter:image" content="http://www.paulniu.com/assets/tools/tools-review-01.png">
   
     <link rel="alternative" href="/atom.xml" title="以梦为码，不负韶华" type="application/atom+xml">
   
@@ -202,7 +206,17 @@
 <li>团队成员提出问题，其他实现思路等</li>
 <li>讨论不同实现思路的方式以及优劣势</li>
 </ol>
-<h1 id="Android代码Lint检查"><a href="#Android代码Lint检查" class="headerlink" title="Android代码Lint检查"></a>Android代码Lint检查</h1>
+<h1 id="Android代码Lint检查"><a href="#Android代码Lint检查" class="headerlink" title="Android代码Lint检查"></a>Android代码Lint检查</h1><p>除了组员之间的代码review，我们还可以通过Lint检查。<br>通过Android studio编译工具执行Lint检查</p>
+<ol>
+<li><p>执行 android studio –&gt;  Analyze  –&gt; Inspect code操作<br><img src="/assets/tools/tools-review-01.png" alt="打开代码检查框"></p>
+</li>
+<li><p>在代码检查框中选择为整个工程执行lint检查？还是整个module或者是当前的源文件执行lint检查，这里为了简单起见，我们只为当前的源代码文件执行lint检查，然后执行确认即可<br><img src="/assets/tools/tools-review-02.png" alt></p>
+</li>
+<li><p>接下来就可以在我们的Android studio查看lint检查结果了<br><img src="/assets/tools/tools-review-03.png" alt></p>
+</li>
+</ol>
+<p>可以发现我们lint检查之后出现了许多检查结果，其中在uuelectricrenter项目下存在着多条检查信息，下面我们就分析一下检测结果。</p>
+
       
 
       
@@ -430,6 +444,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
@@ -439,22 +461,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,6 +492,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高德地图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">百度地图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
               </li>
              
@@ -498,15 +512,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">高德地图</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">百度地图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,7 +540,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">动画</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,7 +560,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">推送</a>
+                <a href="javascript:void(0)" class="js-tag color3">动画</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,6 +573,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">express</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">推送</a>
               </li>
              
               <li class="article-tag-list-item">
