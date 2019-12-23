@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="最近公司要求把IM这一模块重写一遍，然后使用MQTT的方式实现消息的收发功能。这个内容我后面在总结，今天先看一下另外一个模块。这个内容的需求是这样的，要求在MQTT收到消息之后，在通知栏显示消息内容，其实就是需要有一个通知栏可以显示IM消息。所以趁着这个时间，再把Notification的知识点总结一下。这里我觉得代码上的实现总是比较简单，我会在最后把代码的思路交代一下，而前面的篇幅主要用来描述，">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-21T13:05:05.589Z">
+<meta property="og:updated_time" content="2019-12-20T14:51:14.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重拾android路(二十七) Notification">
 <meta name="twitter:description" content="最近公司要求把IM这一模块重写一遍，然后使用MQTT的方式实现消息的收发功能。这个内容我后面在总结，今天先看一下另外一个模块。这个内容的需求是这样的，要求在MQTT收到消息之后，在通知栏显示消息内容，其实就是需要有一个通知栏可以显示IM消息。所以趁着这个时间，再把Notification的知识点总结一下。这里我觉得代码上的实现总是比较简单，我会在最后把代码的思路交代一下，而前面的篇幅主要用来描述，">
@@ -188,7 +188,7 @@
 <p>源码分析的时候主要是以Android7.0为主</p>
 </blockquote>
 <h1 id="Notification的发送逻辑"><a href="#Notification的发送逻辑" class="headerlink" title="Notification的发送逻辑"></a>Notification的发送逻辑</h1><p>一般来说，如果我们自己的 app 想发送一条新的 Notification，可以参照以下代码</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">xNotificationCompat.Builder mBuilder =</span><br><span class="line">       <span class="keyword">new</span> <span class="type">NotificationCompat</span>.Builder(<span class="built_in">this</span>)</span><br><span class="line">       .setSmallIcon(R.drawable.notification_icon)</span><br><span class="line">       .setWhen(System.currentTimeMillis())</span><br><span class="line">       .setContentTitle(<span class="string">"Test Notification Title"</span>)</span><br><span class="line">       .setContentText(<span class="string">"Test Notification Content!"</span>);</span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> <span class="type">Intent</span>(<span class="built_in">this</span>, ResultActivity.class);</span><br><span class="line"></span><br><span class="line">PendingIntent contentIntent =</span><br><span class="line">       PendingIntent.getActivity(</span><br><span class="line">           <span class="built_in">this</span>, </span><br><span class="line">           <span class="number">0</span>, </span><br><span class="line">           resultIntent, </span><br><span class="line">           PendingIntent.FLAG_UPDATE_CURRENT</span><br><span class="line">       );</span><br><span class="line">mBuilder.setContentIntent(resultPendingIntent);</span><br><span class="line">NotificationManager mNotificationManager =</span><br><span class="line">   (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</span><br><span class="line"><span class="comment">// mId allows you to update the notification later on.</span></span><br><span class="line">mNotificationManager.notify(mId, mBuilder.build());</span><br></pre></td></tr></table></figure>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">NotificationCompat.Builder mBuilder =</span><br><span class="line">       <span class="keyword">new</span> <span class="type">NotificationCompat</span>.Builder(<span class="built_in">this</span>)</span><br><span class="line">       .setSmallIcon(R.drawable.notification_icon)</span><br><span class="line">       .setWhen(System.currentTimeMillis())</span><br><span class="line">       .setContentTitle(<span class="string">"Test Notification Title"</span>)</span><br><span class="line">       .setContentText(<span class="string">"Test Notification Content!"</span>);</span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> <span class="type">Intent</span>(<span class="built_in">this</span>, ResultActivity.class);</span><br><span class="line"></span><br><span class="line">PendingIntent contentIntent =</span><br><span class="line">       PendingIntent.getActivity(</span><br><span class="line">           <span class="built_in">this</span>, </span><br><span class="line">           <span class="number">0</span>, </span><br><span class="line">           resultIntent, </span><br><span class="line">           PendingIntent.FLAG_UPDATE_CURRENT</span><br><span class="line">       );</span><br><span class="line">mBuilder.setContentIntent(resultPendingIntent);</span><br><span class="line">NotificationManager mNotificationManager =</span><br><span class="line">   (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</span><br><span class="line"><span class="comment">// mId allows you to update the notification later on.</span></span><br><span class="line">mNotificationManager.notify(mId, mBuilder.build());</span><br></pre></td></tr></table></figure>
 
 <p>可以看到，我们通过 NotificationCompat.Builder 新建了一个 Notification 对象，最后通过 NotificationManager#notify() 方法将 Notification 发送出去</p>
 <h1 id="NotificationManager-notify"><a href="#NotificationManager-notify" class="headerlink" title="NotificationManager#notify()"></a>NotificationManager#notify()</h1><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> notify(<span class="built_in">int</span> id, Notification notification)</span><br><span class="line">&#123;</span><br><span class="line">   notify(<span class="keyword">null</span>, id, notification);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 省略部分注释</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> notify(<span class="keyword">String</span> tag, <span class="built_in">int</span> id, Notification notification)</span><br><span class="line">&#123;</span><br><span class="line">   notifyAsUser(tag, id, notification, <span class="keyword">new</span> UserHandle(UserHandle.myUserId()));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @hide</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> notifyAsUser(<span class="keyword">String</span> tag, <span class="built_in">int</span> id, Notification notification, UserHandle user)</span><br><span class="line">&#123;</span><br><span class="line">   <span class="built_in">int</span>[] idOut = <span class="keyword">new</span> <span class="built_in">int</span>[<span class="number">1</span>];</span><br><span class="line">   INotificationManager service = getService();</span><br><span class="line">   <span class="keyword">String</span> pkg = mContext.getPackageName();</span><br><span class="line">   <span class="comment">// Fix the notification as best we can.</span></span><br><span class="line">   Notification.addFieldsFromContext(mContext, notification);</span><br><span class="line">   <span class="keyword">if</span> (notification.sound != <span class="keyword">null</span>) &#123;</span><br><span class="line">       notification.sound = notification.sound.getCanonicalUri();</span><br><span class="line">       <span class="keyword">if</span> (StrictMode.vmFileUriExposureEnabled()) &#123;</span><br><span class="line">           notification.sound.checkFileUriExposed(<span class="string">"Notification.sound"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   fixLegacySmallIcon(notification, pkg);</span><br><span class="line">   <span class="keyword">if</span> (mContext.getApplicationInfo().targetSdkVersion &gt; Build.VERSION_CODES.LOLLIPOP_MR1) &#123;</span><br><span class="line">       <span class="keyword">if</span> (notification.getSmallIcon() == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Invalid notification (no valid small icon): "</span></span><br><span class="line">                   + notification);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (localLOGV) Log.v(TAG, pkg + <span class="string">": notify("</span> + id + <span class="string">", "</span> + notification + <span class="string">")"</span>);</span><br><span class="line">   <span class="keyword">final</span> Notification <span class="built_in">copy</span> = Builder.maybeCloneStrippedForDelivery(notification);</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="comment">// !!!</span></span><br><span class="line">       service.enqueueNotificationWithTag(pkg, mContext.getOpPackageName(), tag, id,</span><br><span class="line">               <span class="built_in">copy</span>, idOut, user.getIdentifier());</span><br><span class="line">       <span class="keyword">if</span> (localLOGV &amp;&amp; id != idOut[<span class="number">0</span>]) &#123;</span><br><span class="line">           Log.v(TAG, <span class="string">"notify: id corrupted: sent "</span> + id + <span class="string">", got back "</span> + idOut[<span class="number">0</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">       <span class="keyword">throw</span> e.rethrowFromSystemServer();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -467,15 +467,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,11 +495,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,11 +511,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">json</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,11 +567,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
