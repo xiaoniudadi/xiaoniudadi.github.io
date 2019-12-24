@@ -8,18 +8,20 @@
   <link rel="dns-prefetch" href="http://www.paulniu.com">
   <title>JavaEE 10 Spring | 以梦为码，不负韶华</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="概述 网上很多教程都是将这个部分当做了解内容，但是前提是你对Spring有所了解，像我这样的什么都不知道的，还是要好好地学习一下的  Spring是分层的JavaEE应用full-stack轻量级开源框架，以IoC和AOP为内核，提供了展现层SpringMVC和持久层SpringJDBC以及业务层事务管理等众多的企业级应用技术，还能整合开源世界诸多的著名第三方框架">
+  <meta name="description" content="Spring框架">
 <meta name="keywords" content="JavaEE,Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaEE 10 Spring">
 <meta property="og:url" content="http://www.paulniu.com/2019/11/29/JavaEE-10-Spring/index.html">
 <meta property="og:site_name" content="以梦为码，不负韶华">
-<meta property="og:description" content="概述 网上很多教程都是将这个部分当做了解内容，但是前提是你对Spring有所了解，像我这样的什么都不知道的，还是要好好地学习一下的  Spring是分层的JavaEE应用full-stack轻量级开源框架，以IoC和AOP为内核，提供了展现层SpringMVC和持久层SpringJDBC以及业务层事务管理等众多的企业级应用技术，还能整合开源世界诸多的著名第三方框架">
+<meta property="og:description" content="Spring框架">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-29T14:15:21.647Z">
+<meta property="og:image" content="http://www.paulniu.com/assets/JavaEE/spring-01.png">
+<meta property="og:updated_time" content="2019-12-24T13:21:15.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaEE 10 Spring">
-<meta name="twitter:description" content="概述 网上很多教程都是将这个部分当做了解内容，但是前提是你对Spring有所了解，像我这样的什么都不知道的，还是要好好地学习一下的  Spring是分层的JavaEE应用full-stack轻量级开源框架，以IoC和AOP为内核，提供了展现层SpringMVC和持久层SpringJDBC以及业务层事务管理等众多的企业级应用技术，还能整合开源世界诸多的著名第三方框架">
+<meta name="twitter:description" content="Spring框架">
+<meta name="twitter:image" content="http://www.paulniu.com/assets/JavaEE/spring-01.png">
   
     <link rel="alternative" href="/atom.xml" title="以梦为码，不负韶华" type="application/atom+xml">
   
@@ -181,10 +183,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+        <p>Spring框架</p>
+<a id="more"></a>
+
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
 <p>网上很多教程都是将这个部分当做了解内容，但是前提是你对Spring有所了解，像我这样的什么都不知道的，还是要好好地学习一下的</p>
 </blockquote>
 <p>Spring是分层的JavaEE应用full-stack轻量级开源框架，以IoC和AOP为内核，提供了展现层SpringMVC和持久层SpringJDBC以及业务层事务管理等众多的企业级应用技术，还能整合开源世界诸多的著名第三方框架</p>
+<h3 id="Spring优势"><a href="#Spring优势" class="headerlink" title="Spring优势"></a>Spring优势</h3><p>方便解耦，简化开发：<br>通过Spring提供的Ioc容器，可以将对象间的依赖关系交给Spring进行控制，避免硬解码造成过度程序耦合，用户也不必再为单例模式，属性文件解析等这些很底层的需求编写代码，更加关注于上层应用</p>
+<p>AOP编程的支持：<br>通过Spring的AOP功能，方便进行面选项切面的编程，许多不容易用传统OOP实现的功能，可以使用AOP轻松应付</p>
+<p>声明式事务的支持：<br>可以将我们从单调烦躁的事务管理代码中解脱出来，通过声明式方式零落的进行事务管理，提供开发效率和质量</p>
+<p>方便程序的测试：<br>可以用废容器依赖的编程方式进行几乎所有的测试工作，测试不再是昂贵的操作</p>
+<p>方便集成各种优秀框架：<br>Spring可以降低各种框架的使用难度，提供了对各种优秀框架(Struts,Hibernate,Hessian)的直接支持</p>
+<p>降低JavaEE API的使用难度：</p>
+<p>Java源码是经典学习范例：</p>
+<h2 id="Spring体系结构"><a href="#Spring体系结构" class="headerlink" title="Spring体系结构"></a>Spring体系结构</h2><p><img src="/assets/JavaEE/spring-01.png" alt="Spring体系结构"></p>
 
       
 
@@ -417,19 +430,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSH</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -445,11 +458,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">json</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -461,23 +490,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">json</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color4">音视频</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">音视频</a>
               </li>
              
               <li class="article-tag-list-item">
