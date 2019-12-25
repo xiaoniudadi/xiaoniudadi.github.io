@@ -8,18 +8,20 @@
   <link rel="dns-prefetch" href="http://www.paulniu.com">
   <title>重拾android路(三十五) MQTT | 以梦为码，不负韶华</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
+  <meta name="description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
 <meta name="keywords" content="android,MQTT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重拾android路(三十五) MQTT">
 <meta property="og:url" content="http://www.paulniu.com/2019/12/24/android-35-mqtt/index.html">
 <meta property="og:site_name" content="以梦为码，不负韶华">
-<meta property="og:description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
+<meta property="og:description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-24T13:21:15.750Z">
+<meta property="og:image" content="http://www.paulniu.com/assets/android/mqtt01.png">
+<meta property="og:updated_time" content="2019-12-25T13:53:52.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重拾android路(三十五) MQTT">
-<meta name="twitter:description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
+<meta name="twitter:description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
+<meta name="twitter:image" content="http://www.paulniu.com/assets/android/mqtt01.png">
   
     <link rel="alternative" href="/atom.xml" title="以梦为码，不负韶华" type="application/atom+xml">
   
@@ -181,7 +183,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="关于MQTT"><a href="#关于MQTT" class="headerlink" title="关于MQTT"></a>关于MQTT</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>使用发布/订阅消息模式。提供一对多的消息发布，解除应用程序耦合</li>
+<li>对敷在内容屏蔽的消息传输模式</li>
+<li>使用TCP/IP提供网络连接</li>
+<li>有三种消息发布服务质量<ul>
+<li>qos为0:”至多1次”，消息发布完全依赖底层TCP/IP网络。会发生消息丢失或重复，这一级别可用于如下情况：环境传感器数据，丢失一次几路无所谓，因为不久之后还有第二次发送</li>
+<li>qos为1:”至少1次”，确保消息到达，但消息重复可能会发生，这一级别可用于如下情况：你需要获取每条消息，并且消息重复发送对我们来说无影响</li>
+<li>qos为2::”只有1次”，确保消息到达一次，这一级别可用于如下情况，在计费系统中，消息重复或丢失导致不正确的结果</li>
+</ul>
+</li>
+<li>小型传输，开销很小(固定长度的头部是2字节)。协议交换最小化，以降低网络流量。使用Last Will和Testament特性通知有关各方客户端异常中断的机制</li>
+</ol>
+<h2 id="MQTT体系结构"><a href="#MQTT体系结构" class="headerlink" title="MQTT体系结构"></a>MQTT体系结构</h2><p>如下图所示<br><img src="/assets/android/mqtt01.png" alt="MQTT体系结构"></p>
+<p>我们可以这样理解，我们去一个景区玩，进入景区配置一台闸机设备作为发布者(publisher),当闸机设备监控到有游客进入的时候，会发布一个带有主体(topic)的消息(例如主题为：welcome)给服务器(MQTT-Broker),当服务器收到发不过来的消息后，进行基于主题的过滤，将消息转发给鼎娱乐该主题的订阅者。而景区的大屏幕作为定于这(Subscriber),订阅的主题也是welcome,这样就能接收到服务器转发过来的消息，收到消息后在大屏幕上显示我们需要的内容</p>
+<p>在该结构图中，闸机设备和大屏幕都是客户端，都可以进行发布和订阅。</p>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a href="https://blog.csdn.net/qq_17250009/article/details/52774472" target="_blank" rel="noopener">android App必备高级功能，消息推送之MQTT</a><br><a href="https://www.jianshu.com/p/73436a5cf855" target="_blank" rel="noopener">Android消息推送MQTT实战</a><br><a href="https://www.hivemq.com/blog/how-to-get-started-with-mqtt/" target="_blank" rel="noopener">Getting started with MQTT</a></p>
+
       
 
       
@@ -408,15 +427,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSH</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,11 +459,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,15 +483,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">音视频</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
