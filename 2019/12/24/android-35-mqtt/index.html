@@ -17,7 +17,7 @@
 <meta property="og:description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.paulniu.com/assets/android/mqtt01.png">
-<meta property="og:updated_time" content="2019-12-30T13:45:26.818Z">
+<meta property="og:updated_time" content="2019-12-31T14:49:35.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重拾android路(三十五) MQTT">
 <meta name="twitter:description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
@@ -214,7 +214,23 @@
 <li>级别2：恰好一次，保证这种语义肯定会减少并发或增加延迟，不过丢失或者重复消息是不可被接受的。</li>
 </ol>
 <p>服务质量是一个老话题，级别2所提供的的不重复不丢失很多情况下是最理想的，不过往返多次的确认，一定会对并发和延迟带来影响；级别1提供至少一次语义在日志处理这种场景下是没问题的，所以像Kafka这类的系统利用这个特点减少确认从而提高高并发；级别0适合几个数据场景，但是并不是特别多，姑且不表；</p>
-<h2 id="消息类型"><a href="#消息类型" class="headerlink" title="消息类型"></a>消息类型</h2><h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a href="https://blog.csdn.net/qq_17250009/article/details/52774472" target="_blank" rel="noopener">android App必备高级功能，消息推送之MQTT</a><br><a href="https://www.jianshu.com/p/73436a5cf855" target="_blank" rel="noopener">Android消息推送MQTT实战</a><br><a href="https://www.hivemq.com/blog/how-to-get-started-with-mqtt/" target="_blank" rel="noopener">Getting started with MQTT</a><br><a href="https://blog.csdn.net/github_33304260/article/details/73555475" target="_blank" rel="noopener">MQTT入门知识</a></p>
+<h2 id="消息类型"><a href="#消息类型" class="headerlink" title="消息类型"></a>消息类型</h2><ol>
+<li>CONNECT：客户端连接到MQTT代理</li>
+<li>CONNACK：连接确认</li>
+<li>PUBLISH：新发布消息</li>
+<li>PUBACK：新发布消息确认，是QoS 1给PUBLISH消息的回复</li>
+<li>PUBREC：QoS 2消息流的第一部分，表示消息发布已记录</li>
+<li>PUBREL：QoS 2消息流的第二部分，表示消息发布已释放</li>
+<li>PUBCOMP：QoS 2消息流的第三部分，表示消息发布完成</li>
+<li>SUBSCRIBE：客户端订阅某个主题</li>
+<li>SUBACK：对于SUBSCRIBE消息的确认</li>
+<li>UNSUBSCRIBE：客户端终止订阅的消息</li>
+<li>UNSUBACK：对于UNSUBSCRIBE消息的确认</li>
+<li>PINGREQ：心跳</li>
+<li>PINGRESP：确认心跳</li>
+<li>DISCONNECT：客户端终止连接前优雅地通知MQTT代理</li>
+</ol>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a href="https://blog.csdn.net/qq_17250009/article/details/52774472" target="_blank" rel="noopener">android App必备高级功能，消息推送之MQTT</a><br><a href="https://www.jianshu.com/p/73436a5cf855" target="_blank" rel="noopener">Android消息推送MQTT实战</a><br><a href="https://www.hivemq.com/blog/how-to-get-started-with-mqtt/" target="_blank" rel="noopener">Getting started with MQTT</a><br><a href="https://blog.csdn.net/github_33304260/article/details/73555475" target="_blank" rel="noopener">MQTT入门知识</a></p>
 
       
 
@@ -347,7 +363,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 牛谱乐(paul niu)
+    		&copy; 2020 牛谱乐(paul niu)
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -486,15 +502,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">json</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,11 +570,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">http/https</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,11 +594,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">sqlite</a>
+                <a href="javascript:void(0)" class="js-tag color3">动画</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">动画</a>
+                <a href="javascript:void(0)" class="js-tag color2">sqlite</a>
               </li>
              
               <li class="article-tag-list-item">
