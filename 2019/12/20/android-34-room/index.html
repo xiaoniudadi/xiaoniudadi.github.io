@@ -16,10 +16,12 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="关于数据库的部分，之前有写过一篇博客，当时使用的数据库是realm数据库。但是在使用了一段时间之后，发现他的使用比较复杂，而且在我们执行数据库语言的时候，总是不够智能化(难道说我用的是一个假的数据库？)，所以经过深思熟虑，决定使用room数据库作为项目的主要数据库框架。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-20T15:02:43.570Z">
+<meta property="og:image" content="http://www.paulniu.com/assets/room/room01.png">
+<meta property="og:updated_time" content="2020-01-06T13:10:57.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重拾android路(三十四) room">
 <meta name="twitter:description" content="关于数据库的部分，之前有写过一篇博客，当时使用的数据库是realm数据库。但是在使用了一段时间之后，发现他的使用比较复杂，而且在我们执行数据库语言的时候，总是不够智能化(难道说我用的是一个假的数据库？)，所以经过深思熟虑，决定使用room数据库作为项目的主要数据库框架。">
+<meta name="twitter:image" content="http://www.paulniu.com/assets/room/room01.png">
   
     <link rel="alternative" href="/atom.xml" title="以梦为码，不负韶华" type="application/atom+xml">
   
@@ -190,6 +192,12 @@
 
 <p>目前好像room数据库有针对androidX进行更新，不过目前项目中并没有用到，所以也没有过多深入，后面如果有时间，再去学习吧。</p>
 <p>引入完成之后，我们这里创建一个类名为AppDataBase的文件。</p>
+<p>代码如下：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">package com.paulniu.iyingmusic.db;</span><br><span class="line"></span><br><span class="line">import android.content.Context;</span><br><span class="line"></span><br><span class="line">import androidx.annotation.NonNull;</span><br><span class="line">import androidx.room.Database;</span><br><span class="line">import androidx.room.Room;</span><br><span class="line">import androidx.room.RoomDatabase;</span><br><span class="line">import androidx.room.TypeConverters;</span><br><span class="line">import androidx.room.migration.Migration;</span><br><span class="line">import androidx.sqlite.db.SupportSQLiteDatabase;</span><br><span class="line"></span><br><span class="line">import com.paulniu.iyingmusic.Constant;</span><br><span class="line">import com.paulniu.iyingmusic.db.dao.MusicInfoDao;</span><br><span class="line">import com.paulniu.iyingmusic.model.MusicInfo;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Coder: niupuyue (牛谱乐)</span></span><br><span class="line"><span class="comment"> * Date: 2020-01-05</span></span><br><span class="line"><span class="comment"> * Time: 21:53</span></span><br><span class="line"><span class="comment"> * Desc: 数据库操作</span></span><br><span class="line"><span class="comment"> * Version:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@Database(entities = &#123;MusicInfo.class&#125;, version = 1)</span><br><span class="line">@TypeConverters(&#123;&#125;)</span><br><span class="line">public abstract class AppDataBase extends RoomDatabase &#123;</span><br><span class="line"></span><br><span class="line">    private static AppDataBase INSTANCE = null;</span><br><span class="line"></span><br><span class="line">    public abstract MusicInfoDao getMusicInfoDao();</span><br><span class="line"></span><br><span class="line">    public static final Migration mirgration_1_2 = new Migration(1, 2) &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void migrate(@NonNull SupportSQLiteDatabase database) &#123;</span><br><span class="line">            // 删除本地歌曲表</span><br><span class="line">            database.execSQL("<span class="keyword">DROP</span> TABLE <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="symbol">`MusicInfo`</span><span class="string">");</span></span><br><span class="line"><span class="string">            // 创建本地歌曲表</span></span><br><span class="line"><span class="string">            database.execSQL("</span><span class="keyword">CREATE</span> TABLE <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="symbol">`MusicInfo`</span> (<span class="symbol">`_id`</span> INTEGER <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> AUTOINCREMENT <span class="keyword">NOT</span> <span class="literal">NULL</span>, <span class="symbol">`songId`</span> INTEGER <span class="keyword">NOT</span> <span class="literal">NULL</span>, <span class="symbol">`albumId`</span> INTEGER <span class="keyword">NOT</span> <span class="literal">NULL</span>, <span class="symbol">`duration`</span> INTEGER <span class="keyword">NOT</span> <span class="literal">NULL</span>, <span class="symbol">`musicName`</span> TEXT, <span class="symbol">`artist`</span> TEXT, <span class="symbol">`data`</span> TEXT, <span class="symbol">`folder`</span> TEXT, <span class="symbol">`musicNameKey`</span> TEXT, <span class="symbol">`artistKey`</span> TEXT, <span class="symbol">`favorite`</span> INTEGER <span class="keyword">NOT</span> <span class="literal">NULL</span>)<span class="string">");</span></span><br><span class="line"><span class="string">            // 创建本地歌曲索引</span></span><br><span class="line"><span class="string">            database.execSQL("</span><span class="keyword">CREATE</span>  <span class="keyword">INDEX</span> <span class="symbol">`index_MusicInfo__id_songId_albumId`</span> <span class="keyword">ON</span> <span class="symbol">`$&#123;TABLE_NAME&#125;`</span> (<span class="symbol">`_id`</span>, <span class="symbol">`songId`</span>, <span class="symbol">`albumId`</span>)<span class="string">");</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    public static AppDataBase getInstance(Context context) &#123;</span></span><br><span class="line"><span class="string">        synchronized (AppDataBase.class) &#123;</span></span><br><span class="line"><span class="string">            if (null == INSTANCE) &#123;</span></span><br><span class="line"><span class="string">                INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, Constant.DATABASE_NAME)</span></span><br><span class="line"><span class="string">                        .setJournalMode(JournalMode.TRUNCATE)</span></span><br><span class="line"><span class="string">                        .allowMainThreadQueries()</span></span><br><span class="line"><span class="string">                        .addMigrations(mirgration_1_2)</span></span><br><span class="line"><span class="string">                        .build();</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            return INSTANCE;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个方法中，首先我们需要将当前类是抽象类，让room数据库帮我们自动创建实现类，因为这个内容是自动创建的，代码不用过于看重，只需要能看懂即可</p>
+<p><img src="/assets/room/room01.png" alt="Database实现类"></p>
+<p>我们需要使用注解(@Database)的方法来设置当前类是数据库操作引入类，其中在这里我们需要声明数据库的实体类entities = {MusicInfo.class}<br>我们通过注解的方式完成数据库中类型比较复杂的样式，比如，我们需要存储List集合，或者其他的自定义对象，我们就可以通过这样的的方法实现类型的转换，后面会对这一块进一步阐述，@TypeConverters({})<br>我们需要让当前类继承RoomDatabase，并且将该类声明成抽象类<br>为了防止多个数据库对象同时操作数据库，我们使用单例模式，生成当前类对象，这样就保证了唯一性<br>在单例模式中，我们创建数据库操作的实体对象</p>
 
       
 
@@ -422,15 +430,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -442,11 +450,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,11 +462,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -470,19 +482,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">json</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,6 +515,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
