@@ -162,6 +162,364 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-android-source-code-02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/03/android-source-code-02/">源码分析(二) HashMap</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/03/android-source-code-02/" class="archive-article-date">
+  	<time datetime="2020-03-03T14:09:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HashMap源码分析</p>
+        
+          <a class="article-more-a" href="/2020/03/03/android-source-code-02/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码分析</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/03/android-source-code-02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-android-35-mqtt" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/24/android-35-mqtt/">重拾android路(三十五) MQTT</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/24/android-35-mqtt/" class="archive-article-date">
+  	<time datetime="2019-12-24T13:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="关于MQTT"><a href="#关于MQTT" class="headerlink" title="关于MQTT"></a>关于MQTT</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>使用发布/订阅消息模式。提供一对多的消息发布，解除应用程序耦合</li>
+<li>对敷在内容屏蔽的消息传输模式</li>
+<li>使用TCP/IP提供网络连接</li>
+<li>有三种消息发布服务质量<ul>
+<li>qos为0:”至多1次”，消息发布完全依赖底层TCP/IP网络。会发生消息丢失或重复，这一级别可用于如下情况：环境传感器数据，丢失一次几路无所谓，因为不久之后还有第二次发送</li>
+<li>qos为1:”至少1次”，确保消息到达，但消息重复可能会发生，这一级别可用于如下情况：你需要获取每条消息，并且消息重复发送对我们来说无影响</li>
+<li>qos为2::”只有1次”，确保消息到达一次，这一级别可用于如下情况，在计费系统中，消息重复或丢失导致不正确的结果</li>
+</ul>
+</li>
+<li>小型传输，开销很小(固定长度的头部是2字节)。协议交换最小化，以降低网络流量。使用Last Will和Testament特性通知有关各方客户端异常中断的机制</li>
+</ol>
+<h2 id="MQTT体系结构"><a href="#MQTT体系结构" class="headerlink" title="MQTT体系结构"></a>MQTT体系结构</h2><p>如下图所示<br><img src="/assets/android/mqtt01.png" alt="MQTT体系结构"></p>
+<p>我们可以这样理解，我们去一个景区玩，进入景区配置一台闸机设备作为发布者(publisher),当闸机设备监控到有游客进入的时候，会发布一个带有主体(topic)的消息(例如主题为：welcome)给服务器(MQTT-Broker),当服务器收到发不过来的消息后，进行基于主题的过滤，将消息转发给鼎娱乐该主题的订阅者。而景区的大屏幕作为定于这(Subscriber),订阅的主题也是welcome,这样就能接收到服务器转发过来的消息，收到消息后在大屏幕上显示我们需要的内容</p>
+<p>在该结构图中，闸机设备和大屏幕都是客户端，都可以进行发布和订阅。</p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布/订阅模式"></a>发布/订阅模式</h2><p>发布/订阅模式解耦了发布消息的客户端(发布者)和订阅消息的客户端(订阅者)之间的关系，这意味着发布者和订阅者之间不需要直接建立联系。就比如，打电话给朋友，我们需要等到朋友接通电话才能交流，这就是一种典型的同步请求/回答的场景；而给一个好友发送邮件就不一样了，发送的邮件之后，我们可以去做别的事，朋友有时间去看邮件就好了。这就是一个典型的异步发布/订阅的场景。</p>
+<blockquote>
+<p>发布者与订阅者不需要彼此了解，只需要认识同一个消息代理即可；发布者和订阅者不需要交互，发布者无需等待订阅者确认而导致锁定；发布者和订阅者不需要同时在线，可以自由选择时间消费消息</p>
+</blockquote>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>MQTT是通过主题对消息进行分类的，本质上就是一个UTF-8的字符串，不过可以通过反斜杠表示多个层级关系，主题不需要创建，直接使用即可<br>主题还可以通过通配符进行过滤，其中+可以过滤一个层级，*只能出现在主题最后表示过滤任意级别的层级</p>
+<blockquote>
+<p>building-b/floor-5:表示B楼5层的设置；+/floor-5:表示任何一个楼里的5层的设置；building-b/*:表示B楼中的所有设配</p>
+</blockquote>
+<h2 id="服务质量"><a href="#服务质量" class="headerlink" title="服务质量"></a>服务质量</h2><p>为了满足不同的场景，MQTT支持三种不同级别的服务质量QoS，为不同的场景提供消息的可靠性</p>
+<ol>
+<li>级别0：尽力而为，消息发送者会想尽办法将消息发送出去，但如遇意外，并不会重新发送</li>
+<li>级别1：至少一次，消息接受者如果没有知会或者知会本身丢失，消息发送者再次发送该消息，以确保消息能够被接收到，这种情况，可能会造成消息的重复</li>
+<li>级别2：恰好一次，保证这种语义肯定会减少并发或增加延迟，不过丢失或者重复消息是不可被接受的。</li>
+</ol>
+<p>服务质量是一个老话题，级别2所提供的的不重复不丢失很多情况下是最理想的，不过往返多次的确认，一定会对并发和延迟带来影响；级别1提供至少一次语义在日志处理这种场景下是没问题的，所以像Kafka这类的系统利用这个特点减少确认从而提高高并发；级别0适合几个数据场景，但是并不是特别多，姑且不表；</p>
+<h2 id="消息类型"><a href="#消息类型" class="headerlink" title="消息类型"></a>消息类型</h2><ol>
+<li>CONNECT：客户端连接到MQTT代理</li>
+<li>CONNACK：连接确认</li>
+<li>PUBLISH：新发布消息</li>
+<li>PUBACK：新发布消息确认，是QoS 1给PUBLISH消息的回复</li>
+<li>PUBREC：QoS 2消息流的第一部分，表示消息发布已记录</li>
+<li>PUBREL：QoS 2消息流的第二部分，表示消息发布已释放</li>
+<li>PUBCOMP：QoS 2消息流的第三部分，表示消息发布完成</li>
+<li>SUBSCRIBE：客户端订阅某个主题</li>
+<li>SUBACK：对于SUBSCRIBE消息的确认</li>
+<li>UNSUBSCRIBE：客户端终止订阅的消息</li>
+<li>UNSUBACK：对于UNSUBSCRIBE消息的确认</li>
+<li>PINGREQ：心跳</li>
+<li>PINGRESP：确认心跳</li>
+<li>DISCONNECT：客户端终止连接前优雅地通知MQTT代理</li>
+</ol>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a href="https://blog.csdn.net/qq_17250009/article/details/52774472" target="_blank" rel="noopener">android App必备高级功能，消息推送之MQTT</a><br><a href="https://www.jianshu.com/p/73436a5cf855" target="_blank" rel="noopener">Android消息推送MQTT实战</a><br><a href="https://www.hivemq.com/blog/how-to-get-started-with-mqtt/" target="_blank" rel="noopener">Getting started with MQTT</a><br><a href="https://blog.csdn.net/github_33304260/article/details/73555475" target="_blank" rel="noopener">MQTT入门知识</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MQTT</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/24/android-35-mqtt/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-android-34-room" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/20/android-34-room/">重拾android路(三十四) room</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/20/android-34-room/" class="archive-article-date">
+  	<time datetime="2019-12-20T14:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于数据库的部分，之前有写过一篇博客，当时使用的数据库是realm数据库。但是在使用了一段时间之后，发现他的使用比较复杂，而且在我们执行数据库语言的时候，总是不够智能化(难道说我用的是一个假的数据库？)，所以经过深思熟虑，决定使用room数据库作为项目的主要数据库框架。</p>
+        
+          <a class="article-more-a" href="/2019/12/20/android-34-room/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">room数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/20/android-34-room/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JavaEE-13-SSH" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/01/JavaEE-13-SSH/">JavaEE 13 SSH整合</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/01/JavaEE-13-SSH/" class="archive-article-date">
+  	<time datetime="2019-12-01T06:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaEE</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSH</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/01/JavaEE-13-SSH/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JavaEE-12-Maven" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -627,317 +985,9 @@
 
 
   
-    <article id="post-python-15" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/14/python-15/">拥抱Python（十五） 小例子--格式化文件中的字符串</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/14/python-15/" class="archive-article-date">
-  	<time datetime="2019-11-14T14:06:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>昨天公司的同事问我会不会python语言，帮他写一个脚本，然后可以将文本中的数据转换成另外一种格式，并且生成新的文件。我想自己学习python语言也有一段时间了，但是却从来没有能够应用到实际中，这是一个机会，于是便应承下来了。然后自己发现，不管你觉得你的基础知识学习的如何，在没有应用到实际之前，都不要夸下海口，或者自以为是。因为能够将一个语言，解决实际的问题，这才是我们真正需要做的事情。</p>
-        
-          <a class="article-more-a" href="/2019/11/14/python-15/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/14/python-15/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JavaEE-08-ALiService" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/31/JavaEE-08-ALiService/">JavaEE 08 阿里云服务器的搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/31/JavaEE-08-ALiService/" class="archive-article-date">
-  	<time datetime="2019-10-31T15:01:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>趁着马上双十一，阿里云服务器大降价，将自己一直心心向往的与服务器买了回来，不管怎么说，总算是万里长征第一步。先说一下自己的云主机的配置</p>
-        
-          <a class="article-more-a" href="/2019/10/31/JavaEE-08-ALiService/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaEE</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">阿里云</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/31/JavaEE-08-ALiService/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JavaEE-07-Summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/30/JavaEE-07-Summary/">JavaEE 07 写一个小项目作为总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/30/JavaEE-07-Summary/" class="archive-article-date">
-  	<time datetime="2019-10-30T15:01:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学习有一段时间了，这段时间积攒下来一些东西，希望借助一个JavaWeb的小项目，把之前学习过的内容好好的整理一下，查漏补缺</p>
-        
-          <a class="article-more-a" href="/2019/10/30/JavaEE-07-Summary/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaEE</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/30/JavaEE-07-Summary/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JavaEE-06-Maven" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/29/JavaEE-06-Maven/">JavaEE 06 Maven</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/29/JavaEE-06-Maven/" class="archive-article-date">
-  	<time datetime="2019-10-29T14:53:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Maven依赖</p>
-        
-          <a class="article-more-a" href="/2019/10/29/JavaEE-06-Maven/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JavaEE</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/29/JavaEE-06-Maven/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1036,6 +1086,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">阿里云</a>
               </li>
              
@@ -1048,11 +1102,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1076,11 +1130,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,6 +1158,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">源码分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">-android</a>
               </li>
              
@@ -1116,19 +1174,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color1">swift</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">swift</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1164,7 +1218,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cache</a>
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1176,7 +1230,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
+                <a href="javascript:void(0)" class="js-tag color1">cache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1205,10 +1259,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">rxjava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">源码分析</a>
               </li>
             
             <div class="clearfix"></div>
