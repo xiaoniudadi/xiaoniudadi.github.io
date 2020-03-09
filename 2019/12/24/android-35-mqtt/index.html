@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://www.paulniu.com">
   <title>重拾android路(三十五) MQTT | 以梦为码，不负韶华</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
+  <meta name="description" content="关于MQTT">
 <meta name="keywords" content="android,MQTT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重拾android路(三十五) MQTT">
 <meta property="og:url" content="http://www.paulniu.com/2019/12/24/android-35-mqtt/index.html">
 <meta property="og:site_name" content="以梦为码，不负韶华">
-<meta property="og:description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
+<meta property="og:description" content="关于MQTT">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.paulniu.com/assets/android/mqtt01.png">
-<meta property="og:updated_time" content="2019-12-31T14:49:35.393Z">
+<meta property="og:updated_time" content="2020-03-09T02:52:20.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重拾android路(三十五) MQTT">
-<meta name="twitter:description" content="关于MQTT介绍MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。 特点 使用">
+<meta name="twitter:description" content="关于MQTT">
 <meta name="twitter:image" content="http://www.paulniu.com/assets/android/mqtt01.png">
   
     <link rel="alternative" href="/atom.xml" title="以梦为码，不负韶华" type="application/atom+xml">
@@ -183,7 +183,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="关于MQTT"><a href="#关于MQTT" class="headerlink" title="关于MQTT"></a>关于MQTT</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。</p>
+        <h1 id="关于MQTT"><a href="#关于MQTT" class="headerlink" title="关于MQTT"></a>关于MQTT</h1><a id="more"></a>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MQTT，消息队列遥测传输，是IBM开发的一个即时通信协议。它是一种发布/订阅，极其简单和轻量级的消息传递协议，专门为受限设备和低带宽，高延迟或不可靠的网络而设计。它的设计思想是轻巧，开放，简单，规范，易于实现。这些特点使得他对很多场景来说都是很好的选择。特别是一些受限环境如机器与机器的通信(M2M)以及物联网环境，相对于XMPP，MQTT更加轻量级，并且占用的宽带低。</p>
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
 <li>使用发布/订阅消息模式。提供一对多的消息发布，解除应用程序耦合</li>
 <li>对敷在内容屏蔽的消息传输模式</li>
@@ -463,11 +464,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -475,11 +476,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,11 +484,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -499,11 +496,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,7 +508,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JNI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,18 +533,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">json</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JNI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,10 +552,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">高德地图</a>
               </li>
              
@@ -567,6 +564,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
@@ -575,19 +576,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">realm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,7 +596,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">http/https</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,10 +613,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">video</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
