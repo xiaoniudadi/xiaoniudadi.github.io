@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="HashMap源码分析">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-08T14:15:03.948Z">
+<meta property="og:updated_time" content="2020-03-09T10:06:54.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码分析(二) HashMap">
 <meta name="twitter:description" content="HashMap源码分析">
@@ -184,6 +184,46 @@
         <p>HashMap源码分析</p>
 <a id="more"></a>
 
+<p>HashMap是位于java.util包下的工具类，帮我们实现了继承自Map接口的数据集。HashMap直接继承自AbstractMap，并且实现了Cloneable和Serializable接口，所以我们可以将HashMap执行深复制/浅复制和序列化等操作。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="symbol">HashMap</span>&lt;<span class="symbol">K,<span class="symbol">V</span></span>&gt;</span><br><span class="line">    <span class="symbol">extends</span> <span class="symbol">AbstractMap</span>&lt;<span class="symbol">K,<span class="symbol">V</span></span>&gt;</span><br><span class="line">    <span class="symbol">implements</span> <span class="symbol">Map</span>&lt;<span class="symbol">K,<span class="symbol">V</span></span>&gt;, <span class="symbol">Cloneable, <span class="symbol">Serializable</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在HashMap中有一些变量需要我们注意</p>
+<ol>
+<li><p>DEFAULT_INITIAL_CAPACITY<br>这个变量表示HashMap初始值大小，后面我们会说HashMap其实也是跟数组有关的，既然是数组那就必须有一个初始值，HashMap的初始值就是4</p>
+<figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The default initial capacity - MUST be a power of two.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>EMPTY_TABLE<br>这个表示在数据没有执行初始化的时候，默认的数组</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * An empty table<span class="built_in"> instance </span>to share when the table is<span class="built_in"> not </span>inflated.</span><br><span class="line"> */</span><br><span class="line">static<span class="keyword"> final</span> HashMapEntry&lt;?,?&gt;[] EMPTY_TAB<span class="class">LE = &#123;&#125;;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>table<br>这个就是HashMap实际存储数据的数组，默认情况下使用EMPTY_TABLE进行初始化</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The table, resized as necessary. Length MUST Always be a power of two.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">transient HashMapEntry<span class="params">&lt;K,V&gt;</span>[] table = (HashMapEntry<span class="params">&lt;K,V&gt;</span>[]) EMPTY_TABLE;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>其中HashMapEntry是一个实体，表示的就是键值对。我们可以看一下HashMapEntry的类实体</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMapEntry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    HashMapEntry&lt;K,V&gt; next;</span><br><span class="line">    <span class="keyword">int</span> hash;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个类中有四个成员变量，key，value，next，hash。其中next也是一个HashMapEntry对象，由此我们可以知道，HashMapEntry其实就是一个单链表<br>所以通过上面的代码我们知道，我们是将需要存入的key-value作为一个对象进行封装，装成entry之后，将entry作为数组的数据存入。我们可以这样说：HashMap是以数组为存储结构的数组-链表集合。</p>
+<p>HashMap的构造方法有多个，但是最终都会调用到一个传入了初始化大小和增长因子的构造方法中，如下所示</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY) &#123;</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (initialCapacity &lt; DEFAULT_INITIAL_CAPACITY) &#123;</span><br><span class="line">        initialCapacity = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +</span><br><span class="line">                                           loadFactor);</span><br><span class="line">    <span class="comment">// Android-Note: We always use the default load factor of 0.75f.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// This might appear wrong but it's just awkward design. We always call</span></span><br><span class="line">    <span class="comment">// inflateTable() when table == EMPTY_TABLE. That method will take "threshold"</span></span><br><span class="line">    <span class="comment">// to mean "capacity" and then replace it with the real threshold (i.e, multiplied with</span></span><br><span class="line">    <span class="comment">// the load factor).</span></span><br><span class="line">    threshold = initialCapacity;</span><br><span class="line">    init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两个参数，第一个参数initialCapacity就是初始化数据大小，第二个参数loadFactor是增长因子。里面关于这两个变量的赋值改变等操作我们不用去看，只看最后一个init()方法的调用。这个init方法默认HashMap是不帮我们实现的，如果我们想要对HashMap有一个初始化的操作，可以重写该方法。</p>
+<p>同其他集合也是一样，我们使用集合就是为了存放数据，获取数据，修改数据，删除数据等操作的，所以先看第一个方法put方法。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public V put(K key, V value) &#123;</span><br><span class="line">    <span class="keyword">if</span> (table<span class="operator"> == </span>EMPTY_TABLE) &#123;</span><br><span class="line">        inflate<span class="constructor">Table(<span class="params">threshold</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (key<span class="operator"> == </span>null)</span><br><span class="line">        return put<span class="constructor">ForNullKey(<span class="params">value</span>)</span>;</span><br><span class="line">    <span class="built_in">int</span> hash = sun.misc.<span class="module-access"><span class="module"><span class="identifier">Hashing</span>.</span></span>single<span class="constructor">WordWangJenkinsHash(<span class="params">key</span>)</span>;</span><br><span class="line">    <span class="built_in">int</span> i = index<span class="constructor">For(<span class="params">hash</span>, <span class="params">table</span>.<span class="params">length</span>)</span>;</span><br><span class="line">    for (HashMapEntry&lt;K,V&gt; e = table<span class="literal">[<span class="identifier">i</span>]</span>; e != null; e = e.next) &#123;</span><br><span class="line">        Object k;</span><br><span class="line">        <span class="keyword">if</span> (e.hash<span class="operator"> == </span>hash<span class="operator"> &amp;&amp; </span>((k = e.key)<span class="operator"> == </span>key<span class="operator"> || </span>key.equals(k))) &#123;</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            e.value = value;</span><br><span class="line">            e.record<span class="constructor">Access(<span class="params">this</span>)</span>;</span><br><span class="line">            return oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modCount++;</span><br><span class="line">    add<span class="constructor">Entry(<span class="params">hash</span>, <span class="params">key</span>, <span class="params">value</span>, <span class="params">i</span>)</span>;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在执行put方法时，我们会先检测当前table是否为空，如果为空，则会执行inflateTable这个方法。这个方法很简单就是说如果HashMap为空的话，则初始化HashMap的长度。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Inflates the table.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">private <span class="type">void</span> inflateTable(<span class="type">int</span> toSize) &#123;</span><br><span class="line">    // Find a power <span class="keyword">of</span> <span class="number">2</span> &gt;= toSize</span><br><span class="line">    <span class="type">int</span> capacity = roundUpToPowerOf2(toSize);</span><br><span class="line"></span><br><span class="line">    // Android-changed: Replace <span class="keyword">usage</span> <span class="keyword">of</span> Math.min() here because this <span class="keyword">method</span> <span class="keyword">is</span></span><br><span class="line">    // <span class="keyword">called</span> <span class="keyword">from</span> the &lt;clinit&gt; <span class="keyword">of</span> runtime, at which <span class="type">point</span> the native libraries</span><br><span class="line">    // needed <span class="keyword">by</span> <span class="type">Float</span>.* might <span class="keyword">not</span> be loaded.</span><br><span class="line">    <span class="type">float</span> thresholdFloat = capacity * loadFactor;</span><br><span class="line">    <span class="keyword">if</span> (thresholdFloat &gt; MAXIMUM_CAPACITY + <span class="number">1</span>) &#123;</span><br><span class="line">        thresholdFloat = MAXIMUM_CAPACITY + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    threshold = (<span class="type">int</span>) thresholdFloat;</span><br><span class="line">    table = <span class="built_in">new</span> HashMapEntry[capacity];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还是put方法，紧接着我们判断key是否为空，如果为空则调用putForNullKey()方法。这个方法其实就是保证HashMap中只有一个key=null。说明HashMap允许key=null。<br>如果key不为空，则时候我们调用了一个方法singleWordWangJenkinsHash(),这个方法在我的代码里无法直接访问到，但是我在网上查找了一下，其实这个方法就是将key的值转换成hash值。我们知道hash值跟我们的数据是有关系的，如果两个对象的值相同，那么hash值也一定是相同的。在拿到hash值之后根据hash值判断当前的hash值在数组中的下标，返回值是i，通过for循环，从数组中获取HashMapEntry对象，并且比较Entry对象和需要添加的key，value值是否相等，这里需要注意我们for循环的判断条件是next(),其实就是说遍历i下标的数组对象(链表中)是否存在key-value相等的对象。如果存在，则返回旧的数据，如果不存在，则执行完for循环之后执行addEntry方法。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void add<span class="constructor">Entry(<span class="params">int</span> <span class="params">hash</span>, K <span class="params">key</span>, V <span class="params">value</span>, <span class="params">int</span> <span class="params">bucketIndex</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> ((size &gt;= threshold)<span class="operator"> &amp;&amp; </span>(null != table<span class="literal">[<span class="identifier">bucketIndex</span>]</span>)) &#123;</span><br><span class="line">        resize(<span class="number">2</span><span class="operator"> * </span>table.length);</span><br><span class="line">        hash = (null != key) ? sun.misc.<span class="module-access"><span class="module"><span class="identifier">Hashing</span>.</span></span>single<span class="constructor">WordWangJenkinsHash(<span class="params">key</span>)</span> : <span class="number">0</span>;</span><br><span class="line">        bucketIndex = index<span class="constructor">For(<span class="params">hash</span>, <span class="params">table</span>.<span class="params">length</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    create<span class="constructor">Entry(<span class="params">hash</span>, <span class="params">key</span>, <span class="params">value</span>, <span class="params">bucketIndex</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>addEntry方法需要传递的数据包括hash值，这个值是添加数据时在数组中的标志，key和value值，bucketIndex。然后在createEntry方法的具体内容如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> createEntry(<span class="type">int</span> hash, K key, V <span class="keyword">value</span>, <span class="type">int</span> bucketIndex) &#123;</span><br><span class="line">    HashMapEntry&lt;K,V&gt; e = <span class="keyword">table</span>[bucketIndex];</span><br><span class="line">    <span class="keyword">table</span>[bucketIndex] = <span class="built_in">new</span> HashMapEntry&lt;&gt;(hash, key, <span class="keyword">value</span>, e);</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是直接将hash值在数组中对应的对象拿过来作为参数传递到HashMapEntry的构造方法中，在构造方法中其实就是将需要新创建的对象放在链表的头部。这样就是新的数据放在链表的前面，以前的对象放在链表的最后。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="constructor">HashMapEntry(<span class="params">int</span> <span class="params">h</span>, K <span class="params">k</span>, V <span class="params">v</span>, HashMapEntry&lt;K,V&gt; <span class="params">n</span>)</span> &#123;</span><br><span class="line">    value = v;</span><br><span class="line">    next = n;</span><br><span class="line">    key = k;</span><br><span class="line">    hash = h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于剩下的删除，获取等方法，这里就不一一介绍，主要还是添加方法的逻辑。</p>
 
       
 
@@ -408,15 +448,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">阿里云</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -424,7 +456,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">阿里云</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,23 +496,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JNI</a>
+                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">AIDL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JNI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,6 +528,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">-android</a>
               </li>
              
@@ -508,10 +544,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">swift</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
               </li>
              
@@ -520,7 +552,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">swift</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,11 +572,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,15 +588,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">http/https</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,6 +601,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">

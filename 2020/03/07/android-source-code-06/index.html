@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="GC垃圾回收机制">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-08T14:14:44.067Z">
+<meta property="og:updated_time" content="2020-03-09T11:12:06.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码分析(六) Java GC">
 <meta name="twitter:description" content="GC垃圾回收机制">
@@ -184,6 +184,35 @@
         <p>GC垃圾回收机制</p>
 <a id="more"></a>
 
+<p>垃圾回收机制，简称GC，是Java语言的核心技术之一，在Java中，程序员不需要关心内存动态分配和垃圾回收问题，这些都有JVM帮我们实现。</p>
+<p>什么是垃圾？<br>简单来说就是只要一个对象没有被引用，该对象就是无用的。</p>
+<p>如何判断这个对象是无用的？<br>两种算法：引用计数法和可达性分析算法。</p>
+<ol>
+<li><p>引用计数法<br>给对象添加一个引用计数器，每当有一个地方引用他，引用计数器就+1，当引用失效，则引用计数器-1，任何时候计数器为0的对象都是不再被引用的对象，可以当做垃圾回收。<br>这种引用计数法有明显的缺点，无法检测出循环引用。优点就是执行效率高，程序受影响小。</p>
+</li>
+<li><p>可达性分析算法<br>其主要的思想就是通过一系列成为”GC roots”对象作为起点，从这个节点开始向下搜索，节点所走过的路径成为引用链，当一个对象到GC Roots没有任何引用链相连，证明此对象是不可用的。</p>
+</li>
+</ol>
+<p>什么对象可以作为GC Roots？</p>
+<ul>
+<li>虚拟机栈中的引用对象</li>
+<li>方法去中到的常量引用对象</li>
+<li>方法去中类静态属性的引用对象</li>
+<li>本地方法栈中的引用对象</li>
+<li>活跃线程的引用对象</li>
+</ul>
+<p>其实在可达性分析算法中被判定为不可用的对象也不是会被立刻回收，至少要经历两次标记过程。在可达性分析算法中不可用对象被第一次标记，并且会执行一次筛选，筛选的条件就是该对象是否有必要执行finalize()方法。对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机执行过，那么这时候虚拟机将会认为没有必要执行，需要执行的对象才会被放在一个队列中进行第二次标记。</p>
+<p>如何进行垃圾回收？<br>四种垃圾回收算法，标记清楚算法，复制算法，标记整理算法，分代回收算法</p>
+<ol>
+<li><p>记忆清除算法<br>分为标记和清除两个状态，标记阶段的任务是标记出所有需要被回收的对象，清除阶段就是回收所有被标记的对象的内存空间。效率较高，但是也会造成内存中存在很多碎片。</p>
+</li>
+<li><p>复制算法<br>将内存分为大小相等的两块区域，每次在使用的时候只使用其中的一块。当第一块内存使用完后，将第一块内存中所有还在存活的数据拷贝一份到第二块内存中，然后清除第一块内存。</p>
+</li>
+<li><p>标记整理算法<br>标记清除一样，但是在完成标记之后，它不是直接清理可回收对象，而是将存活对象都向一端移动，然后清理掉端边界以外的内存。</p>
+</li>
+<li><p>分代回收算法<br>当前虚拟机的垃圾收集都采用分代收集算法，这种算法就是根据具体的情况选择具体的垃圾回收算法。一般将 java 堆分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。<br>比如在新生代中，每次收集都会有大量对象死去，所以可以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集。而老年代的对象存活几率是比较高的，而且没有额外的空间对它进行分配担保，所以我们必须选择“标记-清除”或“标记-整理”算法进行垃圾收集</p>
+</li>
+</ol>
 
       
 
@@ -278,7 +307,7 @@
   
   
     <a href="/2020/03/06/android-source-code-05/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">源码分析(五) java内存机制</div>
+      <div class="article-nav-title">源码分析(五) JVM内存模型和Java内存模型</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -408,15 +437,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">阿里云</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -424,7 +445,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">阿里云</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,23 +485,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">room数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JNI</a>
+                <a href="javascript:void(0)" class="js-tag color5">MQTT</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">AIDL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JNI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,6 +517,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">-android</a>
               </li>
              
@@ -508,10 +533,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">swift</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
               </li>
              
@@ -520,7 +541,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">swift</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,11 +561,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,15 +577,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">键盘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">http/https</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,6 +590,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
