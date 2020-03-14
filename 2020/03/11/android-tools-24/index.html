@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.paulniu.com">
-  <title>Archives: 2019/8 | 以梦为码，不负韶华</title>
+  <title>android奇技淫巧 23 S语音播放/录制模块封装 | 以梦为码，不负韶华</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
-<meta name="keywords" content="android,移动端开发,Java,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="以梦为码，不负韶华">
-<meta property="og:url" content="http://www.paulniu.com/archives/2019/08/page/3/index.html">
+  <meta name="description" content="最近在准备面试的东西，看了自己之前写过的代码，语音播放/录制模块可以进行一下封装操作，所以决定自己做一个轮子。">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android奇技淫巧 23 S语音播放&#x2F;录制模块封装">
+<meta property="og:url" content="http://www.paulniu.com/2020/03/11/android-tools-24/index.html">
 <meta property="og:site_name" content="以梦为码，不负韶华">
-<meta property="og:description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
+<meta property="og:description" content="最近在准备面试的东西，看了自己之前写过的代码，语音播放/录制模块可以进行一下封装操作，所以决定自己做一个轮子。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-11T03:30:05.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="以梦为码，不负韶华">
-<meta name="twitter:description" content="广州大学计算机科学与技术11级，从事过培训机构老师，程序猿，攻城狮，对前端，Android，javaEE有所涉猎">
+<meta name="twitter:title" content="android奇技淫巧 23 S语音播放&#x2F;录制模块封装">
+<meta name="twitter:description" content="最近在准备面试的东西，看了自己之前写过的代码，语音播放/录制模块可以进行一下封装操作，所以决定自己做一个轮子。">
   
     <link rel="alternative" href="/atom.xml" title="以梦为码，不负韶华" type="application/atom+xml">
   
@@ -160,36 +161,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-android-tools-24" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      android奇技淫巧 23 S语音播放/录制模块封装
+    </h1>
+  
+
+        
+        <a href="/2020/03/11/android-tools-24/" class="archive-article-date">
+  	<time datetime="2020-03-11T02:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在准备面试的东西，看了自己之前写过的代码，语音播放/录制模块可以进行一下封装操作，所以决定自己做一个轮子。</p>
+<a id="more"></a>
+<p>初步构想，如果需要封装一个语音播放模块需要考虑哪些内容</p>
+<ol>
+<li>采用什么样的设计模式？<br>采用Builder构造者模式，实现链式调用</li>
+<li>支持多个语音播放？(暂定，后面可能不需要)<br>如果需要支持多个语音播放，需要使用到线程池，将需要播放的语音加入队列，按照顺序播放.</li>
+<li>网络请求<br>要实现边下载边播放的功能，并且可以返回下载进度</li>
+<li>缓存方式<br>采用三级缓存：LruCache，弱引用，磁盘缓存</li>
+<li>语音播放和Activity、Fragment生命周期进行绑定<br>仿照Glide创建一个透明的Fragment，与Activity的声明周期进行绑定，并且可以实现一些本身提供的语音录制/播放的UI</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.jianshu.com/p/1e48b2fbb843" target="_blank" rel="noopener">MediaPlayer实现边下边播功能</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/04/android-media-03/" class="archive-article-date">
-  	<time datetime="2019-08-04T13:51:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/04/android-media-03/">android 音视频开发(三)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -197,190 +207,118 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
-        		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.paulniu.com/2020/03/11/android-tools-24/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/03/python-07/" class="archive-article-date">
-  	<time datetime="2019-08-03T13:51:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/03/11/android-source-code-10/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          源码分析(十) EventBus源码分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/10/android-source-code-09/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">源码分析(九) Glide源码分析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/03/python-07/">拥抱Python（七） 列表</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/02/android-media-02/" class="archive-article-date">
-  	<time datetime="2019-08-02T13:51:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/02/android-media-02/">android 音视频开发(二)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/02/android-media-01/" class="archive-article-date">
-  	<time datetime="2019-08-02T11:31:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/02/android-media-01/">android 音视频开发(一)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/01/python-06/" class="archive-article-date">
-  	<time datetime="2019-08-01T13:51:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/01/python-06/">拥抱Python（六） 字符串</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/08/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/2019/08/">1</a><a class="page-number" href="/archives/2019/08/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
   
 
 
@@ -404,8 +342,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

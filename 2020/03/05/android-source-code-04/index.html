@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="以梦为码，不负韶华">
 <meta property="og:description" content="Activity启动流程">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-09T10:08:20.067Z">
+<meta property="og:updated_time" content="2020-03-14T15:43:18.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码分析(四) Activity启动流程">
 <meta name="twitter:description" content="Activity启动流程">
@@ -205,7 +205,7 @@
 <p>其中我们可以把着七个步骤分为两部分，第一部分包括步骤1，2，3，这个三个步骤主要是Launcher和System Service完成的交互，第二部分包括步骤4，5，6，7，这四个步骤主要是完成应用进程的创建，初始化，注册等工作。那么这样分析完成之后我们就很明了了。</p>
 <p>关于Activity启动详细的流程图，在网上有很多，有兴趣的同学可以去网上搜一下，这里我贴出一些别人的图片，供大家参考<br><a href="/assets/sourcecode/activity_start_02.png">启动详细流程图</a></p>
 <p>这里我们将启动流程总的来说一遍(如果面试的时候别人问你启动流程，直接按照这个回答应该就是问题不大，不过后面别人肯定也会进一步的问清楚细节)</p>
-<p>当点击桌面的应用图标时，会发起启动远程进程的操作，利用Binder机制发送消息个system_service进程，在system_service进程中会调用ActivityManagerService#startProcessLocked()方法，这个方法内部会调用process.start(android.app.ActivityThread)方法，然后通过socket通信通知zygote进程fork出一个子进程，也就是我们的App进程，在App进程创建之后将ActivityThread加入到App进程中，执行ActivityThread#main()方法；在App进程中，main()方法会初始化ActivityThread，同时创建ApplicationThread，Looper，MessageQueue等对象，调用ActivityThread#attach(false)方法进行Binder通信，在这个方法中调用ActivityManagerService#attachApplication(mAppThread)方法，将thread信息告诉ActivityManagerService，接着开启Looper循环；而在system_service中，ActivityManagerService#attachApplication(mAppThread)方法调用了thread#bindApplication()和mStackSupervisor#attachApplicationLocked()方法。其中thread#bindApplication()方法调用了ActivityThread#sendMessage(H.BIND_APPLICATION,data)方法，最终走到了ActivityThread#handleBindApplication()方法，进而创建Application对象，并调用Application#attach(context)方法，并且绑定context，在完成Application的创建之后，调用mInstrumentation#callApplicationOnce()方法，执行Application#onCreate()方法生命周期；而对于mStackSupervisor#attachApplicationLocked()方法调用了app#thread#scheduleLaunchActivity()方法(其实就是ActivityThread#ApplicationThread#scheduleLaunchActivity()方法)，进而通过ActivityThread#sendMessage(H.LAUNCH_ACTIVITY,r)方法，最终执行到ActivityThread#handleLaunchActivity()方法，进而创建Activity对象，调用Activity#attach()方法，在调用mInstrumentation#callActivityOnCreate()方法，执行Activity#onCreate()的声明周期方法。</p>
+<p>当点击桌面的应用图标时，会发起启动远程进程的操作，利用Binder机制发送消息给system_service进程，在system_service进程中会调用ActivityManagerService#startProcessLocked()方法，这个方法内部会调用process.start(android.app.ActivityThread)方法，然后通过socket通信通知zygote进程fork出一个子进程，也就是我们的App进程，在App进程创建之后将ActivityThread加入到App进程中，执行ActivityThread#main()方法；在App进程中，main()方法会初始化ActivityThread，同时创建ApplicationThread，Looper，MessageQueue等对象，调用ActivityThread#attach(false)方法进行Binder通信，在这个方法中调用ActivityManagerService#attachApplication(mAppThread)方法，将thread信息告诉ActivityManagerService，接着开启Looper循环；而在system_service中，ActivityManagerService#attachApplication(mAppThread)方法调用了thread#bindApplication()和mStackSupervisor#attachApplicationLocked()方法。其中thread#bindApplication()方法调用了ActivityThread#sendMessage(H.BIND_APPLICATION,data)方法，最终走到了ActivityThread#handleBindApplication()方法，进而创建Application对象，并调用Application#attach(context)方法，并且绑定context，在完成Application的创建之后，调用mInstrumentation#callApplicationOnce()方法，执行Application#onCreate()方法生命周期；而对于mStackSupervisor#attachApplicationLocked()方法调用了app#thread#scheduleLaunchActivity()方法(其实就是ActivityThread#ApplicationThread#scheduleLaunchActivity()方法)，进而通过ActivityThread#sendMessage(H.LAUNCH_ACTIVITY,r)方法，最终执行到ActivityThread#handleLaunchActivity()方法，进而创建Activity对象，调用Activity#attach()方法，在调用mInstrumentation#callActivityOnCreate()方法，执行Activity#onCreate()的声明周期方法。</p>
 <p>内容比较多，大部分的都是方方的嵌套调用，下面我们依次来分析。</p>
 <blockquote>
 <p>注意：Android不同版本在启动流程中所调用的方法可能有差别，但是基本顺序是不会改变的，我写这篇博客时采用的编译方式是25.0.2，也就是buildToolsVersion “25.0.2”。其他的版本可能略有不同，比如使用buildToolsversion是28以上时，我们不是调用ActivityManagerNative类中的方法而是嗲用ActivityTaskManager中的方法。其他不同的地方，同学们可以自己去查找和对比</p>
@@ -500,7 +500,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color4">阿里云</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,7 +508,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">阿里云</a>
+                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,11 +528,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">混淆</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,11 +540,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">指纹</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,15 +556,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AIDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JNI</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">json</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AIDL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -573,10 +581,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">源码分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSH</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,15 +600,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">swift</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">WebView</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,6 +640,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">record</a>
               </li>
              
@@ -649,10 +653,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
